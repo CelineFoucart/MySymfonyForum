@@ -12,21 +12,38 @@ class AppFixtures extends Fixture
     public function load(ObjectManager $manager): void
     {
         $forums = [
-            'presentation' => (new Forum())->setTitle("Présentation")->setDescription("Venez vous présenter"),
-            'talks' => (new Forum())->setTitle("Causeries")->setDescription("Où l'on discute de tout et de rien"),
-            'moderation' => (new Forum())->setTitle("Modération du forum")->setDescription("Où les modérateurs discutent")
+            'presentation' => (new Forum())
+                ->setTitle("Présentation")
+                ->setDescription("Venez vous présenter")
+                ->setSlug("presentation")
+                ->setOrderNumber(1),
+            'talks' => (new Forum())
+                ->setTitle("Causeries")
+                ->setDescription("Où l'on discute de tout et de rien")
+                ->setSlug("causeries")
+                ->setOrderNumber(1),
+            'moderation' => (new Forum())
+                ->setTitle("Modération du forum")
+                ->setDescription("Où les modérateurs discutent")
+                ->setSlug("moderation")
+                ->setOrderNumber(1)
         ];
         foreach ($forums as $value) {
             $manager->persist($value);
         }
 
         $categories = [
-            ["Accueil", "Où l'on accueille les nouveaux membres.", $forums['presentation']],
-            ["Discussions diverses", "Où l'on parle de tout et de rien", $forums['talks']],
-            ["Espace de la modération", null, $forums['moderation']]
+            ["Accueil", "Où l'on accueille les nouveaux membres.", "accueil", 1, $forums['presentation']],
+            ["Discussions diverses", "Où l'on parle de tout et de rien", "discussions-diverses", 2, $forums['talks']],
+            ["Espace de la modération", null, "espace-de-la-moderation", 3, $forums['moderation']]
         ];
         foreach ($categories as $data) {
-            $category = (new Category())->setTitle($data[0])->setDescription($data[1])->addForum($data[2]);
+            $category = (new Category())
+                ->setTitle($data[0])
+                ->setDescription($data[1])
+                ->setSlug($data[2])
+                ->setOrderNumber($data[3])
+                ->addForum($data[4]);
             $manager->persist($category);
         }
 

@@ -23,6 +23,12 @@ class Forum
     #[ORM\JoinColumn(nullable: false)]
     private $category;
 
+    #[ORM\Column(type: 'string', length: 255)]
+    private $slug;
+
+    #[ORM\Column(type: 'integer')]
+    private $orderNumber;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -60,6 +66,30 @@ class Forum
     public function setCategory(?Category $category): self
     {
         $this->category = $category;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $slug): self
+    {
+        $this->slug = $slug;
+
+        return $this;
+    }
+
+    public function getOrderNumber(): ?int
+    {
+        return $this->orderNumber;
+    }
+
+    public function setOrderNumber(int $orderNumber): self
+    {
+        $this->orderNumber = $orderNumber;
 
         return $this;
     }
