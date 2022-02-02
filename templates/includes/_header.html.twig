@@ -1,0 +1,23 @@
+<header class="rounded-3 bg-default p-3">
+    <div class="banner">
+        <h1>Bienvenue sur&nbsp;: {{ website_name() }}</h1>
+    </div>
+</header>
+<nav class="rounded-3 bg-default mt-2 p-2"  role="navigation" aria-label="Menu principal">
+    <div class="top-navbar">
+        <ul class="navigation-group">
+            <li><a href="#"><i class="bi bi-search"></i> Recherche</a></li>
+            <li><a href=""><i class="bi bi-gear"></i> PCA</a></li>
+            <li><a href=""><i class="bi bi-hammer"></i> PCM</a> </li>
+        </ul>
+        <ul class="navigation-group">
+            <li><a href="#"><i class="bi bi-envelope"></i> Messages privé</a></li>
+            <li><a href="#">Pseudo <i class="bi bi-caret-down-fill mt-1"></i></a></li>
+        </ul>
+    </div>
+    <hr class="navbar-separator">
+    <ul class="navigation-group">
+        <li><a href="{{ path('home') }}"><i class="bi bi-house-fill"></i> Accueil du forum</a></li>
+    </ul>
+</nav>
+<p><small>Nous sommes le {{current_date()}} </small></p>

@@ -1,0 +1,26 @@
+.forum-section {
+    background-color: #a370f7;
+    margin-top: 10px;
+}
+
+.section-title {
+    font-variant-caps: small-caps;
+    color: #ECECEC;
+    font-size: 1rem;
+}
+
+.forum-row {
+    border-top: 1px solid #FFFFFF;
+    border-bottom: 1px solid #B1C2A9;
+    padding: 5px;
+}
+
+.forum-row-title {
+    font-size: 1rem;
+}
+
+.forum-row > p {
+    padding: 0;
+    margin: 0;
+    font-size: .9rem;
+}

@@ -1,0 +1,38 @@
+.banner {
+    height: 250px;
+    border: 1px solid #333;
+    color: #ECECEC;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.92), rgba(54, 54, 54, 0.5)), 
+				url("./img/freddy_castro_header.jpg") center center / cover no-repeat;
+}
+
+.top-navbar {
+    display: flex;
+    justify-content: space-between;
+}
+
+.navbar-separator {
+    content: ' ';
+    display: block;
+    width: 100%;
+    height: 1px;
+    background-color: #FFF;
+    opacity: 1;
+    margin: .5rem 0;
+}
+
+.navigation-group {
+    list-style: none;
+    font-size: .9rem;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+.navigation-group * + * {
+    padding-left: 10px;
+}
