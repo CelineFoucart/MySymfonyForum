@@ -6,7 +6,7 @@
         <meta name="description" content="{{ website_description() }}">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
-        <link rel="shortcut icon" href="favicon.png" type="image/png">
+        <link rel="shortcut icon" href="/favicon.png" type="image/png">
         {% block stylesheets %}
             {{ encore_entry_link_tags('app') }}
         {% endblock %}
@@ -18,6 +18,27 @@
     <body>
         <div class="container main-wrap">
             {% include 'includes/_header.html.twig' %}
+            
+            <nav class="rounded-3 bg-default mt-2 p-2"  role="navigation" aria-label="Menu principal">
+                <div class="top-navbar">
+                    <ul class="navigation-group">
+                        <li><a href="#"><i class="bi bi-search"></i> Recherche</a></li>
+                        <li><a href=""><i class="bi bi-gear"></i> PCA</a></li>
+                        <li><a href=""><i class="bi bi-hammer"></i> PCM</a> </li>
+                    </ul>
+                    <ul class="navigation-group">
+                        <li><a href="#"><i class="bi bi-envelope"></i> Messages privé</a></li>
+                        <li><a href="#">Pseudo <i class="bi bi-caret-down-fill mt-1"></i></a></li>
+                    </ul>
+                </div>
+                <hr class="navbar-separator">
+                <ol class="breadcrumb navigation-group">
+                    <li class="breadcrumb-item"><a href="{{ path('home') }}"><i class="bi bi-house-fill"></i> Accueil du forum</a></li>
+                    {% block breadcrumb %}  {% endblock %}
+                </ol>
+            </nav>
+            <p><small>Nous sommes le {{current_date()}} </small></p>
+            
             <main>
                 {% block body %}{% endblock %}
             </main>

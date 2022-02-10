@@ -4,12 +4,14 @@
 
 {% for category in categories %}
     <section class="rounded-3 p-2 forum-section">
-        <h2 class="section-title">{{ category.title }}</h2>
+        <h2 class="section-title">
+            <a href="{{ path('category', {id:category.id, slug: category.slug}) }}">{{ category.title }}</a>
+        </h2>
 
         {% for forum in category.forums %}
             <article class="forum-row bg-default">
                 <h3 class="forum-row-title">
-                    <a href="">{{ forum.title }}</a>
+                    <a href="{{ path('forum', {id:forum.id, slug: forum.slug}) }}">{{ forum.title }}</a>
                 </h3>
                 <p class="forum-description">{{ forum.description }}</p>
             </article>

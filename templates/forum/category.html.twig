@@ -2,6 +2,10 @@
 
 {% block title %} {{ category.title }} | {{ website_name() }}{% endblock %}
 
+{% block breadcrumb %} 
+<li class="breadcrumb-item active" aria-current="page">{{ category.title }}</li> 
+{% endblock %}
+
 {% block body %}
 <h2>{{ category.title }}</h2>
 <p>{{ category.description }}</p>
@@ -12,7 +16,7 @@
     {% for forum in category.forums %}
         <article class="forum-row bg-default">
             <h3 class="forum-row-title">
-                <a href="">{{ forum.title }}</a>
+                <a href="{{ path('forum', {id: forum.id, slug: forum.slug}) }}">{{ forum.title }}</a>
             </h3>
             <p class="forum-description">{{ forum.description }}</p>
         </article>

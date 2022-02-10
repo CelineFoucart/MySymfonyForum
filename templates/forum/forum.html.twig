@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ forum.title }} | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+<li class="breadcrumb-item">
+    <a href="{{ path('category', {id: forum.category.id, slug: forum.category.slug}) }}">{{ forum.category.title }}</a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">{{ forum.title }}</li> 
+{% endblock %}
+
+{% block body %}
+<h2>{{ forum.title }}</h2>
+<p>{{ forum.description }}</p>
+
+<section class="rounded-3 p-2 forum-section">
+    <h2 class="section-title">Sujet</h2>
+
+    <article class="forum-row bg-default">
+        <h3 class="forum-row-title text-center">Ce forum ne contient aucun sujet</h3>
+    </article>
+
+</section>
+{% endblock %}
