@@ -23,12 +23,21 @@
                 <div class="top-navbar">
                     <ul class="navigation-group">
                         <li><a href="#"><i class="bi bi-search"></i> Recherche</a></li>
-                        <li><a href=""><i class="bi bi-gear"></i> PCA</a></li>
-                        <li><a href=""><i class="bi bi-hammer"></i> PCM</a> </li>
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href=""><i class="bi bi-gear"></i> PCA</a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_MODERATOR') %}
+                            <li><a href=""><i class="bi bi-hammer"></i> PCM</a> </li>
+                        {% endif %}
                     </ul>
                     <ul class="navigation-group">
+                    {% if is_granted('ROLE_USER') %}
                         <li><a href="#"><i class="bi bi-envelope"></i> Messages privé</a></li>
                         <li><a href="#">Pseudo <i class="bi bi-caret-down-fill mt-1"></i></a></li>
+                    {% else %}
+                        <li><a href="#"><i class="bi bi-pencil-square"></i> Inscription</a></li>
+                        <li><a href="#"><i class="bi bi-power"></i> Connexion</a></li>
+                    {% endif %}
                     </ul>
                 </div>
                 <hr class="navbar-separator">

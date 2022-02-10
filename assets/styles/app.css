@@ -16,3 +16,7 @@ a {
     border: 1px solid #ECECEC;
     padding: 15px;
 }
+
+.author:hover {
+    text-decoration: underline;
+}

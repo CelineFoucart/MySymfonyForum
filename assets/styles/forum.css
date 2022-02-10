@@ -3,6 +3,10 @@
     margin-top: 10px;
 }
 
+.forum-section a:hover {
+    text-decoration: underline;
+}
+
 .section-title {
     font-variant-caps: small-caps;
     color: #ECECEC;

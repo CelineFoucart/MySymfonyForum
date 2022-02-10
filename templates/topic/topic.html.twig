@@ -1,0 +1,53 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ topic.title }} | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+<li class="breadcrumb-item">
+    <a href="{{ path('category', {id: topic.forum.category.id, slug: topic.forum.category.slug}) }}">
+        {{ topic.forum.category.title }}
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    <a href="{{ path('forum', {id: topic.forum.id, slug: topic.forum.slug}) }}">{{ topic.forum.title }}</a>
+</li> 
+<li class="breadcrumb-item active" aria-current="page">{{ topic.title | capitalize }}</li> 
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2><a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a></h2>
+    <p> 
+        Par 
+        {% if topic.author is not null %}
+            <a href="#" style="color:{{ topic.author.color }}" class="fw-bold author">{{ topic.author.username }}</a>
+        {% else %}
+            <span class="fw-bold">Anonyme</span>
+        {% endif %}
+        &raquo; {{ topic.created | date("d/m/Y, H:i") }}
+    </p>
+
+    {% for i in range(1,5) %}
+        <article class="rounded-3 bg-default my-2 p-2">
+            <div class="d-flex">
+                <div class="pe-2">
+                    <a href="#" class="fw-bold author">auteur</a>
+                </div>
+                <div class="border-start border-white ps-2">
+                    <h3><a href="#post{{i}}">Titre du post</a></h3>
+                    <p>
+                        <i class="bi bi-file-earmark-fill"></i> 
+                        <small>Par <a href="#" class="fw-bold author">auteur</a> &raquo; date </small>
+                    </p>
+                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus saepe adipisci deleniti dicta pariatur commodi earum tempora at assumenda vero, consectetur accusantium aliquam repellat suscipit ducimus nihil iusto facilis esse?</p>
+                </div>
+            </div>
+        </article>
+    {% else %}
+        <article class="alert alert-danger">
+            <h3 class="h5">Ce topic est vide !</h3>
+        </article>
+    {% endfor %}
+</section>
+
+{% endblock %}
