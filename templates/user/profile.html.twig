@@ -1,0 +1,65 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Profil de {{ user.username }} | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+<li class="breadcrumb-item active" aria-current="page">
+    <a href="{{ path('users_list') }}">Membres</a>
+</li> 
+<li class="breadcrumb-item active" aria-current="page">{{ user.username }}</li> 
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2>
+        Profil d'un membre&nbsp;: {{ user.username }}
+        {% if app.user %}
+            {% if app.user.id == user.id %}
+                <a href="" title="éditer mon profil" class="fs-5"><i class="bi bi-pencil-fill"></i></a>
+            {% endif %}
+        {% endif %}
+    </h2>
+    <article  class="bg-default rounded-3 p-2 d-lg-flex">
+        <div class="user-avatar">
+            <img src="/no_avatar.png" alt="avatar de l'utilisateur">
+        </div>
+        <div class="px-3 flex-fill">
+            <h3 class="text-uppercase h6 border-bottom border-dark">Informations</h3>
+            <dl class="profile-details">
+                <dt class="key">Pseudo :</dt>
+                <dd class="value"><span style="color:{{ user.color }}" class="fw-bold">{{ user.username }}</span></dd>
+                {% if user.localisation is not null %}
+                    <dt class="key">Localisation :</dt>
+                    <dd class="value">{{ user.localisation }}</dd>
+                {% endif %}
+                {% if user.rank is not null %}
+                    <dt class="key">Rang :</dt>
+                    <dd class="value">{{ user.rank }}</dd>
+                {% endif %}
+                <dt class="key">Anniversaire :</dt>
+                <dd class="value">{{ user.birthday | date('d/m') }}</dd>
+            </dl>
+        </div>
+        <div class="px-3 flex-fill">
+            <h3 class="text-uppercase h6 border-bottom border-dark">Statistiques de l'utilisateur</h3>
+            <dl class="profile-details">
+                <dt class="key">Inscription :</dt>
+                <dd class="value">{{ user.created | date("d/m/Y, H:i") }}</dd>
+                <dt class="key text-nowrap">Messages postés :</dt>
+                <dd class="value">
+                    <span class="fw-bold">{{userPosts}}</span> | 
+                    <span class="fw-bold"><a href="#">Rechercher les messages</a></span>
+                </dd>
+            </dl>
+        </div>
+        <div class="px-3">
+            <h3 class="text-uppercase h6 border-bottom border-dark">Contact</h3>
+            <dl class="profile-details">
+                <dt class="key-left">MP :</dt>
+                <dd class="value"><a href="#">Envoyer un message privé</a></dd>
+            </dl>
+        </div>
+    </article>
+</section>
+
+{% endblock %}

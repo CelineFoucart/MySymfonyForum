@@ -20,7 +20,7 @@
     <p> 
         Par 
         {% if topic.author is not null %}
-            <a href="#" style="color:{{ topic.author.color }}" class="fw-bold author">{{ topic.author.username }}</a>
+            <a href="{{path('profile', {id: topic.author.id})}}" style="color:{{ topic.author.color }}" class="fw-bold author">{{ topic.author.username }}</a>
         {% else %}
             <span class="fw-bold">Anonyme</span>
         {% endif %}
@@ -32,7 +32,9 @@
             <div class="d-flex">
                 <div class="pe-2 profile-post border-end border-white">
                     {% if post.author is not null %}
-                        <a href="#" class="fw-bold author" style="color: {{post.author.color}}">{{post.author.username}}</a>
+                        <a href="{{path('profile', {id: post.author.id})}}" class="fw-bold author" style="color: {{post.author.color}}">
+                            {{post.author.username}}
+                        </a>
                         <ul class="profil-post-info">
                             <li>Inscription : {{post.author.created | date("d/m/Y, H:i") }} </li>
                             {% if post.author.localisation is not null %}
@@ -52,7 +54,7 @@
                         <i class="bi bi-file-earmark-fill"></i> 
                         <small>
                             {% if post.author is not null %}
-                                Par <a href="#" class="fw-bold author" style="color: {{post.author.color}}">{{post.author.username}}</a> &raquo; 
+                                Par <a href="{{path('profile', {id: post.author.id})}}" class="fw-bold author" style="color: {{post.author.color}}">{{post.author.username}}</a> &raquo; 
                             {% else %}
                                 <span class="fw-bold author">Anonyme</span>
                             {% endif %}

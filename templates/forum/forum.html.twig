@@ -26,7 +26,7 @@
                 <p class="forum-description m-0">
                     Par 
                     {% if topic.author is not null %}
-                        <a href="#" style="color:{{ topic.author.color }}" class="fw-bold">{{ topic.author.username }}</a>
+                        <a href="{{path('profile', {id: topic.author.id})}}" style="color:{{ topic.author.color }}" class="fw-bold">{{ topic.author.username }}</a>
                     {% else %}
                         <span class="fw-bold">Anonyme</span>
                     {% endif %}

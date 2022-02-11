@@ -45,6 +45,6 @@ class InformationWebsiteExtension extends AbstractExtension
 
     public function getCurrentDate(): string
     {
-        return (new DateTime())->format("d/m/Y, H:i:s");
+        return (new DateTime())->format("d/m/Y, H:i");
     }
 }
