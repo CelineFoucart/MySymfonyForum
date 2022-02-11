@@ -32,3 +32,21 @@
     margin: 0;
     font-size: .9rem;
 }
+
+.profile-post {
+    min-width: 250px;
+    max-width: 250px;
+    display: none;
+}
+
+.profil-post-info {
+    font-size: 0.9rem;
+    list-style: none;
+    padding: 0;
+}
+
+@media (min-width:768px) {
+    .profile-post {
+        display: block;
+    }
+}

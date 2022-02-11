@@ -27,19 +27,39 @@
         &raquo; {{ topic.created | date("d/m/Y, H:i") }}
     </p>
 
-    {% for i in range(1,5) %}
+    {% for post in topic.posts %}
         <article class="rounded-3 bg-default my-2 p-2">
             <div class="d-flex">
-                <div class="pe-2">
-                    <a href="#" class="fw-bold author">auteur</a>
+                <div class="pe-2 profile-post border-end border-white">
+                    {% if post.author is not null %}
+                        <a href="#" class="fw-bold author" style="color: {{post.author.color}}">{{post.author.username}}</a>
+                        <ul class="profil-post-info">
+                            <li>Inscription : {{post.author.created | date("d/m/Y, H:i") }} </li>
+                            {% if post.author.localisation is not null %}
+                                <li>Localisation : {{post.author.localisation }} </li>
+                            {% endif %}
+                            {% if post.author.rank is not null %}
+                                <li>Rang : {{post.author.rank }} </li>
+                            {% endif %}
+                        </ul>
+                    {% else %}
+                        <span class="fw-bold author">Anonyme</span>
+                    {% endif %}
                 </div>
-                <div class="border-start border-white ps-2">
-                    <h3><a href="#post{{i}}">Titre du post</a></h3>
+                <div class="ps-2">
+                    <h3><a href="#post{{post.id}}">{{post.title}}</a></h3>
                     <p>
                         <i class="bi bi-file-earmark-fill"></i> 
-                        <small>Par <a href="#" class="fw-bold author">auteur</a> &raquo; date </small>
+                        <small>
+                            {% if post.author is not null %}
+                                Par <a href="#" class="fw-bold author" style="color: {{post.author.color}}">{{post.author.username}}</a> &raquo; 
+                            {% else %}
+                                <span class="fw-bold author">Anonyme</span>
+                            {% endif %}
+                            {{post.created | date("d/m/Y, H:i")}} 
+                        </small>
                     </p>
-                    <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Voluptatibus saepe adipisci deleniti dicta pariatur commodi earum tempora at assumenda vero, consectetur accusantium aliquam repellat suscipit ducimus nihil iusto facilis esse?</p>
+                    <p>{{post.content}}</p>
                 </div>
             </div>
         </article>

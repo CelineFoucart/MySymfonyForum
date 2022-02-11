@@ -25,8 +25,6 @@ class TopicController extends AbstractController
         } elseif($topic->getSlug() !== $slug) {
             return $this->redirectToRoute('topic', ['id' => $topic->getId(), 'slug' => $topic->getSlug()]);
         }
-        // linker les posts aux topics
-
         return $this->render('topic/topic.html.twig', [
             'topic' => $topic,
         ]);

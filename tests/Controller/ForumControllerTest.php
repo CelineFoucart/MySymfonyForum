@@ -56,14 +56,6 @@ class ForumControllerTest extends WebTestCase
         $this->assertResponseRedirects($validPath);
     }
 
-    public function testForumWithNoTopics(): void
-    {
-        $client = static::createClient();
-        $this->makeFixture();
-        $client->request('GET', $this->getForumPath('presentation'));
-        $this->assertSelectorTextContains('h3', 'Ce forum ne contient aucun sujet');
-    }
-
     public function testForumWithTopics(): void
     {
         $client = static::createClient();

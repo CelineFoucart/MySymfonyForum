@@ -50,6 +50,7 @@ class TopicFixtures extends Fixture implements DependentFixtureInterface
                 ->setContent($faker->text())
                 ->setCreated(new DateTime())
                 ->setAuthor($this->getAuthor())
+                ->setTopic($topics[rand(0,19)])
             ;
             $manager->persist($post);
         }
