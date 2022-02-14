@@ -2,17 +2,64 @@
 
 namespace App\Controller;
 
+use App\Entity\Search;
+use App\Form\SearchType;
+use App\Repository\PostRepository;
+use App\Repository\TopicRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class SearchController extends AbstractController
 {
-    #[Route('/search', name: 'search')]
-    public function search(): Response
+    private PostRepository $postRepository;
+    private TopicRepository $topicRepository;
+
+    public function __construct(PostRepository $postRepository, TopicRepository $topicRepository)
     {
+        $this->topicRepository = $topicRepository;
+        $this->postRepository = $postRepository;
+    }
+
+    #[Route('/search', name: 'search')]
+    public function search(Request $request): Response
+    {
+        $search = new Search();
+        $form = $this->createForm(SearchType::class, $search, ['method' => 'GET']);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $query = [
+                'type' => $search->getType(),
+                'user' => $search->getUser()->getId()
+            ];
+            return $this->redirect($this->generateUrl('search_result', $query));
+        }
+
         return $this->render('search/index.html.twig', [
-            'controller_name' => 'SearchController',
+            'form' => $form->createView(),
+        ]);
+    }
+
+    #[Route('/search/results', name: 'search_result')]
+    public function results(Request $request): Response
+    {
+        $type = $request->query->get('type', 'post');
+        $userId = (int)$request->query->get('user');
+        $page = $request->query->getInt('page', 1);
+        if($userId === 0 || !in_array($type, ['post', 'topic'])) {
+            $results = [];
+        } else {
+            if($type === 'topic') {
+                $results = $this->topicRepository->search($userId, $page);
+            } else {
+                $results = $this->postRepository->search($userId, $page);
+            }
+        }
+
+        return $this->render('search/results.html.twig', [
+            'results' => $results,
+            'type' => $type
         ]);
     }
 }

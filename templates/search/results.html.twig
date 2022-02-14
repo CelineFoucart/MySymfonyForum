@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Recherche | {{ website_name() }} {% endblock %}
+
+{% block breadcrumb %} 
+<li class="breadcrumb-item">
+    <a href="{{ path('search') }}">Rechercher</a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">Résultat</li> 
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2 class=" font-weight-normal">
+        La recherche a retourné {{ results.getTotalItemCount }} résultat{{ results.getTotalItemCount  > 1 ? 's' : '' }}
+    </h2>
+    <p class="mb-4">&laquo; <a href="{{path('search')}}">Retourner à la page de recherche</a></p>
+    {{ knp_pagination_render(results) }}
+    {% for result in results %}
+        <div class="rounded-3 bg-default p-2 my-2 {{ (type == 'topic') ? 'd-flex align-items-center' : '' }} ">
+            {% if type == 'topic' %}
+                <div class="ps-1 pe-3 fs-2">
+                    <a href="{{ path(type, {id: result.id, slug: result.slug}) }}" title="voir le sujet"><i class="bi bi-chat-text"></i></a>
+                </div>
+            {% endif %}
+            <div>
+                <h3 class="h4">
+                    {% if type == 'topic' %}
+                        <a href="{{ path(type, {id: result.id, slug: result.slug}) }}">{{result.title}}</a>
+                    {% else %}
+                        {{result.title}}
+                    {% endif %}
+                </h3>
+                <p class="m-0">
+                    <i class="bi bi-file-earmark-fill"></i> 
+                    <small>
+                        Par <a href="{{path('profile', {id: result.author.id})}}" class="fw-bold author" style="color: {{result.author.color}}">{{result.author.username}}</a> &raquo;
+                        {{result.created | date("d/m/Y, H:i")}} 
+                    </small>
+                </p>
+                {% if type == 'post' %}
+                    <p class="mt-2">{{ result.content | excerpt }}</p>
+                    <p class="text-end">
+                        <a href="{{ path('topic', {id:result.topic.id, slug:result.topic.slug}) }}#post{{result.id}}">
+                            Voir le message &raquo;
+                        </a>
+                    </p>
+                {% endif %}
+            </div>
+        </div>
+    {% else %}
+        <div class="rounded-3 bg-default p-2">
+            <p class="fw-bold m-0">Aucun résultat ne correspond aux termes que vous avez spécifiés.</p>
+        </div>
+    {% endfor %}
+</section>
+{% endblock %}

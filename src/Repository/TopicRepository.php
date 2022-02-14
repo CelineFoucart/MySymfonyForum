@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\Topic;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Knp\Component\Pager\Pagination\PaginationInterface;
+use Knp\Component\Pager\PaginatorInterface;
 
 /**
  * @method Topic|null find($id, $lockMode = null, $lockVersion = null)
@@ -14,37 +16,32 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class TopicRepository extends ServiceEntityRepository
 {
-    public function __construct(ManagerRegistry $registry)
+    private PaginatorInterface $paginator;
+
+    private const LIMIT = 15;
+
+    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
     {
         parent::__construct($registry, Topic::class);
+        $this->paginator = $paginator;
     }
-
-    // /**
-    //  * @return Topic[] Returns an array of Topic objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    
+    public function search(int $userId, int $page): PaginationInterface
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
+        $builder = $this->createQueryBuilder('t')
+            ->leftJoin('t.author', 'u')->addSelect("u")
+            ->andWhere('u.id = :id')
+            ->setParameter('id', $userId)
             ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
+            ->orderBy('t.created', 'DESC')
         ;
-    }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Topic
-    {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        $topics = $this->paginator->paginate(
+            $builder->getQuery(),
+            $page,
+            self::LIMIT
+        );
+
+        return $topics;
     }
-    */
 }
