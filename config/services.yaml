@@ -7,6 +7,7 @@ parameters:
     locale: 'fr'
     app.website.name: "Le forum des lecteurs"
     app.website.description: "Bienvenue sur le forum des lecteurs, où vous pourrez parler lecture entre passionnés"
+    app.avatar_directory: '%kernel.project_dir%/public/avatar'
 
 services:
     # default configuration for services in *this* file
@@ -16,6 +17,7 @@ services:
         bind:
           $websiteName: '%app.website.name%'
           $websiteDescription: '%app.website.description%'
+          $avatarDir: '%app.avatar_directory%'
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name

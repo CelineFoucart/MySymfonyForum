@@ -1,0 +1,82 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte | {{ website_name() }} {% endblock %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item active" aria-current="page">Mon compte</li> 
+{% endblock %}
+
+{% block body %}
+    <section>
+        <h2 class="h3 mb-3 font-weight-normal">Mon compte</h2>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Vue d'ensemble</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile" type="button" role="tab" aria-controls="profile" aria-selected="false">Modifier mon profil</button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="account-tab" data-bs-toggle="tab" data-bs-target="#account" type="button" role="tab" aria-controls="account" aria-selected="false">Modifier les paramètres du compte</button>
+            </li>
+        </ul>
+        <div class="tab-content rounded-3 bg-default p-2" id="myTabContent">
+            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                <h3 class="h5">Vue d'ensemble</h3>
+                <p>Bienvenue sur le panneau de contrôle de l’utilisateur. Dans ce dernier, vous pouvez consulter et mettre à jour votre profil.</p>
+                <div class="bg-light rounded-3 mx-3 p-2 border">
+                    <h3 class="text-uppercase h6 border-bottom border-dark">Statistiques</h3>
+                    <dl class="profile-details">
+                        <dt class="key">Inscription :</dt>
+                        <dd class="value">{{ user.created | date("d/m/Y, H:i") }}</dd>
+                        <dt class="key text-nowrap">Messages postés :</dt>
+                        <dd class="value">
+                            <span class="fw-bold">{{userPosts}}</span> | 
+                            <span class="fw-bold">
+                                <a href="{{ path('search', {'user': user.id, 'type':'posts'}) }}">Rechercher vos messages</a>
+                            </span>
+                        </dd>
+                    </dl>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                <h3 class="h5">Modifier le profil</h3>
+                <p>Veuillez noter que ces informations peuvent être visibles aux autres membres. Soyez prudent lors de la saisie d’informations personnelles.</p>
+                <div class="bg-light rounded-3 mx-3 p-2 border">
+                    {{ form_start(profileForm) }}
+                        {{ form_row(profileForm.birthday) }}
+                        <div class="row">
+                            <div class="col-md-8">
+                                {{ form_row(profileForm.rank) }}
+                                {{ form_row(profileForm.localisation) }}
+                                {{ form_row(profileForm.avatar) }}
+                            </div>
+                            <div class="col-md-4">
+                                <h4 class="h6 mt-4 text-center">Image actuelle :</h4>
+                                <figure class="text-center">
+                                    {{ avatar_format(user.avatar) }}
+                                </figure>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary mt-2">Enregistrer</button>
+                    {{ form_end(profileForm) }}
+                </div>
+            </div>
+            <div class="tab-pane fade" id="account" role="tabpanel" aria-labelledby="account-tab">
+                <h3 class="h5">Modifier les paramètres du compte</h3>
+                <div class="bg-light rounded-3 mx-3 p-2 border">
+                    {{ form_start(accountForm) }}
+                        {{ form_rest(accountForm) }}
+                        <button type="submit" class="btn btn-primary mt-2">Modifier mon mot de passe</button>
+                    {{ form_end(accountForm) }}
+                </div>
+                <div class="bg-light rounded-3 mx-3 mt-2 p-2 border">
+                    {{ form_start(emailForm) }}
+                        {{ form_rest(emailForm) }}
+                        <button type="submit" class="btn btn-primary mt-2">Modifier mon email</button>
+                    {{ form_end(emailForm) }}
+                </div>
+            </div>
+        </div>
+    </section>
+{% endblock %}

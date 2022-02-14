@@ -32,6 +32,9 @@
             <div class="d-flex">
                 <div class="pe-2 profile-post border-end border-white">
                     {% if post.author is not null %}
+                        <figure class="mb-0">
+                            {{ avatar_format(post.author.avatar) }}
+                        </figure>
                         <a href="{{path('profile', {id: post.author.id})}}" class="fw-bold author" style="color: {{post.author.color}}">
                             {{post.author.username}}
                         </a>
