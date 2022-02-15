@@ -3,15 +3,7 @@
 {% block title %} {{ topic.title }} | {{ website_name() }}{% endblock %}
 
 {% block breadcrumb %} 
-<li class="breadcrumb-item">
-    <a href="{{ path('category', {id: topic.forum.category.id, slug: topic.forum.category.slug}) }}">
-        {{ topic.forum.category.title }}
-    </a>
-</li>
-<li class="breadcrumb-item active" aria-current="page">
-    <a href="{{ path('forum', {id: topic.forum.id, slug: topic.forum.slug}) }}">{{ topic.forum.title }}</a>
-</li> 
-<li class="breadcrumb-item active" aria-current="page">{{ topic.title | capitalize }}</li> 
+{{ include('topic/_breadcrumb_topic.html.twig') }}
 {% endblock %}
 
 {% block body %}
@@ -66,11 +58,14 @@
                     <h3 id="post{{post.id}}"><a href="#post{{post.id}}">{{post.title}}</a></h3>
                     {% if is_granted('ROLE_USER') %}
                         <div class="btn-group position-absolute top-0 end-0">
-                            {% if post.author is not null and app.user.id == post.author.id %}
+                            {% if 
+                                (post.author is not null and app.user.id == post.author.id) or 
+                                is_granted('ROLE_ADMIN') or 
+                                is_granted('ROLE_MODERATOR') %}
                                 <a href="#" class="btn btn-outline-secondary btn-sm" title="Supprimer">
                                     <i class="bi bi-trash-fill"></i>
                                 </a>
-                                <a href="#" class="btn btn-outline-secondary btn-sm" title="Editer">
+                                <a href="{{path('post_edit', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Editer">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
                             {% endif %}

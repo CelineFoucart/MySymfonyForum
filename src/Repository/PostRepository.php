@@ -31,6 +31,7 @@ class PostRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('p')
             ->leftJoin('p.author', 'u')->addSelect("u")
+            ->leftJoin('p.topic', 't')->addSelect("t")
             ->andWhere('p.id = :id')->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult()

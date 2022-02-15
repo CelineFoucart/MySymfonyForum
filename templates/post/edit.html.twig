@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Editer un post | {{ website_name() }}{% endblock %}
+
+{% set topic = post.topic %}
+
+{% block breadcrumb %} 
+    {{ include('topic/_breadcrumb_topic.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    {{ include('post/_form.html.twig') }}
+{% endblock %}

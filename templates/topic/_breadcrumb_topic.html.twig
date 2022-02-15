@@ -1,0 +1,9 @@
+<li class="breadcrumb-item">
+    <a href="{{ path('category', {id: topic.forum.category.id, slug: topic.forum.category.slug}) }}">
+        {{ topic.forum.category.title }}
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    <a href="{{ path('forum', {id: topic.forum.id, slug: topic.forum.slug}) }}">{{ topic.forum.title }}</a>
+</li> 
+<li class="breadcrumb-item active" aria-current="page">{{ topic.title | capitalize }}</li> 
