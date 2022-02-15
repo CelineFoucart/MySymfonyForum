@@ -26,15 +26,18 @@ class TopicRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
     
-    public function search(int $userId, int $page): PaginationInterface
+    public function search(?int $userId = null, ?string $keywords = null, int $page): PaginationInterface
     {
-        $builder = $this->createQueryBuilder('t')
-            ->leftJoin('t.author', 'u')->addSelect("u")
-            ->andWhere('u.id = :id')
-            ->setParameter('id', $userId)
-            ->orderBy('t.id', 'ASC')
-            ->orderBy('t.created', 'DESC')
-        ;
+        $builder = $this->createQueryBuilder('t')->leftJoin('t.author', 'u')->addSelect("u");
+        if($userId !== null && $userId > 0) {
+            $builder->andWhere('u.id = :id')->setParameter('id', $userId);
+        }
+        if($keywords !== null) {
+            $builder
+                ->andWhere($builder->expr()->like('t.title', ':keywords'))
+                ->setParameter('keywords', '%'. $keywords.'%');  
+        }
+        $builder->orderBy('t.id', 'ASC')->orderBy('t.created', 'DESC');
 
         $topics = $this->paginator->paginate(
             $builder->getQuery(),

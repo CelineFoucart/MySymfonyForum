@@ -26,15 +26,21 @@ class PostRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
     
-    public function search(int $userId, int $page = 15): PaginationInterface
+    public function search(?int $userId = null, ?string $keywords = null, int $page = 15): PaginationInterface
     {
         $builder = $this->createQueryBuilder('p')
             ->leftJoin('p.author', 'u')->addSelect("u")
             ->leftJoin('p.topic', 't')->addSelect('t')
-            ->andWhere('u.id = :id')
-            ->setParameter('id', $userId)
-            ->orderBy('p.created', 'DESC')
         ;
+        if($userId !== null && $userId > 0) {
+            $builder->andWhere('u.id = :id')->setParameter('id', $userId);
+        }
+        if($keywords !== null) {
+            $builder
+                ->andWhere($builder->expr()->like('p.content', ':keywords'))
+                ->setParameter('keywords', '%'. $keywords.'%');  
+        }
+        $builder->orderBy('p.created', 'DESC');
 
         $posts = $this->paginator->paginate(
             $builder->getQuery(),

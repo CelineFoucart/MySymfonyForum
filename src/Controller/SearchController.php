@@ -31,8 +31,12 @@ class SearchController extends AbstractController
         if($form->isSubmitted() && $form->isValid()) {
             $query = [
                 'type' => $search->getType(),
-                'user' => $search->getUser()->getId()
+                'keywords' => $search->getKeywords()
             ];
+            $user = $search->getUser();
+            if($user !== null) {
+                $query['user'] = $search->getUser()->getId();
+            }            
             return $this->redirect($this->generateUrl('search_result', $query));
         }
 
@@ -46,14 +50,16 @@ class SearchController extends AbstractController
     {
         $type = $request->query->get('type', 'post');
         $userId = (int)$request->query->get('user');
+        $keywords = $request->query->get('keywords');
         $page = $request->query->getInt('page', 1);
-        if($userId === 0 || !in_array($type, ['post', 'topic'])) {
+
+        if(!in_array($type, ['post', 'topic'])) {
             $results = [];
         } else {
             if($type === 'topic') {
-                $results = $this->topicRepository->search($userId, $page);
+                $results = $this->topicRepository->search($userId, $keywords, $page);
             } else {
-                $results = $this->postRepository->search($userId, $page);
+                $results = $this->postRepository->search($userId, $keywords, $page);
             }
         }
 

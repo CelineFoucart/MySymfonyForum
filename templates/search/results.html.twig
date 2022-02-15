@@ -34,8 +34,14 @@
                 <p class="m-0">
                     <i class="bi bi-file-earmark-fill"></i> 
                     <small>
+                    {% if result.author is not null %}
                         Par <a href="{{path('profile', {id: result.author.id})}}" class="fw-bold author" style="color: {{result.author.color}}">{{result.author.username}}</a> &raquo;
                         {{result.created | date("d/m/Y, H:i")}} 
+                    {% else %}
+                        Par <span class="fw-bold author">Anonyme</span> &raquo;
+                        {{result.created | date("d/m/Y, H:i")}} 
+                    {% endif %}
+                        
                     </small>
                 </p>
                 {% if type == 'post' %}

@@ -9,6 +9,8 @@ class Search
     
     private ?User $user = null;
 
+    private ?string $keywords = null;
+
     /**
      * Get the value of type
      */ 
@@ -22,7 +24,7 @@ class Search
      *
      * @return  self
      */ 
-    public function setType(string $type)
+    public function setType(string $type): self
     {
         $this->type = $type;
 
@@ -42,9 +44,29 @@ class Search
      *
      * @return  self
      */ 
-    public function setUser(User $user)
+    public function setUser(User $user): self
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * Get the value of keywords
+     */ 
+    public function getKeywords(): ?string
+    {
+        return $this->keywords;
+    }
+
+    /**
+     * Set the value of keywords
+     *
+     * @return  self
+     */ 
+    public function setKeywords(string $keywords): self
+    {
+        $this->keywords = $keywords;
 
         return $this;
     }

@@ -7,8 +7,10 @@ use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 class SearchType extends AbstractType
 {
@@ -21,10 +23,26 @@ class SearchType extends AbstractType
                     'topics' => 'topic'
                 ]
             ])
+            ->add('keywords', TextType::class, [
+                'required' => false,
+                'label' => "Recherche par mot clé",
+                'attr' => [
+                    'placeholder' => "Recherche de plus de 3 caractères"
+                ],
+                'constraints' => [
+                    new Length([
+                        'min' => 3,
+                        'minMessage' => 'Votre recherche doit faire au moins {{ limit }} caractères',
+                        'maxMessage' => 'Votre recherche doit faire au maximum {{ limit }} caractères',
+                        'max' => 50,
+                    ]),
+                ]
+            ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'username',
                 'multiple' => false,
+                'required' => false,
                 'label' => 'Auteur'
             ])
         ;
