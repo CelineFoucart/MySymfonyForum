@@ -4,7 +4,9 @@ namespace App\Controller;
 
 use App\Repository\CategoryRepository;
 use App\Repository\ForumRepository;
+use App\Repository\TopicRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,11 +14,13 @@ class ForumController extends AbstractController
 {
     private CategoryRepository $categoryRepository;
     private ForumRepository $forumRepository;
+    private TopicRepository $topicRepository;
 
-    public function __construct(CategoryRepository $categoryRepository, ForumRepository $forumRepository)
+    public function __construct(CategoryRepository $categoryRepository, ForumRepository $forumRepository, TopicRepository $topicRepository)
     {
         $this->categoryRepository = $categoryRepository;
         $this->forumRepository = $forumRepository;
+        $this->topicRepository = $topicRepository;
     }
 
     #[Route('/category/{slug}-{id}', name: 'category', requirements:['slug' => '[a-z\-]*'])]
@@ -35,17 +39,20 @@ class ForumController extends AbstractController
     }
 
     #[Route('/forum/{slug}-{id}', name: 'forum', requirements:['slug' => '[a-z\-]*'])]
-    public function forum(int $id, string $slug): Response
+    public function forum(int $id, string $slug, Request $request): Response
     {
-        $forum = $this->forumRepository->find($id);
+        $forum = $this->forumRepository->findOneById($id);
         if($forum === null) {
             throw $this->createNotFoundException('Ce forum n\'existe pas');
         } elseif($forum->getSlug() !== $slug) {
             return $this->redirectToRoute('forum', ['id' => $forum->getId(), 'slug' => $forum->getSlug()]);
         }
+        $page = $request->query->getInt('page', 1);
+        $topics = $this->topicRepository->findPaginated($forum->getId(), $page);
 
         return $this->render('forum/forum.html.twig', [
-            'forum' => $forum
+            'forum' => $forum,
+            'topics' => $topics
         ]);
     }
 }

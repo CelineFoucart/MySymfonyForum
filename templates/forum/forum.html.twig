@@ -12,11 +12,10 @@
 {% block body %}
 <h2>{{ forum.title }}</h2>
 <p>{{ forum.description }}</p>
-
+{{ knp_pagination_render(topics) }}
 <section class="rounded-3 p-2 forum-section">
     <h2 class="section-title">Sujets</h2>
-
-    {% for topic in forum.topics %}
+    {% for topic in topics %}
         <article class="forum-row bg-default d-flex align-items-center">
             <div class="ps-1 pe-3 fs-2"><i class="bi bi-chat-text"></i></div>
             <div class="topic-bloc">

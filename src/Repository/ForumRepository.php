@@ -18,6 +18,22 @@ class ForumRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Forum::class);
     }
+    
+    /**
+     * @param int $id
+     * 
+     * @return Forum|null
+     */
+    public function findOneById(int $id): ?Forum
+    {
+        return $this->createQueryBuilder('f')
+            ->leftJoin("f.category", 'c')->addSelect('c')
+            ->andWhere('f.id = :id')
+            ->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
 
     // /**
     //  * @return Forum[] Returns an array of Forum objects
@@ -32,18 +48,6 @@ class ForumRepository extends ServiceEntityRepository
             ->setMaxResults(10)
             ->getQuery()
             ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Forum
-    {
-        return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
         ;
     }
     */

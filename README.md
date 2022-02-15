@@ -3,7 +3,6 @@
 faire un forum en Symfony. 
 
 ## TODO : forum pages
-* PAGE CATEGORY => afficher les forums de la catégorie
 * PAGE FORUM => afficher les topics avec pagination
 * PAGE TOPIC => afficher les messages d'un topic avec pagination
 * PAGE INDEX => categoryOrder => admin peut choisir ordre d'affichage des catégories

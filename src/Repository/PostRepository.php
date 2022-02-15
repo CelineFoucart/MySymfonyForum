@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Post;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
 use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -25,7 +26,36 @@ class PostRepository extends ServiceEntityRepository
         parent::__construct($registry, Post::class);
         $this->paginator = $paginator;
     }
+
+    /**
+     * Return the paginated result of Post
+     * 
+     * @param int|null $topicId
+     * @param int $page
+     * 
+     * @return PaginationInterface
+     */
+    public function findPaginated(?int $topicId = null, int $page): PaginationInterface
+    {
+        $builder = $this->createQueryBuilder('p')
+            ->select('p')
+            ->leftJoin('p.author', 'u')->addSelect("u");
+        if($topicId !== null) {
+            $builder->leftJoin('p.topic', 't')->andWhere('t.id = :id')->setParameter('id', $topicId);
+        }
+        $builder->orderBy('p.id', 'ASC')->orderBy('p.created', 'DESC');
+        return $this->getPaginatedQuery($builder, $page);
+    }
     
+    /**
+     * Return the result of a search by user id of keywords
+     *  
+     * @param int|null $userId
+     * @param string|null $keywords
+     * @param int $page
+     * 
+     * @return PaginationInterface
+     */
     public function search(?int $userId = null, ?string $keywords = null, int $page = 15): PaginationInterface
     {
         $builder = $this->createQueryBuilder('p')
@@ -42,12 +72,24 @@ class PostRepository extends ServiceEntityRepository
         }
         $builder->orderBy('p.created', 'DESC');
 
-        $posts = $this->paginator->paginate(
+        return $this->getPaginatedQuery($builder, $page);
+    }
+
+    /**
+     * Paginate a query
+     * 
+     * @param QueryBuilder $builder
+     * @param int $page
+     * 
+     * @return PaginationInterface
+     */
+    private function getPaginatedQuery(QueryBuilder $builder,int $page): PaginationInterface
+    {
+        $items = $this->paginator->paginate(
             $builder->getQuery(),
             $page,
             self::LIMIT
         );
-
-        return $posts;
+        return $items;
     }
 }
