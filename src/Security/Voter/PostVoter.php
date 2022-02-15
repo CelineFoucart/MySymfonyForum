@@ -15,6 +15,7 @@ class PostVoter extends Voter
 
     const POST_EDIT = 'edit';
     const POST_DELETE = 'delete';
+    const POST_INFO = "info";
 
     public function __construct(Security $security)
     {
@@ -23,7 +24,7 @@ class PostVoter extends Voter
 
     protected function supports(string $attribute, $subject): bool
     {
-        return in_array($attribute, [self::POST_EDIT, self::POST_DELETE])
+        return in_array($attribute, [self::POST_EDIT, self::POST_DELETE, self::POST_INFO])
             && $subject instanceof \App\Entity\Post;
     }
 
@@ -33,7 +34,7 @@ class PostVoter extends Voter
         if (!$user instanceof UserInterface) {
             return false;
         }
-        if ($this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_MODERATOR')) {
+        if ($this->isModerator()) {
             return true;
         }
         /** @var Post */
@@ -45,9 +46,17 @@ class PostVoter extends Voter
             case self::POST_DELETE:
                 return $this->canDelete($post, $user);
                 break;
+                case self::POST_INFO:
+                    return $this->isModerator();
+                    break;
         }
 
         return false;
+    }
+
+    private function isModerator(): bool
+    {
+        return $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_MODERATOR');
     }
 
     private function canEdit(Post $post, User $user): bool

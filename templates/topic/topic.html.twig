@@ -8,6 +8,11 @@
 
 {% block body %}
 <section>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-1">
+            {{ message }}
+        </div>
+    {% endfor %}
     <h2><a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a></h2>
     <p> 
         Par 
@@ -62,29 +67,24 @@
                                 (post.author is not null and app.user.id == post.author.id) or 
                                 is_granted('ROLE_ADMIN') or 
                                 is_granted('ROLE_MODERATOR') %}
-                                <a href="#" class="btn btn-outline-secondary btn-sm" title="Supprimer">
+                                <a href="{{path('post_delete', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Supprimer">
                                     <i class="bi bi-trash-fill"></i>
                                 </a>
                                 <a href="{{path('post_edit', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Editer">
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
                             {% endif %}
+                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MODERATOR') %}
+                                <a href="{{path('post_view', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Citer">
+                                    <i class="bi bi-info-circle-fill"></i>
+                                </a> 
+                            {% endif %}
                             <a href="{{ replyPath }}?quote={{post.id}}" class="btn btn-outline-secondary btn-sm" title="Citer">
                                 <i class="bi bi-quote"></i>
                             </a>
                         </div>
                     {% endif %}
-                    <p>
-                        <i class="bi bi-file-earmark-fill"></i> 
-                        <small>
-                            {% if post.author is not null %}
-                                Par <a href="{{path('profile', {id: post.author.id})}}" class="fw-bold author" style="color: {{post.author.color}}">{{post.author.username}}</a> &raquo; 
-                            {% else %}
-                                <span class="fw-bold author">Anonyme</span>
-                            {% endif %}
-                            {{post.created | date("d/m/Y, H:i")}} 
-                        </small>
-                    </p>
+                   {{ include('post/_post_info.html.twig') }}
                     <p>{{post.content | nl2br }}</p>
                 </div>
             </div>

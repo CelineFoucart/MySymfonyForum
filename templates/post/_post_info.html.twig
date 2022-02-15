@@ -1,0 +1,11 @@
+<p>
+    <i class="bi bi-file-earmark-fill"></i> 
+    <small>
+        {% if post.author is not null %}
+            Par <a href="{{path('profile', {id: post.author.id})}}" class="fw-bold author" style="color: {{post.author.color}}">{{post.author.username}}</a> &raquo; 
+        {% else %}
+            <span class="fw-bold author">Anonyme</span>
+        {% endif %}
+        {{post.created | date("d/m/Y, H:i")}} 
+    </small>
+</p>
