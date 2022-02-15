@@ -27,6 +27,16 @@ class PostRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
 
+    public function findOneById(int $id): ?Post
+    {
+        return $this->createQueryBuilder('p')
+            ->leftJoin('p.author', 'u')->addSelect("u")
+            ->andWhere('p.id = :id')->setParameter('id', $id)
+            ->getQuery()
+            ->getOneOrNullResult()
+        ;
+    }
+
     /**
      * Return the paginated result of Post
      * 
@@ -43,7 +53,7 @@ class PostRepository extends ServiceEntityRepository
         if($topicId !== null) {
             $builder->leftJoin('p.topic', 't')->andWhere('t.id = :id')->setParameter('id', $topicId);
         }
-        $builder->orderBy('p.id', 'ASC')->orderBy('p.created', 'DESC');
+        $builder->orderBy('p.id', 'ASC')->orderBy('p.created', 'ASC');
         return $this->getPaginatedQuery($builder, $page);
     }
     

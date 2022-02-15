@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class UserController extends AbstractController
 {
     private UserRepository $userRepository;
@@ -49,15 +50,12 @@ class UserController extends AbstractController
     }
 
     #[Route('/account', name: 'account')]
+    #[IsGranted('ROLE_USER')]
     public function account(Request $request, EntityManagerInterface $entityManager, ImageManager $imageManager): Response
     {
         /** @var User */
         $user = $this->getUser();
         $userPosts = count($user->getPosts());
-        if($user === null) {
-            return $this->redirectToRoute('app_login');
-        }
-
         $profileForm = $this->createForm(ProfileType::class, $user);
         $profileForm->handleRequest($request);
         if($profileForm->isSubmitted() && $profileForm->isValid()) {

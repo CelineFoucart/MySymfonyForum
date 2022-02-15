@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Répondre | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+<li class="breadcrumb-item">
+    <a href="{{ path('category', {id: topic.forum.category.id, slug: topic.forum.category.slug}) }}">
+        {{ topic.forum.category.title }}
+    </a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">
+    <a href="{{ path('forum', {id: topic.forum.id, slug: topic.forum.slug}) }}">{{ topic.forum.title }}</a>
+</li> 
+<li class="breadcrumb-item active" aria-current="page">{{ topic.title | capitalize }}</li> 
+{% endblock %}
+
+{% block body %}
+    <section>
+        <h2><a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a></h2>
+        <article class="rounded-3 bg-default my-2 p-2">
+            <h3 class="text-uppercase h6 border-bottom border-dark">Répondre</h3>
+            {{ form_start(form) }}
+                <div class="row mb-3">
+                    <div class="col-md-1 fw-bold">{{form_label(form.title)}}</div>
+                    <div class="col-md-11">
+                        {{ form_widget(form.title) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+                </div>
+                {# icons #}
+                {{ form_widget(form.content) }}
+                {{ form_errors(form.content) }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
+                </div>
+            {{ form_end(form) }}
+        </article>
+    </section>
+{% endblock %}

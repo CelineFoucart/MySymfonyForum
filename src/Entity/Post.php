@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\PostRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -14,9 +15,21 @@ class Post
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: 'Votre titre doit faire au moins {{ limit }} caractères',
+        maxMessage: 'Votre titre ne peut pas dépasser {{ limit }} caractères',
+    )]
     private $title;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 10,
+        minMessage: 'Votre message doit faire au moins {{ limit }} caractères'
+    )]
     private $content;
 
     #[ORM\Column(type: 'datetime')]

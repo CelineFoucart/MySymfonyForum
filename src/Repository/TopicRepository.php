@@ -65,7 +65,7 @@ class TopicRepository extends ServiceEntityRepository
                 ->andWhere($builder->expr()->like('t.title', ':keywords'))
                 ->setParameter('keywords', '%'. $keywords.'%');  
         }
-        $builder->orderBy('t.id', 'ASC')->orderBy('t.created', 'DESC');
+        $builder->orderBy('t.id', 'ASC')->orderBy('t.created', 'ASC');
 
         return $this->getPaginatedQuery($builder, $page);
     }
