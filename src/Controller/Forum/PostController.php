@@ -4,7 +4,6 @@ namespace App\Controller\Forum;
 
 use App\Entity\Post;
 use App\Entity\User;
-use App\Form\PostModeratedType;
 use App\Form\PostType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -21,23 +20,6 @@ class PostController extends AbstractController
     public function __construct(PostRepository $postRepository)
     {
         $this->postRepository = $postRepository;
-    }
-
-    #[Route('/post/{id}/view', name: 'post_view')]
-    public function show(int $id, Request $request, EntityManagerInterface $em): Response
-    {
-        $post = $this->getPost($id);
-        $this->denyAccessUnlessGranted('info', $post, "Vous ne pouvez pas consulter cette page.");
-        $form = $this->createForm(PostModeratedType::class, $post);
-        $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
-            $em->flush();
-            return $this->redirectToRoute('post_view', ['id'=>$post->getId()]);
-        }
-        return $this->render('post/show.html.twig', [
-            'post' => $post,
-            'form' => $form->createView()
-        ]);
     }
 
     #[Route('/post/{id}/edit', name: 'post_edit')]

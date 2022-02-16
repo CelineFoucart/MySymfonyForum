@@ -1,0 +1,33 @@
+{% extends 'base.html.twig' %}
+
+{% set subject = 'Informations sur un élément' %}
+
+{% block title %} {{subject}} | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item">
+        <a href="{{path('mcp_home')}}">Panneau de contrôle du modérateur </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{{subject}}</li> 
+{% endblock %}
+
+{% block body %}
+    <section>
+        <h2 class="h3">Panneau de contrôle du modérateur</h2>
+        {{ include('moderator/_navbar.html.twig') }}
+        <article class="rounded-3 bg-default mb-2 p-2">
+            <h2 class="h4 ps-3 mb-3">{{subject}}</h2>
+            {% if error %}
+                <p class="fw-bold text-danger text-center">{{ error }}</p>
+            {% endif %}
+            <div class="bg-light rounded-3 mx-3 p-2 border">
+                <h4 class="text-uppercase h6 border-bottom border-dark">Trouver un sujet</h4>
+                {{ include('moderator/_search_form.html.twig', {id:'topic'}) }}
+            </div>
+            <div class="bg-light rounded-3 mx-3 p-2 border mt-2">
+                <h4 class="text-uppercase h6 border-bottom border-dark">Trouver un message</h4>
+                {{ include('moderator/_search_form.html.twig', {id:'post'}) }}
+            </div>
+        </article>
+    </section>
+{% endblock %}

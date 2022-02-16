@@ -43,8 +43,22 @@
                         <i class="bi bi-hammer"></i>
                     </button>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                        <li><a class="dropdown-item" href="#">Informations sur le sujet</a></li>
-                        <li><a class="dropdown-item" href="#">Supprimer le sujet</a></li>
+                        <li>
+                            <a class="dropdown-item" href="{{path('topic_view', {id:topic.id})}}" title="informations">
+                                Informations sur le sujet
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{{path('topic_move', {id:topic.id})}}" class="dropdown-item" title="Déplacedr">Déplacer le sujet</a>
+                        </li>
+                        <li>
+                            <a href="{{path('topic_lock', {id:topic.id})}}" class="dropdown-item" title="Verrouiller">Verrouiller le sujet</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" href="{{path('topic_delete', {id:topic.id})}}" title="supprimer">
+                                Supprimer le sujet
+                            </a>
+                        </li>
                     </ul>
                 </div>
             {% endif %}
@@ -92,7 +106,7 @@
                                 </a>
                             {% endif %}
                             {% if can_moderate() %}
-                                <a href="{{path('post_view', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Citer">
+                                <a href="{{path('post_view', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Informations">
                                     <i class="bi bi-info-circle-fill"></i>
                                 </a> 
                             {% endif %}

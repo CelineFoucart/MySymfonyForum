@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Déplacer un sujet | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+   {{ include('moderator/topic/_breadcrumb_topic.html.twig', {label: 'Déplacer un sujet'}) }}
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2><a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a></h2>
+    <article class="rounded-3 bg-default my-2 p-2">
+        <h3 class="text-uppercase h6 border-bottom border-dark">Déplacer un sujet</h3>
+        <div class="rounded-3 bg-light m-3 p-2">
+            <p><span class="fw-bold">Forum actuel :</span> {{topic.forum.title}}</p>
+            {{ form_start(form) }}
+                {{ form_rest(form) }}
+                <button type="submit" class="btn btn-primary">Déplacer</button>
+            {{ form_end(form) }}
+        </div>
+    </article>
+</section>
+{% endblock %}

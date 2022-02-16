@@ -1,0 +1,8 @@
+<li class="breadcrumb-item">
+    <a href="{{path('mcp_home')}}">Panneau de contrôle du modérateur </a>
+</li>
+<li class="breadcrumb-item">
+    <a href="{{ path('topic_view', {id:topic.id}) }}">Informations</a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">{{label|default(topic.title)}}</li> 
+

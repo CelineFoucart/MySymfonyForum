@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Supprimer un sujet | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+   {{ include('moderator/topic/_breadcrumb_topic.html.twig', {label: 'Verrouiller un sujet'}) }}
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2><a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a></h2>
+    <article class="rounded-3 bg-default my-2 p-2">
+        <h3 class="text-uppercase h6 border-bottom border-dark">Verrouiller un sujet</h3>
+        <p>Voulez-vous vraiment verrouiller ce sujet ?</p>
+        <form method="post" class="text-center" action="{{ path('topic_lock', {'id': topic.id}) }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('lock' ~ topic.id) }}">
+            <button class="btn btn-primary" id="submit">Verrouiller</button>
+        </form>
+    </article>
+</section>
+{% endblock %}

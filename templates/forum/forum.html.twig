@@ -12,6 +12,11 @@
 {% block body %}
 <h2>{{ forum.title }}</h2>
 <p>{{ forum.description }}</p>
+{% for message in app.flashes('success') %}
+    <div class="alert alert-success mt-1">
+        {{ message }}
+    </div>
+{% endfor %}
 <aside class="d-flex justify-content-between">
     <div>
         {% if is_granted('ROLE_USER') %}

@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% set subject = 'Informations sur un sujet' %}
+
+{% block title %} {{subject}} | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item">
+        <a href="{{path('mcp_home')}}">Panneau de contrôle du modérateur </a>
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{{subject}}</li> 
+{% endblock %}
+
+{% block body %}
+    <section>
+        <h2 class="h3">Panneau de contrôle du modérateur</h2>
+        {{ include('moderator/_navbar.html.twig') }}
+        <article class="rounded-3 bg-default mb-2 p-2">
+            <h2 class="h4 ps-3">{{subject}}</h2>
+            <div class="bg-light rounded-3 mx-3 p-2 border">
+                <h3 class="h5">Sujet : 
+                    <a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a>
+                </h3>
+                <p> 
+                    Par 
+                    {% if topic.author is not null %}
+                        <a href="{{path('profile', {id: topic.author.id})}}" style="color:{{ topic.author.color }}" class="fw-bold author">{{ topic.author.username }}</a>
+                    {% else %}
+                        <span class="fw-bold">Anonyme</span>
+                    {% endif %}
+                    &raquo; {{ topic.created | date("d/m/Y, H:i") }}
+                </p>
+            </div>
+            <div class="bg-light rounded-3 mx-3 my-2 p-2 border">
+                <h3 class="text-uppercase h6 border-bottom border-dark">Modification du sujet</h3>
+                {{ form_start(form) }}
+                    {{ form_rest(form) }}
+                    <button type="submit" class="btn btn-primary">Sauvegarder</button>
+                {{ form_end(form) }}
+            </div>
+            <div class="bg-light rounded-3 mx-3 p-2 mb-2 border">
+                <h3 class="text-uppercase h6 border-bottom border-dark">Option de modération</h3>
+                <p class="m-1">
+                    <a href="{{path('topic_lock', {id:topic.id})}}" title="Verrouiller"><i class="bi bi-lock-fill"></i> Verrouiller le sujet</a>
+                </p>
+                <p class="m-1">
+                    <a href="{{path('topic_move', {id:topic.id})}}" title="Déplacer"><i class="bi bi-box-arrow-right"></i> Déplacer le sujet le sujet</a>
+                </p>
+                <p class="m-1">
+                    <a href="{{path('topic_delete', {id:topic.id})}}" class="text-danger" title="Supprimer"><i class="bi bi-trash-fill"></i> Supprimer</a>
+                </p>
+            </div>
+
+            <div class="bg-light rounded-3 mx-3 p-2 border">
+                <a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">Revenir au sujet</a>
+            </div>
+        </article>
+    </section>
+{% endblock %}
+

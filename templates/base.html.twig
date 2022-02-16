@@ -28,7 +28,7 @@
                             <li><a href=""><i class="bi bi-gear"></i> PCA</a></li>
                         {% endif %}
                         {% if can_moderate() %}
-                            <li><a href=""><i class="bi bi-hammer"></i> PCM</a></li>
+                            <li><a href="{{path('mcp_home')}}"><i class="bi bi-hammer"></i> PCM</a></li>
                         {% endif %}
                     </ul>
                     <ul class="navigation-group">
@@ -57,7 +57,7 @@
                 </div>
                 <hr class="navbar-separator">
                 <ol class="breadcrumb navigation-group">
-                    <li class="breadcrumb-item"><a href="{{ path('home') }}"><i class="bi bi-house-fill"></i> Accueil du forum</a></li>
+                    <li class="breadcrumb-item"><a href="{{ path('home') }}"><i class="bi bi-house-fill"></i> Index du forum</a></li>
                     {% block breadcrumb %}  {% endblock %}
                 </ol>
             </nav>

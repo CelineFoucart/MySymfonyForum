@@ -15,7 +15,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 class UserController extends AbstractController
 {
     private UserRepository $userRepository;
@@ -50,7 +49,6 @@ class UserController extends AbstractController
     }
 
     #[Route('/account', name: 'account')]
-    #[IsGranted('ROLE_USER')]
     public function account(Request $request, EntityManagerInterface $entityManager, ImageManager $imageManager): Response
     {
         /** @var User */

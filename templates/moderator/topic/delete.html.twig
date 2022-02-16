@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Supprimer un sujet | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+   {{ include('moderator/topic/_breadcrumb_topic.html.twig', {label: 'Supprimer un sujet'}) }}
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2><a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a></h2>
+    <article class="rounded-3 bg-default my-2 p-2">
+        <h3 class="text-uppercase h6 border-bottom border-dark">Supprimer un sujet</h3>
+        <p class="text-danger fw-bold text-center">Êtes-vous sûr de vouloir effacer ce sujet ? Toute suppression est définitive !</p>
+
+        <form method="post" class="text-center" action="{{ path('topic_delete', {'id': topic.id}) }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ topic.id) }}">
+            <button class="btn btn-danger" id="submit">Supprimer</button>
+        </form>
+    </article>
+</section>
+{% endblock %}

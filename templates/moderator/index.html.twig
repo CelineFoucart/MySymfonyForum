@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% set subject = 'Panneau de contrôle du modérateur' %}
+
+{% block title %} {{subject}} | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item active" aria-current="page">{{subject}}</li> 
+{% endblock %}
+
+{% block body %}
+
+    <section>
+        <h2 class="h3">{{subject}}</h2>
+       {{ include('moderator/_navbar.html.twig') }}
+        <article class="rounded-3 bg-default mb-3 p-2">
+            <h3 class="h4">Principal</h3>
+            <div class="rounded-3 bg-light p-2 mt-3">
+                <h4 class="text-uppercase h6 border-bottom border-dark">Les derniers messages rapportés</h4>
+                <p class="mb-0">Aucun message</p>
+            </div>
+            <div class="rounded-3 bg-light p-2 mt-3">
+                <h4 class="text-uppercase h6 border-bottom border-dark">Les derniers MP rapportés</h4>
+                <p class="mb-0">Aucun message</p>
+            </div>
+        </article>
+    </section>
+
+{% endblock %}
