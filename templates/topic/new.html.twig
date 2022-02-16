@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Créer un sujet | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+<li class="breadcrumb-item">
+    <a href="{{ path('category', {id: forum.category.id, slug: forum.category.slug}) }}">{{ forum.category.title }}</a>
+</li>
+<li class="breadcrumb-item active" aria-current="page">{{ forum.title }}</li> 
+{% endblock %}
+
+{% block body %}
+<h2>{{ forum.title }}</h2>
+<p>{{ forum.description }}</p>
+<section class="rounded-3 p-2 bg-default">
+    <h3 class="text-uppercase h6 border-bottom border-dark">Créer un nouveau sujet</h3>
+    {{ form_start(form) }}
+        {{ form_rest(form) }}
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
+        </div>
+{{ form_end(form) }}
+</section>
+{% endblock %}

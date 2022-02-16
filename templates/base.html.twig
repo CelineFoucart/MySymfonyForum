@@ -26,9 +26,8 @@
                         <li><a href="{{path('search')}}"><i class="bi bi-search"></i> Recherche</a></li>
                         {% if is_granted('ROLE_ADMIN') %}
                             <li><a href=""><i class="bi bi-gear"></i> PCA</a></li>
-                            <li><a href=""><i class="bi bi-hammer"></i> PCM</a></li>
                         {% endif %}
-                        {% if is_granted('ROLE_MODERATOR') %}
+                        {% if can_moderate() %}
                             <li><a href=""><i class="bi bi-hammer"></i> PCM</a></li>
                         {% endif %}
                     </ul>

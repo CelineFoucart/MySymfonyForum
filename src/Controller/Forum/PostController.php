@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Forum;
 
 use App\Entity\Post;
 use App\Entity\User;
@@ -27,7 +27,7 @@ class PostController extends AbstractController
     public function show(int $id, Request $request, EntityManagerInterface $em): Response
     {
         $post = $this->getPost($id);
-        $this->denyAccessUnlessGranted('info', $post);
+        $this->denyAccessUnlessGranted('info', $post, "Vous ne pouvez pas consulter cette page.");
         $form = $this->createForm(PostModeratedType::class, $post);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
@@ -45,7 +45,7 @@ class PostController extends AbstractController
     public function edit(int $id, Request $request, EntityManagerInterface $em): Response
     {
         $post = $this->getPost($id);
-        $this->denyAccessUnlessGranted('edit', $post);
+        $this->denyAccessUnlessGranted('edit', $post, "Vous ne pouvez pas éditer ce message.");
 
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
@@ -67,7 +67,7 @@ class PostController extends AbstractController
     public function delete(int $id, Request $request, EntityManagerInterface $em): Response
     {
         $post = $this->getPost($id);
-        $this->denyAccessUnlessGranted('delete', $post);
+        $this->denyAccessUnlessGranted('delete', $post, "Vous ne pouvez pas supprimer ce message.");
         if($request->isMethod('POST') && $this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
             $em->remove($post);
             $this->addFlash('success', "Le message a bien été supprimé.");

@@ -2,26 +2,19 @@
 
 namespace App\Form;
 
-use App\Entity\Post;
+use App\Entity\Topic;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class PostType extends AbstractType
+class TopicEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder
             ->add('title', TextType::class, [
-                "label" => "Titre :"
-            ])
-            ->add('content', TextareaType::class, [
-                'label' => "Votre message :",
-                'attr' => [
-                    'style' => "height:200px"
-                ]
+                'label' => "Titre du sujet :"
             ])
         ;
     }
@@ -29,7 +22,7 @@ class PostType extends AbstractType
     public function configureOptions(OptionsResolver $resolver): void
     {
         $resolver->setDefaults([
-            'data_class' => Post::class,
+            'data_class' => Topic::class,
         ]);
     }
 }

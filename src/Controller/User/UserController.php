@@ -3,9 +3,9 @@
 namespace App\Controller\User;
 
 use App\Entity\User;
-use App\Form\AccountEmailType;
-use App\Form\AccountType;
-use App\Form\ProfileType;
+use App\Form\User\AccountEmailType;
+use App\Form\User\AccountType;
+use App\Form\User\ProfileType;
 use App\Repository\UserRepository;
 use App\Service\ImageManager;
 use Doctrine\ORM\EntityManagerInterface;

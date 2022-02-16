@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Editer un sujet | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+    {{ include('topic/_breadcrumb_topic.html.twig') }}
+{% endblock %}
+
+{% block body %}
+    <section>
+        <h2><a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a></h2>
+        <article class="rounded-3 p-2 bg-default">
+            <h3 class="text-uppercase h6 border-bottom border-dark">Editer un sujet</h3>
+            {{ form_start(form) }}
+                <div class="row my-3">
+                    <div class="col-md-2 fw-bold">{{form_label(form.title)}}</div>
+                    <div class="col-md-10">
+                        {{ form_widget(form.title) }}
+                        {{ form_errors(form.title) }}
+                    </div>
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary mt-2">Modifier</button>
+                </div>
+            {{ form_end(form) }}
+        </article>
+    </section>
+   
+{% endblock %}

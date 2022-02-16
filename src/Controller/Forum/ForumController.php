@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Forum;
 
 use App\Repository\CategoryRepository;
 use App\Repository\ForumRepository;

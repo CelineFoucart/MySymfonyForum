@@ -2,12 +2,11 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Post;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
-class PostVoter extends Voter
+class TopicVoter extends Voter
 {
     private VoterAction $voterAction;
 
@@ -19,7 +18,7 @@ class PostVoter extends Voter
     protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [VoterAction::DELETE, VoterAction::EDIT, VoterAction::INFORMATIONS])
-            && $subject instanceof \App\Entity\Post;
+            && $subject instanceof \App\Entity\Topic;
     }
 
     protected function voteOnAttribute(string $attribute, $subject, TokenInterface $token): bool
@@ -28,21 +27,16 @@ class PostVoter extends Voter
         if (!$user instanceof UserInterface) {
             return false;
         }
-        if ($this->voterAction->canModerate()) {
-            return true;
-        }
-        /** @var Post */
-        $post = $subject;
         switch ($attribute) {
-            case VoterAction::EDIT:
-                return $this->voterAction->canEdit($post, $user);
-                break;
             case VoterAction::DELETE:
-                return $this->voterAction->canDelete($post, $user);
+                return $this->voterAction->canModerate();
                 break;
-                case VoterAction::INFORMATIONS:
-                    return $this->voterAction->canModerate();
-                    break;
+            case VoterAction::EDIT:
+                return $this->voterAction->canModerate() || $this->voterAction->canEdit($subject, $user);
+                break;
+            case VoterAction::INFORMATIONS:
+                return $this->voterAction->canModerate();
+                break;
         }
 
         return false;

@@ -6,6 +6,7 @@ use App\Repository\TopicRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: TopicRepository::class)]
 class Topic
@@ -16,6 +17,13 @@ class Topic
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: 'Votre titre doit faire au moins {{ limit }} caractères',
+        maxMessage: 'Votre titre ne peut pas dépasser {{ limit }} caractères',
+    )]
     private $title;
 
     #[ORM\Column(type: 'string', length: 255)]

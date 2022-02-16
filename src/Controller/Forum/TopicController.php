@@ -1,10 +1,13 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Forum;
 
+use App\Entity\Forum;
 use App\Entity\Post;
 use App\Entity\Topic;
 use App\Form\PostType;
+use App\Form\TopicEditType;
+use App\Form\TopicType;
 use App\Repository\PostRepository;
 use App\Repository\TopicRepository;
 use DateTime;
@@ -14,6 +17,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TopicController extends AbstractController
 {
@@ -62,6 +66,58 @@ class TopicController extends AbstractController
             return  $this->redirect($url);
         }
         return $this->render('topic/reply.html.twig', [
+            'topic' => $topic,
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/forum/{id}/new', name: 'topic_new')]
+    #[IsGranted('ROLE_USER')]
+    public function add(Forum $forum, Request $request, SluggerInterface $slugger, EntityManagerInterface $em): Response
+    {
+        $topic = new Topic();
+        $form = $this-> createForm(TopicType::class, $topic);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugger->slug(strtolower($topic->getTitle()));
+            $topic->setAuthor($this->getUser())->setCreated(new DateTime())->setSlug($slug)->setForum($forum);
+            $em->persist($topic);
+
+            $post = (new Post())
+                ->setTitle('Re: ' . $topic->getTitle())
+                ->setAuthor($this->getUser())
+                ->setCreated(new DateTime())
+                ->setTopic($topic)
+                ->setContent($form->get('message')->getData());
+            
+            $em->persist($post);
+            $em->flush();
+            
+            return $this->redirectToRoute('topic', ['id'=>$topic->getId(), 'slug' => $topic->getSlug()]);
+        }
+
+        return $this->render('topic/new.html.twig', [
+            'forum' => $forum,
+            'form' => $form->createView()
+        ]);
+    }
+
+    #[Route('/topic/{id}/edit', name: 'topic_edit')]
+    #[IsGranted('ROLE_USER')]
+    public function edit(int $id, Request $request, SluggerInterface $slugger, EntityManagerInterface $em): Response
+    {
+        $topic = $this->getTopic($id);
+        $this->denyAccessUnlessGranted('edit', $topic, "Vous ne pouvez pas éditer ce sujet.");
+        $form = $this->createForm(TopicEditType::class, $topic);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $slug = $slugger->slug(strtolower($topic->getTitle()));
+            $topic->setSlug($slug);
+            $em->flush();
+            return $this->redirectToRoute('topic', ['id'=>$topic->getId(), 'slug' => $topic->getSlug()]);
+        }
+
+        return $this->render('topic/edit.html.twig', [
             'topic' => $topic,
             'form' => $form->createView()
         ]);

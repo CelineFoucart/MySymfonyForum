@@ -13,7 +13,14 @@
             {{ message }}
         </div>
     {% endfor %}
-    <h2><a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a></h2>
+    <h2>
+        <a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a>
+        {% if can_edit(app.user, topic) %}
+            <a href="{{path('topic_edit', {id:topic.id})}}" class="btn btn-outline-primary btn-sm" title="Editer le sujet">
+                <i class="bi bi-pencil-fill"></i>
+            </a>
+        {% endif %}
+    </h2>
     <p> 
         Par 
         {% if topic.author is not null %}
@@ -24,11 +31,24 @@
         &raquo; {{ topic.created | date("d/m/Y, H:i") }}
     </p>
     <aside class="d-flex justify-content-between">
-    {% if is_granted('ROLE_USER') %}
-        <a href="{{ replyPath }}" class="btn btn-outline-secondary">
-            Répondre <i class="bi bi-reply"></i>
-        </a>
-    {% endif %}
+        <div>
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ replyPath }}" class="btn btn-outline-secondary">
+                    Répondre <i class="bi bi-reply"></i>
+                </a>
+            {% endif %}
+            {% if can_moderate() %}
+                <div class="dropdown" style="display: inline-block">
+                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" title="outils de modération" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="bi bi-hammer"></i>
+                    </button>
+                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                        <li><a class="dropdown-item" href="#">Informations sur le sujet</a></li>
+                        <li><a class="dropdown-item" href="#">Supprimer le sujet</a></li>
+                    </ul>
+                </div>
+            {% endif %}
+        </div>
         <div class="d-flex align-items-center">
             <span class="pe-2">{{ posts.getTotalItemCount }} message{{ posts.getTotalItemCount  > 1 ? 's' : '' }}</span>
             {{ knp_pagination_render(posts) }}
@@ -63,10 +83,7 @@
                     <h3 id="post{{post.id}}"><a href="#post{{post.id}}">{{post.title}}</a></h3>
                     {% if is_granted('ROLE_USER') %}
                         <div class="btn-group position-absolute top-0 end-0">
-                            {% if 
-                                (post.author is not null and app.user.id == post.author.id) or 
-                                is_granted('ROLE_ADMIN') or 
-                                is_granted('ROLE_MODERATOR') %}
+                            {% if can_edit(app.user, post) %}
                                 <a href="{{path('post_delete', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Supprimer">
                                     <i class="bi bi-trash-fill"></i>
                                 </a>
@@ -74,7 +91,7 @@
                                     <i class="bi bi-pencil-fill"></i>
                                 </a>
                             {% endif %}
-                            {% if is_granted('ROLE_ADMIN') or is_granted('ROLE_MODERATOR') %}
+                            {% if can_moderate() %}
                                 <a href="{{path('post_view', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Citer">
                                     <i class="bi bi-info-circle-fill"></i>
                                 </a> 
