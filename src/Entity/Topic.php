@@ -42,6 +42,9 @@ class Topic
     #[ORM\OneToMany(mappedBy: 'topic', targetEntity: Post::class, orphanRemoval: true)]
     private $posts;
 
+    #[ORM\Column(type: 'boolean', options:['defaults' => false])]
+    private $locked;
+
     public function __construct()
     {
         $this->posts = new ArrayCollection();
@@ -138,6 +141,18 @@ class Topic
                 $post->setTopic(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getLocked(): ?bool
+    {
+        return $this->locked;
+    }
+
+    public function setLocked(bool $locked): self
+    {
+        $this->locked = $locked;
 
         return $this;
     }

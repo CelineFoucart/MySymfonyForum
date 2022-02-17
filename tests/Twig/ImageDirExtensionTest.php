@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Tests;
+namespace App\Tests\Twig;
 
 use App\Twig\ImageDirExtension;
 use PHPUnit\Framework\TestCase;

@@ -14,7 +14,7 @@ class Search
     /**
      * Get the value of type
      */ 
-    public function getType(): string
+    public function getType(): ?string
     {
         return $this->type;
     }

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\PostRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -41,6 +43,14 @@ class Post
     #[ORM\ManyToOne(targetEntity: Topic::class, inversedBy: 'posts')]
     #[ORM\JoinColumn(nullable: false)]
     private $topic;
+
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Report::class)]
+    private $reports;
+
+    public function __construct()
+    {
+        $this->reports = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -103,6 +113,36 @@ class Post
     public function setTopic(?Topic $topic): self
     {
         $this->topic = $topic;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|Report[]
+     */
+    public function getReports(): Collection
+    {
+        return $this->reports;
+    }
+
+    public function addReport(Report $report): self
+    {
+        if (!$this->reports->contains($report)) {
+            $this->reports[] = $report;
+            $report->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReport(Report $report): self
+    {
+        if ($this->reports->removeElement($report)) {
+            // set the owning side to null (unless already changed)
+            if ($report->getPost() === $this) {
+                $report->setPost(null);
+            }
+        }
 
         return $this;
     }
