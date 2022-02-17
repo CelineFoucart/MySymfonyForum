@@ -50,6 +50,21 @@
     margin-bottom: 0;
 }
 
+.roles-container {
+    padding: 5px;
+}
+
+.roles-container span::after {
+    content: ', ';
+    display: inline-block;
+    color: #212529;
+}
+
+.roles-container span:last-of-type::after {
+    content: '';
+    display: none;
+}
+
 @media (min-width:768px) {
     .profile-post {
         display: block;

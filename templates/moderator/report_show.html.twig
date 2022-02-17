@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Consulter un rapport | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+   <li class="breadcrumb-item">
+    <a href="{{path('mcp_home')}}">Panneau de contrôle du modérateur </a>
+</li>
+<li class="breadcrumb-item">Rapports</li>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2>Rapports</h2>
+    {{ include('moderator/_navbar.html.twig') }}
+    <article class="rounded-3 bg-default mb-2 p-2">
+        <h3 class="h4 ps-3 mb-3">Consulter un rapport</h3>
+        <div class="rounded-3 bg-light mx-3 mb-2 p-2">
+            <h4 class="text-uppercase h6 border-bottom border-dark">Information sur le rapport</h4>
+            <p>
+                Rapporté par 
+                <a href="{{path('profile', {id:report.author.id})}}" style="color:{{report.author.color}}" class="fw-bold author">
+                    {{report.author.username}}
+                </a>
+            </p>
+            <td colspan="2">{{report.message}}</td>
+        </div>
+        <form method="post" class="text-center" action="{{ path('mcp_report_show', {'id': report.id, 'type': type}) }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ report.id) }}">
+            <button class="btn btn-danger" id="submit">Supprimer le rapport</button>
+        </form>
+        <div class="rounded-3 bg-light mx-3 mt-2 p-2">
+            <h4 class="h5">
+                <a href="{{ path('topic', {id:report.post.topic.id, slug:report.post.topic.slug}) }}#post{{report.post.id}}">
+                    {{report.post.title}}
+                </a>
+            </h4>
+            {{ include('post/_post_info.html.twig', {post:report.post}) }}
+            <p class="m-0">{{report.post.content | format_text }}</p>
+
+        </div>
+        
+    </article>
+</section>
+{% endblock %}

@@ -107,6 +107,9 @@
                                 </a> 
                             {% endif %}
                             {% if is_granted('ROLE_USER') %}
+                                <a href="{{path('post_report', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Rapporter le message">
+                                    <i class="bi bi-exclamation-triangle-fill"></i>
+                                </a>
                                 <a href="{{ replyPath }}?quote={{post.id}}" class="btn btn-outline-secondary btn-sm" title="Citer">
                                     <i class="bi bi-quote"></i>
                                 </a>
@@ -114,7 +117,7 @@
                         {% endif %}
                     </div>
                    {{ include('post/_post_info.html.twig') }}
-                    <p>{{post.content | nl2br }}</p>
+                    <p>{{post.content | format_text }}</p>
                 </div>
             </div>
         </article>

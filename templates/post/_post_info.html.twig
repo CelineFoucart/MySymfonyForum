@@ -4,7 +4,7 @@
         {% if post.author is not null %}
             Par <a href="{{path('profile', {id: post.author.id})}}" class="fw-bold author" style="color: {{post.author.color}}">{{post.author.username}}</a> &raquo; 
         {% else %}
-            <span class="fw-bold author">Anonyme</span>
+            <span class="fw-bold author">Anonyme</span> &raquo;
         {% endif %}
         {{post.created | date("d/m/Y, H:i")}} 
     </small>

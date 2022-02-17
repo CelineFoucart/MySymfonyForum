@@ -4,6 +4,7 @@ namespace App\Entity;
 
 use App\Repository\ReportRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: ReportRepository::class)]
 class Report
@@ -14,6 +15,11 @@ class Report
     private $id;
 
     #[ORM\Column(type: 'text')]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 10,
+        minMessage: 'Votre message doit faire au moins {{ limit }} caractères'
+    )]
     private $message;
 
     #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'reports')]

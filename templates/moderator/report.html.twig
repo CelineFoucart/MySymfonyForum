@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Rapports | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+   <li class="breadcrumb-item">
+    <a href="{{path('mcp_home')}}">Panneau de contrôle du modérateur </a>
+</li>
+<li class="breadcrumb-item">Rapports</li>
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2>Rapports</h2>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success mt-1">
+            {{ message }}
+        </div>
+    {% endfor %}
+    {{ include('moderator/_navbar.html.twig') }}
+    <article class="rounded-3 bg-default mb-2 p-2">
+        <h3 class="h4 ps-3 mb-3">Rapports ouverts</h3>
+        <div class="rounded-3 bg-light mx-3 p-2">
+            <p>Cette page vous affiche la liste de tous les messages {{ type == 'mp' ? 'privés' : '' }} qui ont été rapportés et qui sont en attente de traitement.</p>
+           {{ include('moderator/_post_report.html.twig') }}
+        </div>
+    </article>
+</section>
+{% endblock %}

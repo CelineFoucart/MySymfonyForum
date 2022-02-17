@@ -19,32 +19,42 @@ class ReportRepository extends ServiceEntityRepository
         parent::__construct($registry, Report::class);
     }
 
-    // /**
-    //  * @return Report[] Returns an array of Report objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Report[] Returns an array of Report objects
+     */
+    public function findPostReports(string $type = "post"): array
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->andWhere('r.type = :type')
+            ->leftJoin('r.post', 'p')
+            ->setParameter('type', $type)
+            ->orderBy('r.id', 'DESC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Report
+    public function findLastReports(string $type = "post"): array
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('r.type = :type')
+            ->leftJoin('r.post', 'p')
+            ->setParameter('type', $type)
+            ->orderBy('r.id', 'DESC')
+            ->getQuery()
+            ->setMaxResults(5)
+            ->getResult()
+        ;
+    }
+    
+    public function findReportById(int $id): ?Report
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.id = :id')
+            ->leftJoin('r.post', 'p')
+            ->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

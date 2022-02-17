@@ -14,7 +14,7 @@ class RoleFixtures extends Fixture implements FixtureGroupInterface
         $roles = [
             (new Role())
                 ->setTitle("USER_ROLE")
-                ->setName("Utilisateur inscrit")
+                ->setName("Utilisateurs inscrits")
                 ->setColor("#669900"),
             (new Role())
                 ->setTitle("ROLE_ADMIN")

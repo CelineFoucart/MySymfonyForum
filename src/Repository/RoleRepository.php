@@ -29,20 +29,15 @@ class RoleRepository extends ServiceEntityRepository
         ;
     }
 
-    // /**
-    //  * @return Role[] Returns an array of Role objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Role[] Returns an array of Role objects
+     */
+    public function findForPublicUse(): array
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('r.name', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 }

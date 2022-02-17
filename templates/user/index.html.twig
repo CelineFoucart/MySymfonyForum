@@ -31,5 +31,13 @@
             <p class="forum-description fw-bold text-center">Aucun membre trouvé</p>
        {% endfor %}
     </article>
+    <footer>
+        <p class="fst-italic roles-container">
+            Légende : 
+            {% for role in roles %}
+                <span style="color:{{role.color}}">{{role.name}}</span> 
+            {% endfor %}
+        </p>
+    </footer>
 </section>
 {% endblock %}

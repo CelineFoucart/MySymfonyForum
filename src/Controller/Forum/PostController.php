@@ -3,8 +3,10 @@
 namespace App\Controller\Forum;
 
 use App\Entity\Post;
+use App\Entity\Report;
 use App\Entity\User;
 use App\Form\PostType;
+use App\Form\ReportType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -50,6 +52,9 @@ class PostController extends AbstractController
         $post = $this->getPost($id);
         $this->denyAccessUnlessGranted('delete', $post, "Vous ne pouvez pas supprimer ce message.");
         if($request->isMethod('POST') && $this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
+            foreach ($post->getReports() as $report) {
+                $em->remove($report);
+            }
             $em->remove($post);
             $this->addFlash('success', "Le message a bien été supprimé.");
             $em->flush();
@@ -60,6 +65,28 @@ class PostController extends AbstractController
         }
 
         return $this->render('post/delete.html.twig', [
+            'post' => $post
+        ]);
+    }
+
+    #[Route('/post/{id}/report', name: 'post_report')]
+    #[IsGranted('ROLE_USER')]
+    public function report(Post $post, Request $request, EntityManagerInterface $em): Response
+    {
+        $report = new Report();
+        $form = $this->createForm(ReportType::class, $report);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()) {
+            $report->setPost($post)->setAuthor($this->getUser())->setType('post');
+            $em->persist($report);
+            $em->flush();
+            $this->addFlash('success', "Votre rapport a bien été envoyé.");
+            $topic = $post->getTopic();
+            return $this->redirectToRoute('topic', ['id' => $topic->getId(), 'slug' => $topic->getSlug()]);
+        }
+
+        return $this->render('post/post_report.html.twig', [
+            'form' => $form->createView(),
             'post' => $post
         ]);
     }

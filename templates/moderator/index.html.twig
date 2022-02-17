@@ -16,8 +16,9 @@
         <article class="rounded-3 bg-default mb-3 p-2">
             <h3 class="h4">Principal</h3>
             <div class="rounded-3 bg-light p-2 mt-3">
-                <h4 class="text-uppercase h6 border-bottom border-dark">Les derniers messages rapportés</h4>
-                <p class="mb-0">Aucun message</p>
+                <h4 class="text-uppercase h6 border-bottom border-dark">Les messages rapportés</h4>
+                <p>Les derniers messages rapportés :</p>
+                {{ include('moderator/_post_report.html.twig', {reports:postReports, type:'post'}) }}
             </div>
             <div class="rounded-3 bg-light p-2 mt-3">
                 <h4 class="text-uppercase h6 border-bottom border-dark">Les derniers MP rapportés</h4>

@@ -6,6 +6,7 @@ use App\Entity\User;
 use App\Form\User\AccountEmailType;
 use App\Form\User\AccountType;
 use App\Form\User\ProfileType;
+use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use App\Service\ImageManager;
 use Doctrine\ORM\EntityManagerInterface;
@@ -18,10 +19,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     private UserRepository $userRepository;
+    private RoleRepository $roleRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository)
     {
         $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     #[Route('/profile/{id}', name: 'profile')]
@@ -42,9 +45,11 @@ class UserController extends AbstractController
     public function index(): Response
     {
         $users = $this->userRepository->findAll();
+        $roles = $this->roleRepository->findForPublicUse();
 
         return $this->render('user/index.html.twig', [
-            'users' => $users
+            'users' => $users,
+            'roles' => $roles
         ]);
     }
 

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Faire un rapport | {{ website_name() }}{% endblock %}
+
+{% set label = 'Rapporter de message' %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item active" aria-current="page">{{label}}</li> 
+{% endblock %}
+
+{% block body %}
+    <section>
+    <h2 class="pb-3">{{label}}</h2>
+    <article class="rounded-3 bg-default my-2 p-2">
+        <h3 class="text-uppercase h6 border-bottom border-dark">Le message</h3>
+        <div class="rounded-3 my-3 p-3 bg-light">
+            <h4 class="h5">
+                <a href="{{ path('topic', {id:post.topic.id, slug:post.topic.slug}) }}#post{{post.id}}">
+                    {{post.title}}
+                </a>
+            </h4>
+            {{ include('post/_post_info.html.twig') }}
+            <p class="m-0">{{post.content | format_text }}</p>
+        </div>
+    </article>
+    <article class="rounded-3 bg-default my-2 p-2">
+        <h3 class="text-uppercase h6 border-bottom border-dark">Votre rapport</h3>
+        {{ form_start(form) }}
+           {{ form_rest(form) }}
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
+            </div>
+        {{ form_end(form) }}
+    </article>
+</section>
+{% endblock %}
