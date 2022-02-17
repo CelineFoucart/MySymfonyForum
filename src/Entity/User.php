@@ -64,11 +64,19 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Report::class)]
     private $reports;
 
+    #[ORM\OneToMany(mappedBy: 'author', targetEntity: PrivateMessage::class, orphanRemoval: true)]
+    private $privateMessages;
+
+    #[ORM\OneToMany(mappedBy: 'addressee', targetEntity: PrivateMessage::class, orphanRemoval: true)]
+    private $receivedPrivateMessages;
+
     public function __construct()
     {
         $this->topics = new ArrayCollection();
         $this->posts = new ArrayCollection();
         $this->reports = new ArrayCollection();
+        $this->privateMessages = new ArrayCollection();
+        $this->receivedPrivateMessages = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -309,6 +317,66 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
             // set the owning side to null (unless already changed)
             if ($report->getAuthor() === $this) {
                 $report->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PrivateMessage[]
+     */
+    public function getPrivateMessages(): Collection
+    {
+        return $this->privateMessages;
+    }
+
+    public function addPrivateMessage(PrivateMessage $privateMessage): self
+    {
+        if (!$this->privateMessages->contains($privateMessage)) {
+            $this->privateMessages[] = $privateMessage;
+            $privateMessage->setAuthor($this);
+        }
+
+        return $this;
+    }
+
+    public function removePrivateMessage(PrivateMessage $privateMessage): self
+    {
+        if ($this->privateMessages->removeElement($privateMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($privateMessage->getAuthor() === $this) {
+                $privateMessage->setAuthor(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|PrivateMessage[]
+     */
+    public function getReceivedPrivateMessages(): Collection
+    {
+        return $this->receivedPrivateMessages;
+    }
+
+    public function addReceivedPrivateMessage(PrivateMessage $receivedPrivateMessage): self
+    {
+        if (!$this->receivedPrivateMessages->contains($receivedPrivateMessage)) {
+            $this->receivedPrivateMessages[] = $receivedPrivateMessage;
+            $receivedPrivateMessage->setAddressee($this);
+        }
+
+        return $this;
+    }
+
+    public function removeReceivedPrivateMessage(PrivateMessage $receivedPrivateMessage): self
+    {
+        if ($this->receivedPrivateMessages->removeElement($receivedPrivateMessage)) {
+            // set the owning side to null (unless already changed)
+            if ($receivedPrivateMessage->getAddressee() === $this) {
+                $receivedPrivateMessage->setAddressee(null);
             }
         }
 

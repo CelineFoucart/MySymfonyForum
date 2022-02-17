@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Messagerie privée | {{ website_name() }} {% endblock %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item active" aria-current="page">Messagerie privée</li> 
+{% endblock %}
+
+{% block body %}
+    <section>
+        <h2 class="h3">Messagerie privée</h2>
+       {{ include('user/inbox/_inbox_navbar.html.twig') }}
+        <article class="rounded-3 bg-default mb-3 p-2">
+            <h3 class="h4 mb-3">{{label|default("Messages reçus")}}</h3>
+            {{ include('user/inbox/_inbox_list.html.twig') }}
+        </article>
+    </section>
+{% endblock %}

@@ -38,6 +38,7 @@ security:
         - { path: ^/admin, roles: ROLE_ADMIN }
         - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/account, roles: ROLE_USER }
+        - { path: ^/inbox, roles: ROLE_USER }
         - { path: ^/mcp, roles: ROLE_ADMIN }
         - { path: ^/mcp, roles: ROLE_MODERATOR }
 when@test:

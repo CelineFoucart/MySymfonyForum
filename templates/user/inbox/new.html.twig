@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Envoyer un message | {{ website_name() }} {% endblock %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item active" aria-current="page">Messagerie privée</li> 
+{% endblock %}
+
+{% block body %}
+    <section>
+        <h2 class="h3">Messagerie privée</h2>
+       {{ include('user/inbox/_inbox_navbar.html.twig') }}
+        <article class="rounded-3 bg-default mb-3 p-2">
+            <h3 class="h4 mb-3">Envoyer un message</h3>
+            <div class="rounded-3 bg-light p-2 mt-2">
+            {# form here #}
+            </div>
+        </article>
+    </section>
+{% endblock %}

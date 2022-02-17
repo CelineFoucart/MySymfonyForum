@@ -33,7 +33,7 @@
                     </ul>
                     <ul class="navigation-group">
                     {% if is_granted('ROLE_USER') %}
-                        <li><a href="#"><i class="bi bi-envelope"></i> Messages privé</a></li>
+                        <li><a href="{{path('inbox')}}"><i class="bi bi-envelope"></i> Messages privé</a></li>
                         <div class="dropdown">
                             <button 
                                 class="dropdown-toggle border-0 fw-bold" 
