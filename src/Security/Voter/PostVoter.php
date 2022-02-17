@@ -3,6 +3,7 @@
 namespace App\Security\Voter;
 
 use App\Entity\Post;
+use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -35,10 +36,10 @@ class PostVoter extends Voter
         $post = $subject;
         switch ($attribute) {
             case VoterAction::EDIT:
-                return $this->voterAction->canEdit($post, $user);
+                return $this->canEditPost($post, $user);
                 break;
             case VoterAction::DELETE:
-                return $this->voterAction->canDelete($post, $user);
+                return $this->canDeletePost($post, $user);
                 break;
                 case VoterAction::INFORMATIONS:
                     return $this->voterAction->canModerate();
@@ -46,5 +47,15 @@ class PostVoter extends Voter
         }
 
         return false;
+    }
+
+    protected function canEditPost(Post $post, User $user): bool
+    {
+        return $this->voterAction->canEdit($post, $user) && $post->getTopic()->getLocked() !== true;
+    }
+
+    protected function canDeletePost(Post $post, User $user): bool
+    {
+        return $this->canEditPost($post, $user);
     }
 }

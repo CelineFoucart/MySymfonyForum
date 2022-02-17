@@ -48,6 +48,7 @@ class Topic
     public function __construct()
     {
         $this->posts = new ArrayCollection();
+        $this->locked = false;
     }
 
     public function getId(): ?int

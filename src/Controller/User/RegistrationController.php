@@ -4,7 +4,9 @@ namespace App\Controller\User;
 
 use App\Entity\User;
 use App\Form\User\RegistrationFormType;
+use App\Repository\RoleRepository;
 use App\Security\UserAuthenticator;
+use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -14,7 +16,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 
 class RegistrationController extends AbstractController
-{
+{  
+    private RoleRepository $roleRepository;
+
+    public function __construct(RoleRepository $roleRepository)
+    {
+        $this->roleRepository = $roleRepository;
+    }
+
     #[Route('/register', name: 'app_register')]
     public function register(Request $request, UserPasswordHasherInterface $userPasswordHasher, UserAuthenticatorInterface $userAuthenticator, UserAuthenticator $authenticator, EntityManagerInterface $entityManager): Response
     {
@@ -32,6 +41,9 @@ class RegistrationController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
+            $user->setCreated(new DateTime());
+            $role = $this->roleRepository->findDefaultRole();
+            $user->setColor($role->getColor());
 
             $entityManager->persist($user);
             $entityManager->flush();

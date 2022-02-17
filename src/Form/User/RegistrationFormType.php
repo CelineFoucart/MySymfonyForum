@@ -47,7 +47,7 @@ class RegistrationFormType extends AbstractType
                 'attr' => ['autocomplete' => 'new-password'],
                 'invalid_message' => 'Le mot de passe de confirmation doit être identique.',
                 'first_options' => [
-                    'label' => 'Nouveau mot de passe',
+                    'label' => 'Mot de passe',
                 ],
                 'second_options' => [
                     'label' => 'Confirmer le mot de passe',

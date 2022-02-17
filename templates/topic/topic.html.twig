@@ -33,9 +33,15 @@
     <aside class="d-flex justify-content-between">
         <div>
             {% if is_granted('ROLE_USER') %}
-                <a href="{{ replyPath }}" class="btn btn-outline-secondary">
-                    Répondre <i class="bi bi-reply"></i>
-                </a>
+                {% if can_moderate() == false and topic.locked == true %}
+                    <button href="{{ replyPath }}" class="btn btn-outline-secondary" disabled>
+                        Verrouillé <i class="bi bi-lock-fill"></i>
+                    </button>
+                {% else %}
+                    <a href="{{ replyPath }}" class="btn btn-outline-secondary">
+                        Répondre <i class="bi bi-reply"></i>
+                    </a>
+                {% endif %}
             {% endif %}
             {% if can_moderate() %}
                 <div class="dropdown" style="display: inline-block">
@@ -128,10 +134,15 @@
 </section>
 <p>
     {% if is_granted('ROLE_USER') %}
-        <a href="{{ replyPath }}" class="btn btn-outline-secondary">
-            Répondre <i class="bi bi-reply"></i>
-        </a>
+        {% if can_moderate() == false and topic.locked == true %}
+            <button href="{{ replyPath }}" class="btn btn-outline-secondary" disabled>
+                Verrouillé <i class="bi bi-lock-fill"></i>
+        </button>
+        {% else %}
+            <a href="{{ replyPath }}" class="btn btn-outline-secondary">
+                Répondre <i class="bi bi-reply"></i>
+            </a>
+        {% endif %}
     {% endif %}
 </p>
-
 {% endblock %}

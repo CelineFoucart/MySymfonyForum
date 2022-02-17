@@ -34,8 +34,14 @@
 <section class="rounded-3 p-2 forum-section">
     <h2 class="section-title">Sujets</h2>
     {% for topic in topics %}
-        <article class="forum-row bg-default d-flex align-items-center">
-            <div class="ps-1 pe-3 fs-2"><i class="bi bi-chat-text"></i></div>
+        <article class="forum-row bg-default d-flex align-items-center" {% if topic.locked %} data-bs-toggle="tooltip" data-bs-placement="top" title="Ce sujet est verrouillé, vous ne pouvez pas y répondre" {% endif %}>
+            <div class="ps-1 pe-3 fs-2">
+                {% if topic.locked %}
+                    <i class="bi bi-lock-fill"></i>
+                {% else %}
+                    <i class="bi bi-chat-text"></i>
+                {% endif %}
+            </div>
             <div class="topic-bloc">
                 <h3 class="forum-row-title">
                     <a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title | capitalize }}</a>

@@ -11,10 +11,12 @@
     <h2><a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a></h2>
     <article class="rounded-3 bg-default my-2 p-2">
         <h3 class="text-uppercase h6 border-bottom border-dark">Verrouiller un sujet</h3>
-        <p>Voulez-vous vraiment verrouiller ce sujet ?</p>
+        <p class="text-center">Voulez-vous vraiment {{ (topic.locked) ? 'déverrouiller' : 'verrouiller' }} ce sujet ?</p>
         <form method="post" class="text-center" action="{{ path('topic_lock', {'id': topic.id}) }}">
             <input type="hidden" name="_token" value="{{ csrf_token('lock' ~ topic.id) }}">
-            <button class="btn btn-primary" id="submit">Verrouiller</button>
+            <button class="btn btn-primary" id="submit">
+                {{ (topic.locked) ? 'Déverrouiller' : 'Verrouiller' }}
+            </button>
         </form>
     </article>
 </section>

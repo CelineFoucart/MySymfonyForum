@@ -46,8 +46,13 @@ class ModeratorTopicController extends AbstractController
     }
 
     #[Route('/{id}/lock', name: 'topic_lock')]
-    public function lock(Topic $topic): Response
+    public function lock(Topic $topic, Request $request, EntityManagerInterface $em): Response
     {
+        if ($request->isMethod('POST') && $this->isCsrfTokenValid('lock'.$topic->getId(), $request->request->get('_token'))) {
+            $topic->setLocked(!$topic->getLocked());
+            $em->flush();  
+        }
+
         return $this->render('moderator/topic/lock.html.twig', [
             'topic' => $topic
         ]);

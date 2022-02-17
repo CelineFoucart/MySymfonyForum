@@ -28,7 +28,6 @@ class PostController extends AbstractController
     {
         $post = $this->getPost($id);
         $this->denyAccessUnlessGranted('edit', $post, "Vous ne pouvez pas éditer ce message.");
-
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {

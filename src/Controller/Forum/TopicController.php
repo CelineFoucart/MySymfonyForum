@@ -53,8 +53,8 @@ class TopicController extends AbstractController
     public function reply(int $id, Request $request, EntityManagerInterface $em): Response
     {
         $topic = $this->getTopic($id);
+        $this->denyAccessUnlessGranted('reply', $topic, "Vous ne pouvez pas répondre à ce sujet.");
         $post = $this->getPostForReply($request, $topic);
-
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()) {
