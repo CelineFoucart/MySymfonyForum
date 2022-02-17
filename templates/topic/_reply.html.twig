@@ -1,0 +1,15 @@
+{% if is_granted('ROLE_USER') %}
+    {% if can_moderate() == false and topic.locked == true %}
+        <button href="{{ replyPath }}" class="btn btn-outline-secondary" disabled>
+            Verrouillé <i class="bi bi-lock-fill"></i>
+        </button>
+    {% else %}
+        <a href="{{ replyPath }}" class="btn btn-outline-secondary">
+            {% if topic.locked == false %}
+                Répondre <i class="bi bi-reply"></i>
+            {% else %}
+                Verrouillé <i class="bi bi-lock-fill"></i>
+            {% endif %}
+        </a>
+    {% endif %}
+{% endif %}

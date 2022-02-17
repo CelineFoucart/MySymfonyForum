@@ -32,17 +32,7 @@
     </p>
     <aside class="d-flex justify-content-between">
         <div>
-            {% if is_granted('ROLE_USER') %}
-                {% if can_moderate() == false and topic.locked == true %}
-                    <button href="{{ replyPath }}" class="btn btn-outline-secondary" disabled>
-                        Verrouillé <i class="bi bi-lock-fill"></i>
-                    </button>
-                {% else %}
-                    <a href="{{ replyPath }}" class="btn btn-outline-secondary">
-                        Répondre <i class="bi bi-reply"></i>
-                    </a>
-                {% endif %}
-            {% endif %}
+           {{ include('topic/_reply.html.twig') }}
             {% if can_moderate() %}
                 <div class="dropdown" style="display: inline-block">
                     <button class="btn btn-outline-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" title="outils de modération" data-bs-toggle="dropdown" aria-expanded="false">
@@ -101,8 +91,8 @@
                 </div>
                 <div class="ps-2">
                     <h3 id="post{{post.id}}"><a href="#post{{post.id}}">{{post.title}}</a></h3>
-                    {% if is_granted('ROLE_USER') %}
-                        <div class="btn-group position-absolute top-0 end-0">
+                    <div class="btn-group position-absolute top-0 end-0">
+                        {% if is_locked(topic) == false %}
                             {% if can_edit(app.user, post) %}
                                 <a href="{{path('post_delete', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Supprimer">
                                     <i class="bi bi-trash-fill"></i>
@@ -116,11 +106,13 @@
                                     <i class="bi bi-info-circle-fill"></i>
                                 </a> 
                             {% endif %}
-                            <a href="{{ replyPath }}?quote={{post.id}}" class="btn btn-outline-secondary btn-sm" title="Citer">
-                                <i class="bi bi-quote"></i>
-                            </a>
-                        </div>
-                    {% endif %}
+                            {% if is_granted('ROLE_USER') %}
+                                <a href="{{ replyPath }}?quote={{post.id}}" class="btn btn-outline-secondary btn-sm" title="Citer">
+                                    <i class="bi bi-quote"></i>
+                                </a>
+                            {% endif %}
+                        {% endif %}
+                    </div>
                    {{ include('post/_post_info.html.twig') }}
                     <p>{{post.content | nl2br }}</p>
                 </div>
@@ -133,16 +125,6 @@
     {% endfor %}
 </section>
 <p>
-    {% if is_granted('ROLE_USER') %}
-        {% if can_moderate() == false and topic.locked == true %}
-            <button href="{{ replyPath }}" class="btn btn-outline-secondary" disabled>
-                Verrouillé <i class="bi bi-lock-fill"></i>
-        </button>
-        {% else %}
-            <a href="{{ replyPath }}" class="btn btn-outline-secondary">
-                Répondre <i class="bi bi-reply"></i>
-            </a>
-        {% endif %}
-    {% endif %}
+    {{ include('topic/_reply.html.twig') }}
 </p>
 {% endblock %}

@@ -22,6 +22,7 @@ class AuthorisationExtension extends AbstractExtension
         return [
             new TwigFunction('can_edit', [$this, 'canEdit']),
             new TwigFunction('can_moderate', [$this, 'canModerate']),
+            new TwigFunction('is_locked', [$this, 'isLocked']),
         ];
     }
 
@@ -45,5 +46,13 @@ class AuthorisationExtension extends AbstractExtension
     public function canModerate(): bool
     {
         return $this->security->isGranted('ROLE_ADMIN') || $this->security->isGranted('ROLE_MODERATOR');
+    }
+
+    public function isLocked(Topic $topic): bool
+    {
+        if($this->canModerate()) {
+            return false;
+        }
+        return $topic->getLocked();
     }
 }
