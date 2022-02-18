@@ -1,0 +1,25 @@
+{{ knp_pagination_render(users) }}
+<article class="forum-section rounded-3 p-2">
+    <h3 class="section-title d-flex justify-content-between">
+        <span class="forum-label">Nom d'utilisateur</span>
+        <span class="forum-label">Rang</span>
+        <span>Inscription</span>
+    </h3>
+    {% for user in users %}
+        <div class="forum-row bg-default">
+            <p class="forum-description d-flex justify-content-between">
+                <span class="forum-label">
+                    <a href="{{path('profile', {id: user.id})}}" style="color:{{ user.color }}" class="fw-bold">
+                        {{user.username}}
+                    </a>
+                </span>
+                <span class="forum-label"> {{user.rank }} </span>
+                <span>{{user.created | date("d/m/Y, H:i") }}</span>
+            </p>
+        </div>
+    {% else %}
+        <div class="forum-row bg-default">
+            <p class="forum-description fw-bold text-center">Aucun membre trouvé</p>
+        </p>
+    {% endfor %}
+</article>

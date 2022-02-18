@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Membres | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+<li class="breadcrumb-item active" aria-current="page">Membres</li> 
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2>Liste des membres</h2>
+   {{ include('user/group/_users.html.twig') }}
+    <footer>
+        <p class="fst-italic roles-container">
+            Légende : 
+            {% for role in roles %}
+                <a href="{{ path('users_group', {id:role.id}) }}" style="color:{{role.color}}">{{role.name}}</a> 
+            {% endfor %}
+        </p>
+    </footer>
+</section>
+{% endblock %}

@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Membres | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+<li class="breadcrumb-item"><a href="{{ path('users_list') }}">Membres</a></li> 
+<li class="breadcrumb-item active" aria-current="page">{{ role.name }}</li> 
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2 style="color:{{ role.color }}">{{ role.name }}</h2>
+    <p>{{ role.description }}</p>
+   {{ include('user/group/_users.html.twig') }}
+</section>
+{% endblock %}

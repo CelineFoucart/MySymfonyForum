@@ -49,6 +49,7 @@ class RegistrationController extends AbstractController
             $user->setCreated(new DateTime());
             $role = $this->roleRepository->findDefaultRole();
             $user->setColor($role->getColor());
+            $user->setRoles(['ROLE_USER']);
 
             $entityManager->persist($user);
             $entityManager->flush();

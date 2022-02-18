@@ -54,13 +54,17 @@
     padding: 5px;
 }
 
-.roles-container span::after {
+.roles-container a:hover {
+    text-decoration: underline;
+}
+
+.roles-container a::after {
     content: ', ';
     display: inline-block;
     color: #212529;
 }
 
-.roles-container span:last-of-type::after {
+.roles-container a:last-of-type::after {
     content: '';
     display: none;
 }

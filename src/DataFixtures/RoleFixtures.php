@@ -13,7 +13,7 @@ class RoleFixtures extends Fixture implements FixtureGroupInterface
     {
         $roles = [
             (new Role())
-                ->setTitle('USER_ROLE')
+                ->setTitle('ROLE_USER')
                 ->setName('Utilisateurs inscrits')
                 ->setColor('#669900'),
             (new Role())
