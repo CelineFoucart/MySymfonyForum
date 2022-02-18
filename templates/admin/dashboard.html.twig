@@ -1,0 +1,104 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+{% block content_title %} Panneau d'administration {% endblock %}
+{% block page_actions %}
+    <a class="btn btn-primary" href="{{ path('home') }}">Index du forum</a>
+{% endblock %}
+{% block main %}
+    <p>
+        Bienvenue dans le panneau d'administration du forum : <a href="{{ path('home')}} ">{{ website_name() }}</a>.
+        Ici, vous allez pouvoir gérer votre forum, ses utilisateurs et les groupes d'utilisateurs. 
+        Les liens à votre gauche vous permettront de contrôler tous les aspects de votre forum.
+    </p>
+    <p>Sur cette page, vous allez pouvoir consulter les statistiques du forum.</p>
+    <h2 class="h4 text-center bg-primary text-white p-2 mb-0">Statistiques du forum</h2>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Statistiques</th>
+                <th>Valeur</th>
+                <th>Statistiques</th>
+                <th>Valeur</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <th>Nombre de messages</th>
+                <td>0</td>
+                <th>Nombre de sujets</th>
+                <td>0</td>
+            </tr>
+            <tr>
+                <th>Nombre de Membres</th>
+                <td>0</td>
+                <th>Nombre de groupe</th>
+                <td>0</td>
+            </tr>
+            <tr>
+                <th>Nombre de forums</th>
+                <td>0</td>
+                <th>Nombre de catégorie</th>
+                <td>0</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr class="my-5">
+    <h2 class="text-center fs-1 fw-bold">L'actualité du forum</h2>
+    <p class="fs-5 my-3 text-center">Découvrez ci-dessous les dernières activités survenues sur votre forum.</p>
+    <div class="row mt-5 mb-4">
+        <div class="col-md-4">
+            <div class="card shadow bg-light">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Les derniers messages</h3>
+                    <div class="card-text">
+                        <div class="rounded-3 shadow p-3 my-4 bg-white">
+                            <a href="">Titre du message</a>, par <a href="">auteur</a>
+                        </div>
+                        <div class="rounded-2 shadow p-3 my-4 bg-white">
+                            <a href="">Titre du message</a>, par <a href="">auteur</a>
+                        </div>
+                        <div class="rounded-2 shadow p-3 my-4 bg-white">
+                            <a href="">Titre du message</a>, par <a href="">auteur</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow bg-light">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Les derniers sujets</h3>
+                    <div class="card-text">
+                        <div class="rounded-3 shadow p-3 my-4 bg-white">
+                            <a href="">Titre du message</a>, par <a href="">auteur</a>
+                        </div>
+                        <div class="rounded-2 shadow p-3 my-4 bg-white">
+                            <a href="">Titre du message</a>, par <a href="">auteur</a>
+                        </div>
+                        <div class="rounded-2 shadow p-3 my-4 bg-white">
+                            <a href="">Titre du message</a>, par <a href="">auteur</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+        <div class="card shadow bg-light">
+                <div class="card-body">
+                    <h3 class="card-title text-center mb-4">Les derniers membres inscrits</h3>
+                    <div class="card-text">
+                        <div class="rounded-3 shadow p-3 my-4 bg-white">
+                            <a href="">pseudo</a>, inscrit le date
+                        </div>
+                        <div class="rounded-2 shadow p-3 my-4 bg-white">
+                            <a href="">pseudo</a>, inscrit le date
+                        </div>
+                        <div class="rounded-2 shadow p-3 my-4 bg-white">
+                            <a href="">pseudo</a>, inscrit le date
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+{% endblock %}

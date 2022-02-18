@@ -6,6 +6,7 @@ use App\Repository\CategoryRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: CategoryRepository::class)]
 class Category
@@ -16,6 +17,13 @@ class Category
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\NotBlank]
+    #[Assert\Length(
+        min: 3,
+        max: 50,
+        minMessage: 'Votre titre doit faire au moins {{ limit }} caractères',
+        maxMessage: 'Votre titre ne peut pas dépasser {{ limit }} caractères',
+    )]
     private $title;
 
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
@@ -25,9 +33,14 @@ class Category
     private $forums;
 
     #[ORM\Column(type: 'string', length: 255)]
+    #[Assert\Regex(
+        pattern: '/^[a-z0-9\-]+$/',
+        message: 'Un slug ne doit pas comporter d\'espace, de caractères spéciaux et d\'accent. Les mots sont reliés par un "-"',
+    )]
     private $slug;
 
     #[ORM\Column(type: 'integer')]
+    #[Assert\NotNull(message:"Ce champ ne peut être nul.")]
     private $orderNumber;
 
     public function __construct()
@@ -116,5 +129,10 @@ class Category
         $this->orderNumber = $orderNumber;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->title;
     }
 }
