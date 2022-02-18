@@ -13,21 +13,21 @@ class RoleFixtures extends Fixture implements FixtureGroupInterface
     {
         $roles = [
             (new Role())
-                ->setTitle("USER_ROLE")
-                ->setName("Utilisateurs inscrits")
-                ->setColor("#669900"),
+                ->setTitle('USER_ROLE')
+                ->setName('Utilisateurs inscrits')
+                ->setColor('#669900'),
             (new Role())
-                ->setTitle("ROLE_ADMIN")
-                ->setName("Administrateurs")
-                ->setColor("#FF9900"),
+                ->setTitle('ROLE_ADMIN')
+                ->setName('Administrateurs')
+                ->setColor('#FF9900'),
                 (new Role())
-                ->setTitle("ROLE_MODERATOR")
-                ->setName("Modérateurs généraux")
-                ->setColor("#CC3399")
+                ->setTitle('ROLE_MODERATOR')
+                ->setName('Modérateurs généraux')
+                ->setColor('#CC3399'),
         ];
         foreach ($roles as $role) {
             $manager->persist($role);
-        } 
+        }
 
         $manager->flush();
     }

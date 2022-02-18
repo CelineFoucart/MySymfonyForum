@@ -1,0 +1,57 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Consulter un message | {{ website_name() }} {% endblock %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item active" aria-current="page">
+        <a href="{{ path('inbox') }}">Messagerie privée</a>
+    </li> 
+    <li class="breadcrumb-item active" aria-current="page">Consulter un message</li> 
+{% endblock %}
+
+{% block body %}
+    <section>
+        <h2 class="h3">Consulter un message</h2>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success my-1">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <ul class="nav nav-tabs mx-1 mt-3">
+            {{ include('user/inbox/_inbox_navbar.html.twig') }}
+            <li class="nav-item">
+                <a class="nav-link active" href="#">Voir un message</a>
+            </li>
+        </ul>
+        <article class="rounded-3 bg-default mb-3 p-2 position-relative">
+            <div class="position-absolute top-0 end-0 p-2">
+                <a 
+                    href="{{ path('inbox_report', {id:privateMessage.id}) }}"
+                    class="btn btn-outline-secondary"
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Rapporter le message privé">
+                    <i class="bi bi-exclamation-triangle-fill"></i>
+                </a>
+                <a 
+                    href="{{path('inbox_create', {reply:privateMessage.id})}}" 
+                    class="btn btn-outline-secondary" 
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Répondre au message privé">
+                    <i class="bi bi-reply"></i>
+                </a>
+                <a 
+                    href="{{path('inbox_delete', {id:privateMessage.id})}}" 
+                    class="btn btn-outline-danger"
+                    data-bs-toggle="tooltip" 
+                    data-bs-placement="top" 
+                    title="Supprimer le message privé">
+                    <i class="bi bi-trash-fill"></i>
+                </a>
+            </div>
+            <h3>Consulter un message privé</h3>
+           {{ include('user/inbox/_message.html.twig') }}
+        </article>
+    </section>
+{% endblock %}

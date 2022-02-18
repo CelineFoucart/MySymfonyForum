@@ -58,7 +58,7 @@
             <h3 class="text-uppercase h6 border-bottom border-dark">Contact</h3>
             <dl class="profile-details">
                 <dt class="key-left">MP :</dt>
-                <dd class="value"><a href="#">Envoyer un message privé</a></dd>
+                <dd class="value"><a href="{{ path('inbox_create', {replyTo:user.username}) }}">Envoyer un message privé</a></dd>
             </dl>
         </div>
     </article>

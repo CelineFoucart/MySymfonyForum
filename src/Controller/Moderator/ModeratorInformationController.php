@@ -3,15 +3,15 @@
 namespace App\Controller\Moderator;
 
 use App\Entity\Topic;
+use App\Form\PostModeratedType;
+use App\Form\TopicModeratedType;
 use App\Repository\PostRepository;
+use App\Repository\TopicRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Form\PostModeratedType;
-use App\Form\TopicModeratedType;
-use App\Repository\TopicRepository;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/mcp/informations')]
@@ -30,17 +30,17 @@ class ModeratorInformationController extends AbstractController
     public function show(Request $request): Response
     {
         $error = false;
-        if($request->getMethod() === 'POST') {
+        if ('POST' === $request->getMethod()) {
             $type = $request->request->get('type');
-            if($this->validateSearch($request->request->get('type'), $request)) {
+            if ($this->validateSearch($request->request->get('type'), $request)) {
                 return $this->redirectToRoute($type.'_view', ['id' => $request->request->getInt('id')]);
             } else {
                 $error = "L'élément {$request->request->get('id')} de type \"{$request->request->get('type')}\" n'existe pas.";
             }
         }
-        
+
         return $this->render('moderator/informations/informations.html.twig', [
-            'error' => $error
+            'error' => $error,
         ]);
     }
 
@@ -48,18 +48,20 @@ class ModeratorInformationController extends AbstractController
     public function showPost(int $id, Request $request, EntityManagerInterface $em): Response
     {
         $post = $this->postRepository->findOneById($id);
-        if($post === null) {
-            throw $this->createNotFoundException("Ce message est introuvable");
+        if (null === $post) {
+            throw $this->createNotFoundException('Ce message est introuvable');
         }
         $form = $this->createForm(PostModeratedType::class, $post);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            return $this->redirectToRoute('post_view', ['id'=>$post->getId()]);
+
+            return $this->redirectToRoute('post_view', ['id' => $post->getId()]);
         }
+
         return $this->render('moderator/informations/post.html.twig', [
             'post' => $post,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -68,14 +70,15 @@ class ModeratorInformationController extends AbstractController
     {
         $form = $this->createForm(TopicModeratedType::class, $topic);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $slug = $slugger->slug(strtolower($topic->getTitle()));
             $topic->setSlug($slug);
             $em->flush();
-        } 
+        }
+
         return $this->render('moderator/informations/topic.html.twig', [
             'topic' => $topic,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -85,6 +88,7 @@ class ModeratorInformationController extends AbstractController
         switch ($type) {
             case 'topic':
                 $count = $this->topicRepository->count(['id' => $id]);
+                // no break
             case 'post':
                 $count = $this->postRepository->count(['id' => $id]);
                 break;
@@ -92,6 +96,7 @@ class ModeratorInformationController extends AbstractController
                 $count = 0;
                 break;
         }
+
         return $count > 0;
     }
 }

@@ -10,8 +10,7 @@ use Liip\TestFixturesBundle\Services\DatabaseTools\AbstractDatabaseTool;
 
 trait FixtureTrait 
 {
-    /** @var AbstractDatabaseTool */
-    protected $databaseTool;
+    protected AbstractDatabaseTool $databaseTool;
 
     /**
      * Hydrates the test database

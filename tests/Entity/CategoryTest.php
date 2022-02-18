@@ -20,10 +20,10 @@ class CategoryTest extends TestCase
     public function testIsFalse(): void
     {
         $category = $this->getCategory($this->getData());
-        $this->assertFalse($category->getTitle() === 'False');
-        $this->assertFalse($category->getSlug() ===  'False');
-        $this->assertFalse($category->getDescription() ===  'False');
-        $this->assertFalse($category->getOrderNumber() ===  'False');
+        $this->assertFalse('False' === $category->getTitle());
+        $this->assertFalse('False' === $category->getSlug());
+        $this->assertFalse('False' === $category->getDescription());
+        $this->assertFalse('False' === $category->getOrderNumber());
     }
 
     public function testIsEmpty(): void
@@ -38,16 +38,16 @@ class CategoryTest extends TestCase
     private function getData(): array
     {
         return [
-            'title' => "Lorem",
-            'slug' => "lorem",
-            'description' => "lorem ipsum sit amet",
-            'orderNumber' => 1
+            'title' => 'Lorem',
+            'slug' => 'lorem',
+            'description' => 'lorem ipsum sit amet',
+            'orderNumber' => 1,
         ];
     }
 
     private function getCategory(array $data): Category
     {
-        return (new Category)
+        return (new Category())
             ->setTitle($data['title'])
             ->setSlug($data['slug'])
             ->setDescription($data['description'])

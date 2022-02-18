@@ -1,0 +1,25 @@
+<div class="rounded-3 bg-light py-2 px-3 mt-3">
+    <h3 class="h4 text-primary"> {{ privateMessage.title }} </h3>
+    <p class="mb-0">
+        <span class="fw-bold">Date d’envoi :</span> {{privateMessage.created | date("d/m/Y, H:i")}} 
+    </p>
+    <p class="mb-0">
+        <span class="fw-bold">Par : </span> 
+        <a 
+            href="{{path('profile', {id: privateMessage.author.id})}}" 
+            class="fw-bold author" 
+            style="color: {{privateMessage.author.color}}">
+            {{privateMessage.author.username}}
+        </a>
+    </p>
+    <p class="mb-3">
+        <span class="fw-bold">Destinataire : </span> 
+        <a 
+            href="{{path('profile', {id:privateMessage.addressee.id})}}" 
+            class="fw-bold author" 
+            style="color:{{ privateMessage.addressee.color }}">
+            {{ privateMessage.addressee.username }}
+        </a>
+    </p>
+    <div>{{ privateMessage.content | format_text }}</div>
+</div>

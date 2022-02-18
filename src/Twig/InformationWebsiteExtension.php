@@ -12,7 +12,7 @@ class InformationWebsiteExtension extends AbstractExtension
      * @var string website title
      */
     private string $websiteName;
-    
+
     /**
      * @var string description for meta description tag
      */
@@ -20,8 +20,8 @@ class InformationWebsiteExtension extends AbstractExtension
 
     public function __construct(string $websiteName, string $websiteDescription)
     {
-       $this->websiteName = $websiteName;
-       $this->websiteDescription = $websiteDescription; 
+        $this->websiteName = $websiteName;
+        $this->websiteDescription = $websiteDescription;
     }
 
     public function getFunctions(): array
@@ -29,7 +29,7 @@ class InformationWebsiteExtension extends AbstractExtension
         return [
             new TwigFunction('website_name', [$this, 'getWebsiteName']),
             new TwigFunction('website_description', [$this, 'getWebsiteDescription']),
-            new TwigFunction('current_date', [$this, 'getCurrentDate'])
+            new TwigFunction('current_date', [$this, 'getCurrentDate']),
         ];
     }
 
@@ -45,6 +45,6 @@ class InformationWebsiteExtension extends AbstractExtension
 
     public function getCurrentDate(): string
     {
-        return (new DateTime())->format("d/m/Y, H:i");
+        return (new DateTime())->format('d/m/Y, H:i');
     }
 }

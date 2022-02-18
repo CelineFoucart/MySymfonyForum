@@ -9,9 +9,9 @@ class VoterAction
 {
     private Security $security;
 
-    const EDIT = "edit";
-    const DELETE = "delete";
-    const INFORMATIONS = "info";
+    public const EDIT = 'edit';
+    public const DELETE = 'delete';
+    public const INFORMATIONS = 'info';
 
     public function __construct(Security $security)
     {
@@ -19,9 +19,7 @@ class VoterAction
     }
 
     /**
-     * Determine if a user can moderate a post or a topic
-     * 
-     * @return bool
+     * Determine if a user can moderate a post or a topic.
      */
     public function canModerate(): bool
     {
@@ -29,17 +27,14 @@ class VoterAction
     }
 
     /**
-     * Determine if a user can edit a post or a topic 
-     * 
+     * Determine if a user can edit a post or a topic.
+     *
      * @param Post|Topic $item
-     * @param User $user
-     * 
-     * @return bool
      */
     public function canEdit($item, User $user): bool
     {
         $author = $item->getAuthor();
-        if($author === null) {
+        if (null === $author) {
             return false;
         } else {
             return $user->getId() === $author->getId();
@@ -47,12 +42,9 @@ class VoterAction
     }
 
     /**
-     * Determine if a user can delete a post or a topic 
-     * 
+     * Determine if a user can delete a post or a topic.
+     *
      * @param Post|Topic $item
-     * @param User $user
-     * 
-     * @return bool
      */
     public function canDelete($item, User $user): bool
     {

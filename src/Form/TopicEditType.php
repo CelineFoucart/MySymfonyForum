@@ -14,7 +14,7 @@ class TopicEditType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => "Titre du sujet :"
+                'label' => 'Titre du sujet :',
             ])
         ;
     }

@@ -18,16 +18,16 @@ class PrivateMessageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, PrivateMessage::class);
     }
-
-    /*
-    public function findOneBySomeField($value): ?PrivateMessage
+    
+    public function findOneById(int $id): ?PrivateMessage
     {
         return $this->createQueryBuilder('p')
-            ->andWhere('p.exampleField = :val')
-            ->setParameter('val', $value)
+            ->leftJoin('p.author', 'u')->select('u')
+            ->leftJoin('p.addressee', 'a')->select('p')
+            ->andWhere('p.id = :id')
+            ->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

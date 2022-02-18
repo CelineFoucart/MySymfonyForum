@@ -1,0 +1,25 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Supprimer un message privé | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item active" aria-current="page">
+        <a href="{{ path('inbox') }}">Messagerie privée</a>
+    </li> 
+    <li class="breadcrumb-item active" aria-current="page">Supprimer un message</li> 
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2><a href="{{ path('inbox_show', {id:privateMessage.id}) }}">{{ privateMessage.title }}</a></h2>
+    <article class="rounded-3 bg-default my-2 p-2">
+        <h3 class="text-uppercase h6 border-bottom border-dark">Supprimer un message privé</h3>
+        <p class="text-danger fw-bold text-center">Êtes-vous sûr de vouloir effacer ce message ? Toute suppression est définitive !</p>
+
+        <form method="post" class="text-center" action="{{ path('inbox_delete', {'id': privateMessage.id}) }}">
+            <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ privateMessage.id) }}">
+            <button class="btn btn-danger" id="submit">Supprimer</button>
+        </form>
+    </article>
+</section>
+{% endblock %}

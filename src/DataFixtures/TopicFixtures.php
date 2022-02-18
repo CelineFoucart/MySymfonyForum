@@ -10,8 +10,8 @@ use App\Repository\ForumRepository;
 use App\Repository\UserRepository;
 use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
-use Doctrine\Persistence\ObjectManager;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
+use Doctrine\Persistence\ObjectManager;
 
 class TopicFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -30,8 +30,8 @@ class TopicFixtures extends Fixture implements DependentFixtureInterface
     {
         $faker = \Faker\Factory::create();
         $topics = [];
-        for ($i=0; $i < 20; $i++) { 
-            $length = rand(2,6);
+        for ($i = 0; $i < 20; ++$i) {
+            $length = rand(2, 6);
             $topic = (new Topic())
                 ->setTitle($faker->words($length, true))
                 ->setSlug($faker->slug($length))
@@ -43,14 +43,14 @@ class TopicFixtures extends Fixture implements DependentFixtureInterface
             $topics[] = $topic;
         }
 
-        for ($i=0; $i < 150; $i++) { 
-            $length = rand(2,6);
+        for ($i = 0; $i < 150; ++$i) {
+            $length = rand(2, 6);
             $post = (new Post())
                 ->setTitle($faker->words($length, true))
                 ->setContent($faker->text())
                 ->setCreated(new DateTime())
                 ->setAuthor($this->getAuthor())
-                ->setTopic($topics[rand(0,19)])
+                ->setTopic($topics[rand(0, 19)])
             ;
             $manager->persist($post);
         }
@@ -59,21 +59,23 @@ class TopicFixtures extends Fixture implements DependentFixtureInterface
 
     private function getForum(): Forum
     {
-        if(empty($this->forums)) {
+        if (empty($this->forums)) {
             $this->forums = $this->forumRepository->findAll();
         }
-        $index = rand(0,2);
+        $index = rand(0, 2);
+
         return $this->forums[$index];
     }
 
     private function getAuthor(): ?User
     {
-        if(empty($this->users)) {
+        if (empty($this->users)) {
             $this->users = $this->userRepository->findAll();
         }
-        if((bool)rand(0,1)) {
-            return $this->users[rand(0,1)];
+        if ((bool) rand(0, 1)) {
+            return $this->users[rand(0, 1)];
         }
+
         return null;
     }
 
@@ -81,7 +83,7 @@ class TopicFixtures extends Fixture implements DependentFixtureInterface
     {
         return [
             AppFixtures::class,
-            UserFixtures::class
+            UserFixtures::class,
         ];
     }
 }

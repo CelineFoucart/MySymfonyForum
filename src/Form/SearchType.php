@@ -20,14 +20,14 @@ class SearchType extends AbstractType
             ->add('type', ChoiceType::class, [
                 'choices' => [
                     'posts' => 'post',
-                    'topics' => 'topic'
-                ]
+                    'topics' => 'topic',
+                ],
             ])
             ->add('keywords', TextType::class, [
                 'required' => false,
-                'label' => "Recherche par mot clé",
+                'label' => 'Recherche par mot clé',
                 'attr' => [
-                    'placeholder' => "Recherche de plus de 3 caractères"
+                    'placeholder' => 'Recherche de plus de 3 caractères',
                 ],
                 'constraints' => [
                     new Length([
@@ -36,14 +36,14 @@ class SearchType extends AbstractType
                         'maxMessage' => 'Votre recherche doit faire au maximum {{ limit }} caractères',
                         'max' => 50,
                     ]),
-                ]
+                ],
             ])
             ->add('user', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'username',
                 'multiple' => false,
                 'required' => false,
-                'label' => 'Auteur'
+                'label' => 'Auteur',
             ])
         ;
     }

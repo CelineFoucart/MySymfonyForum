@@ -26,8 +26,7 @@ class TopicControllerTest extends WebTestCase
      * @return Topic[]
      */
     private function getTopics(): array
-    {  
-        /** @var TopicRepository */
+    {
         $repo = static::getContainer()->get(TopicRepository::class);
         return $repo->findAll();
     }

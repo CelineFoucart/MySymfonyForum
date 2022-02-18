@@ -31,13 +31,14 @@ class UserController extends AbstractController
     public function profile(int $id): Response
     {
         $user = $this->userRepository->find($id);
-        if($user === null) {
+        if (null === $user) {
             throw $this->createNotFoundException("Cet utilisateur n'existe pas !");
         }
         $userPosts = count($user->getPosts());
+
         return $this->render('user/profile.html.twig', [
             'user' => $user,
-            'userPosts' => $userPosts
+            'userPosts' => $userPosts,
         ]);
     }
 
@@ -49,19 +50,19 @@ class UserController extends AbstractController
 
         return $this->render('user/index.html.twig', [
             'users' => $users,
-            'roles' => $roles
+            'roles' => $roles,
         ]);
     }
 
     #[Route('/account', name: 'account')]
     public function account(Request $request, EntityManagerInterface $entityManager, ImageManager $imageManager): Response
     {
-        /** @var User */
         $user = $this->getUser();
+        assert($user instanceof User);
         $userPosts = count($user->getPosts());
         $profileForm = $this->createForm(ProfileType::class, $user);
         $profileForm->handleRequest($request);
-        if($profileForm->isSubmitted() && $profileForm->isValid()) {
+        if ($profileForm->isSubmitted() && $profileForm->isValid()) {
             $image = $profileForm->get('avatar')->getData();
             $this->saveAvatar($image, $user, $imageManager);
             $entityManager->flush();
@@ -69,13 +70,13 @@ class UserController extends AbstractController
 
         $accountForm = $this->createForm(AccountType::class, $user);
         $accountForm->handleRequest($request);
-        if($accountForm->isSubmitted() && $accountForm->isValid()) {
+        if ($accountForm->isSubmitted() && $accountForm->isValid()) {
             $entityManager->flush();
         }
 
         $emailForm = $this->createForm(AccountEmailType::class, $user);
         $emailForm->handleRequest($request);
-        if($emailForm->isSubmitted() && $emailForm->isValid()) {
+        if ($emailForm->isSubmitted() && $emailForm->isValid()) {
             $entityManager->flush();
         }
 
@@ -84,22 +85,25 @@ class UserController extends AbstractController
             'userPosts' => $userPosts,
             'profileForm' => $profileForm->createView(),
             'accountForm' => $accountForm->createView(),
-            'emailForm' => $emailForm->createView()
+            'emailForm' => $emailForm->createView(),
         ]);
     }
 
     private function saveAvatar(?UploadedFile $image, User $user, ImageManager $imageManager): bool
     {
-        if($image !== null) {
+        if (null !== $image) {
             $errors = $imageManager->setImage($image)->moveImage($user->getId())->getErrors();
-            if(empty($errors)) {
+            if (empty($errors)) {
                 $user->setAvatar($imageManager->getFilename());
+
                 return true;
             } else {
                 $this->addFlash('error', implode('<br/>', $this->imageManager->getErrors()));
+
                 return false;
             }
         }
+
         return true;
     }
 }

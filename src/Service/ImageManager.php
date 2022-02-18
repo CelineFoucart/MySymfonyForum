@@ -2,8 +2,8 @@
 
 namespace App\Service;
 
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 class ImageManager
 {
@@ -18,61 +18,51 @@ class ImageManager
     }
 
     /**
-     * Set the value of image
-     * 
-     * @param UploadedFile|null $image
-     * 
-     * @return self
+     * Set the value of image.
      */
     public function setImage(?UploadedFile $image = null): self
     {
         $this->image = $image;
+
         return $this;
     }
 
     /**
-     * Moves a file with a secured name to a new location
-     * 
-     * @param int $userId
-     * 
-     * @return self
+     * Moves a file with a secured name to a new location.
      */
     public function moveImage(int $userId): self
     {
-        if($this->image === null) {
+        if (null === $this->image) {
             $this->errors[] = "Il n'y a pas de fichier";
+
             return $this;
         }
-        $this->filename = 'avatar-' . $userId . '.'. $this->image->guessExtension(); 
+        $this->filename = 'avatar-'.$userId.'.'.$this->image->guessExtension();
         $this->deleteImage($this->filename);
         try {
             $this->image->move($this->avatarDir, $this->filename);
         } catch (FileException  $th) {
             $this->errors[] = "Le fichier n'a pas pu être enregistré";
         }
+
         return $this;
     }
 
     /**
-     * Delete an image if it exists
-     * 
-     * @param string $filename
-     * 
-     * @return self
+     * Delete an image if it exists.
      */
     public function deleteImage(string $filename): self
     {
-        $file = $this->avatarDir . DIRECTORY_SEPARATOR . $filename;
-        if(file_exists($file)) {
+        $file = $this->avatarDir.DIRECTORY_SEPARATOR.$filename;
+        if (file_exists($file)) {
             unlink($file);
         }
+
         return $this;
     }
 
     /**
-     * Get the value of errors
-     *
-     * @return array
+     * Get the value of errors.
      */
     public function getErrors(): array
     {
@@ -80,10 +70,8 @@ class ImageManager
     }
 
     /**
-     * Get the value of filename
-     * 
-     * @return string|null
-     */ 
+     * Get the value of filename.
+     */
     public function getFilename(): ?string
     {
         return $this->filename;

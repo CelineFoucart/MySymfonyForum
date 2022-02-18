@@ -22,7 +22,7 @@
             </div>
             <div class="rounded-3 bg-light p-2 mt-3">
                 <h4 class="text-uppercase h6 border-bottom border-dark">Les derniers MP rapportés</h4>
-                <p class="mb-0">Aucun message</p>
+                {{ include('moderator/_post_report.html.twig', {reports:pmReports, type:'pm'}) }}
             </div>
         </article>
     </section>

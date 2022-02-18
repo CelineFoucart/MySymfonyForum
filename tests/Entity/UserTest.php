@@ -24,13 +24,13 @@ class UserTest extends TestCase
     public function testIsFalse(): void
     {
         $user = $this->setUser();
-        $this->assertFalse($user->getUsername() === 'false');
-        $this->assertFalse($user->getEmail() === 'false');
-        $this->assertFalse($user->getCreated()->format('d/m/Y') === 'false');
-        $this->assertFalse($user->getBirthday()->format('d/m/Y') === 'false');
-        $this->assertFalse($user->getRank() === 'false');
-        $this->assertFalse($user->getLocalisation() === 'false');
-        $this->assertFalse($user->getAvatar() === 'false');
+        $this->assertFalse('false' === $user->getUsername());
+        $this->assertFalse('false' === $user->getEmail());
+        $this->assertFalse('false' === $user->getCreated()->format('d/m/Y'));
+        $this->assertFalse('false' === $user->getBirthday()->format('d/m/Y'));
+        $this->assertFalse('false' === $user->getRank());
+        $this->assertFalse('false' === $user->getLocalisation());
+        $this->assertFalse('false' === $user->getAvatar());
     }
 
     public function testIsEmpty(): void
@@ -43,12 +43,12 @@ class UserTest extends TestCase
         $this->assertEmpty($user->getRank());
         $this->assertEmpty($user->getLocalisation());
         $this->assertEmpty($user->getAvatar());
-
     }
 
     private function setUser(): User
     {
         $data = $this->getData();
+
         return (new User())
             ->setUsername($data['pseudo'])
             ->setEmail($data['email'])
@@ -59,20 +59,19 @@ class UserTest extends TestCase
             ->setLocalisation($data['localisation'])
             ->setAvatar($data['avatar'])
         ;
-
     }
 
     private function getData(): array
     {
         return [
-            'pseudo' => "John",
-            'email' => "john@email.fr",
+            'pseudo' => 'John',
+            'email' => 'john@email.fr',
             'created' => new DateTime('2021-10-21'),
             'birthday' => new DateTime('1988-12-04'),
             'color' => '#000000',
-            'rank' => "Lorem ipsum",
-            'localisation' => "Creil",
-            'avatar' => "avatar.png"
+            'rank' => 'Lorem ipsum',
+            'localisation' => 'Creil',
+            'avatar' => 'avatar.png',
         ];
     }
 }

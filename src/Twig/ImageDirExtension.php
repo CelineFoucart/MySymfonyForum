@@ -3,7 +3,6 @@
 namespace App\Twig;
 
 use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 class ImageDirExtension extends AbstractExtension
@@ -20,11 +19,12 @@ class ImageDirExtension extends AbstractExtension
     public function getImageTag(?string $filename = null)
     {
         $path = self::AVATAR_DIR;
-        if($filename === null) {
+        if (null === $filename) {
             $path .= 'no_avatar.png';
         } else {
             $path .= $filename;
         }
+
         return '<img src="'.$path.'" alt="avatar de l\'utilisateur">';
     }
 }

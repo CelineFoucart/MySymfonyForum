@@ -84,6 +84,11 @@
                             {% if post.author.rank is not null %}
                                 <li>Rang : {{post.author.rank }} </li>
                             {% endif %}
+                            <li>Contact : 
+                                <a href="{{ path('inbox_create', {replyTo:post.author.username}) }}" class="fs-6">
+                                    <i class="bi bi-envelope"></i>
+                                </a>
+                            </li>
                         </ul>
                     {% else %}
                         <span class="fw-bold author">Anonyme</span>

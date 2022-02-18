@@ -22,7 +22,7 @@ class ReportRepository extends ServiceEntityRepository
     /**
      * @return Report[] Returns an array of Report objects
      */
-    public function findPostReports(string $type = "post"): array
+    public function findPostReports(string $type = 'post'): array
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.type = :type')
@@ -34,7 +34,7 @@ class ReportRepository extends ServiceEntityRepository
         ;
     }
 
-    public function findLastReports(string $type = "post"): array
+    public function findLastReports(string $type = 'post'): array
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.type = :type')
@@ -46,7 +46,7 @@ class ReportRepository extends ServiceEntityRepository
             ->getResult()
         ;
     }
-    
+
     public function findReportById(int $id): ?Report
     {
         return $this->createQueryBuilder('r')

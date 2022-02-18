@@ -16,20 +16,20 @@ class TopicType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => "Titre du sujet :"
+                'label' => 'Titre du sujet :',
             ])
             ->add('message', TextareaType::class, [
                 'mapped' => false,
-                'label' => "Votre message :",
+                'label' => 'Votre message :',
                 'attr' => [
-                    'style' => "height:200px"
+                    'style' => 'height:200px',
                 ],
                 'constraints' => [
                     new Length([
                         'min' => 10,
-                        'minMessage' => 'Votre message doit faire au moins {{ limit }} caractères'
+                        'minMessage' => 'Votre message doit faire au moins {{ limit }} caractères',
                     ]),
-                ]
+                ],
             ])
         ;
     }

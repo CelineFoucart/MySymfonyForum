@@ -18,7 +18,7 @@ class TopicMoveType extends AbstractType
                 'class' => Forum::class,
                 'choice_label' => 'title',
                 'multiple' => false,
-                'label' => 'Nouveau forum :'
+                'label' => 'Nouveau forum :',
             ])
         ;
     }

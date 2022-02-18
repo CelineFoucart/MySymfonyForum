@@ -20,29 +20,29 @@ class ProfileType extends AbstractType
                 'label' => 'Date de naissance',
                 'required' => false,
                 'format' => \IntlDateFormatter::LONG,
-                'choice_translation_domain' => True
+                'choice_translation_domain' => true,
             ])
             ->add('rank', TextType::class, [
-                'label' => "Rang",
-                "required" => false
+                'label' => 'Rang',
+                'required' => false,
             ])
             ->add('localisation', TextType::class, [
-                'label' => "Localisation",
-                "required" => false
+                'label' => 'Localisation',
+                'required' => false,
             ])
             ->add('avatar', FileType::class, [
-                'label' => "Avatar",
-                'help' => "Dimensions maximales : 150 pixels de large et 150 pixels de haut",
+                'label' => 'Avatar',
+                'help' => 'Dimensions maximales : 150 pixels de large et 150 pixels de haut',
                 'mapped' => false,
-                "required" => false,
+                'required' => false,
                 'constraints' => [
                     new Image([
                         'maxWidth' => 150,
                         'maxHeight' => 150,
-                        'maxWidthMessage' => "Cette image est trop large",
-                        'maxHeightMessage' => "Cette image est trop haute",
-                    ])
-                ]
+                        'maxWidthMessage' => 'Cette image est trop large',
+                        'maxHeightMessage' => 'Cette image est trop haute',
+                    ]),
+                ],
             ])
         ;
     }

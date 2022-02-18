@@ -2,7 +2,7 @@
 
 {% block title %} Faire un rapport | {{ website_name() }}{% endblock %}
 
-{% set label = 'Rapporter de message' %}
+{% set label = 'Rapporter un message' %}
 
 {% block breadcrumb %} 
     <li class="breadcrumb-item active" aria-current="page">{{label}}</li> 
@@ -23,14 +23,6 @@
             <p class="m-0">{{post.content | format_text }}</p>
         </div>
     </article>
-    <article class="rounded-3 bg-default my-2 p-2">
-        <h3 class="text-uppercase h6 border-bottom border-dark">Votre rapport</h3>
-        {{ form_start(form) }}
-           {{ form_rest(form) }}
-            <div class="text-center">
-                <button type="submit" class="btn btn-primary mt-2">Envoyer</button>
-            </div>
-        {{ form_end(form) }}
-    </article>
+  {{ include('user/_report_form.html.twig') }}
 </section>
 {% endblock %}

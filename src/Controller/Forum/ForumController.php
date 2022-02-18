@@ -16,18 +16,21 @@ class ForumController extends AbstractController
     private ForumRepository $forumRepository;
     private TopicRepository $topicRepository;
 
-    public function __construct(CategoryRepository $categoryRepository, ForumRepository $forumRepository, TopicRepository $topicRepository)
-    {
+    public function __construct(
+        CategoryRepository $categoryRepository,
+        ForumRepository $forumRepository,
+        TopicRepository $topicRepository
+    ) {
         $this->categoryRepository = $categoryRepository;
         $this->forumRepository = $forumRepository;
         $this->topicRepository = $topicRepository;
     }
 
-    #[Route('/category/{slug}-{id}', name: 'category', requirements:['slug' => '[a-z\-]*'])]
+    #[Route('/category/{slug}-{id}', name: 'category', requirements: ['slug' => '[a-z\-]*'])]
     public function category(int $id, string $slug): Response
     {
         $category = $this->categoryRepository->find($id);
-        if($category === null) {
+        if (null === $category) {
             throw $this->createNotFoundException('Cette catégorie n\'existe pas');
         } elseif ($category->getSlug() !== $slug) {
             return $this->redirectToRoute('category', ['id' => $category->getId(), 'slug' => $category->getSlug()]);
@@ -38,13 +41,13 @@ class ForumController extends AbstractController
         ]);
     }
 
-    #[Route('/forum/{slug}-{id}', name: 'forum', requirements:['slug' => '[a-z\-]*'])]
+    #[Route('/forum/{slug}-{id}', name: 'forum', requirements: ['slug' => '[a-z\-]*'])]
     public function forum(int $id, string $slug, Request $request): Response
     {
         $forum = $this->forumRepository->findOneById($id);
-        if($forum === null) {
+        if (null === $forum) {
             throw $this->createNotFoundException('Ce forum n\'existe pas');
-        } elseif($forum->getSlug() !== $slug) {
+        } elseif ($forum->getSlug() !== $slug) {
             return $this->redirectToRoute('forum', ['id' => $forum->getId(), 'slug' => $forum->getSlug()]);
         }
         $page = $request->query->getInt('page', 1);
@@ -52,7 +55,7 @@ class ForumController extends AbstractController
 
         return $this->render('forum/forum.html.twig', [
             'forum' => $forum,
-            'topics' => $topics
+            'topics' => $topics,
         ]);
     }
 }

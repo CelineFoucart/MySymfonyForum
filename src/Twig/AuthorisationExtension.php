@@ -4,10 +4,9 @@ namespace App\Twig;
 
 use App\Entity\Topic;
 use App\Entity\User;
-use Twig\Extension\AbstractExtension;
-use Twig\TwigFilter;
-use Twig\TwigFunction;
 use Symfony\Component\Security\Core\Security;
+use Twig\Extension\AbstractExtension;
+use Twig\TwigFunction;
 
 class AuthorisationExtension extends AbstractExtension
 {
@@ -17,6 +16,7 @@ class AuthorisationExtension extends AbstractExtension
     {
         $this->security = $security;
     }
+
     public function getFunctions(): array
     {
         return [
@@ -27,19 +27,17 @@ class AuthorisationExtension extends AbstractExtension
     }
 
     /**
-     * @param User|null $user
      * @param Topic|Post $topic
-     * 
-     * @return bool
      */
     public function canEdit(?User $user, $item): bool
     {
-        if($this->canModerate()) {
+        if ($this->canModerate()) {
             return true;
         }
-        if($item->getAuthor() === null || $user === null) {
+        if (null === $item->getAuthor() || null === $user) {
             return false;
         }
+
         return $item->getAuthor()->getId() === $user->getId();
     }
 
@@ -50,9 +48,10 @@ class AuthorisationExtension extends AbstractExtension
 
     public function isLocked(Topic $topic): bool
     {
-        if($this->canModerate()) {
+        if ($this->canModerate()) {
             return false;
         }
+
         return $topic->getLocked();
     }
 }

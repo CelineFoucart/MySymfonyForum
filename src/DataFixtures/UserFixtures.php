@@ -29,30 +29,32 @@ class UserFixtures extends Fixture
     private function getAdminUser(): User
     {
         $user = (new User())
-            ->setUsername("Ermina")
+            ->setUsername('Ermina')
             ->setEmail('celinefoucart@yahoo.fr')
             ->setCreated(new DateTime())
             ->setRank("grenouille de l'espace")
-            ->setLocalisation("dans un futur lointain")
+            ->setLocalisation('dans un futur lointain')
             ->setRoles(['ROLE_ADMIN', 'ROLE_USER'])
-            ->setColor("#FF9900")
+            ->setColor('#FF9900')
         ;
         $password = $this->hasher->hashPassword($user, 'ermina');
         $user->setPassword($password);
+
         return $user;
     }
 
     private function getSimpleUser(): User
     {
-        $user = (New User())
-            ->setUsername("Avalia")
-            ->setEmail("avalia@gmail.com")
+        $user = (new User())
+            ->setUsername('Avalia')
+            ->setEmail('avalia@gmail.com')
             ->setCreated(new DateTime())
             ->setRoles(['ROLE_USER'])
-            ->setColor("#669900")
+            ->setColor('#669900')
         ;
         $password = $this->hasher->hashPassword($user, 'avalia');
         $user->setPassword($password);
+
         return $user;
     }
 }

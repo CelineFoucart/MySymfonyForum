@@ -24,12 +24,12 @@ class TopicTest extends TestCase
     public function testIsFalse(): void
     {
         $topic = $this->getTopic($this->getData());
-        $this->assertFalse($topic->getTitle() === 'False');
-        $this->assertFalse($topic->getSlug() ===  'False');
-        $this->assertFalse($topic->getForum() ===  'False');
-        $this->assertFalse($topic->getCreated() ===  'False');
-        $this->assertFalse($topic->getAuthor() ===  'False');
-    } 
+        $this->assertFalse('False' === $topic->getTitle());
+        $this->assertFalse('False' === $topic->getSlug());
+        $this->assertFalse('False' === $topic->getForum());
+        $this->assertFalse('False' === $topic->getCreated());
+        $this->assertFalse('False' === $topic->getAuthor());
+    }
 
     public function testIsEmpty(): void
     {
@@ -40,15 +40,15 @@ class TopicTest extends TestCase
         $this->assertEmpty($topic->getAuthor());
         $this->assertEmpty($topic->getForum());
     }
-    
+
     private function getData(): array
     {
         return [
-            'title' => "Lorem",
-            'slug' => "lorem",
-            'author' => (new User())->setUsername("Ermina"),
-            'forum' => (new Forum())->setTitle("Forum")->setSlug("topic"),
-            "created" => new DateTime('2021-10-10')
+            'title' => 'Lorem',
+            'slug' => 'lorem',
+            'author' => (new User())->setUsername('Ermina'),
+            'forum' => (new Forum())->setTitle('Forum')->setSlug('topic'),
+            'created' => new DateTime('2021-10-10'),
         ];
     }
 

@@ -20,11 +20,11 @@ class ForumTest extends TestCase
     public function testIsFalse(): void
     {
         $forum = $this->getForum($this->getData());
-        $this->assertFalse($forum->getTitle() === 'False');
-        $this->assertFalse($forum->getSlug() ===  'False');
-        $this->assertFalse($forum->getDescription() ===  'False');
-        $this->assertFalse($forum->getOrderNumber() ===  'False');
-    } 
+        $this->assertFalse('False' === $forum->getTitle());
+        $this->assertFalse('False' === $forum->getSlug());
+        $this->assertFalse('False' === $forum->getDescription());
+        $this->assertFalse('False' === $forum->getOrderNumber());
+    }
 
     public function testIsEmpty(): void
     {
@@ -38,10 +38,10 @@ class ForumTest extends TestCase
     private function getData(): array
     {
         return [
-            'title' => "Lorem",
-            'slug' => "lorem",
-            'description' => "lorem ipsum sit amet",
-            'orderNumber' => 1
+            'title' => 'Lorem',
+            'slug' => 'lorem',
+            'description' => 'lorem ipsum sit amet',
+            'orderNumber' => 1,
         ];
     }
 

@@ -16,13 +16,13 @@ class TopicModeratedType extends AbstractType
     {
         $builder
             ->add('title', TextType::class, [
-                'label' => 'Modifier le titre :'
+                'label' => 'Modifier le titre :',
             ])
             ->add('author', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'username',
                 'multiple' => false,
-                'label' => 'Modifier l’auteur :'
+                'label' => 'Modifier l’auteur :',
             ])
         ;
     }

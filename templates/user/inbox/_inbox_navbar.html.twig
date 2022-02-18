@@ -1,16 +1,14 @@
 {% set home = path('inbox') %}
 {% set sent = path('inbox_sent') %}
 {% set create = path('inbox_create') %}
-<ul class="nav nav-tabs mx-1 mt-3">
-    <li class="nav-item">
-        <a class="nav-link {{ active_link(app.request.pathinfo, home) }}" aria-current="page" href="{{home}}">
-            Messages reçus
-        </a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ active_link(app.request.pathinfo, sent) }}" href="{{sent}}">Messages envoyés</a>
-    </li>
-    <li class="nav-item">
-        <a class="nav-link {{ active_link(app.request.pathinfo, create, false) }}" href="{{create}}">Nouveau message</a>
-    </li>
-</ul>
+<li class="nav-item">
+    <a class="nav-link {{ active_link(app.request.pathinfo, home) }}" aria-current="page" href="{{home}}">
+        Messages reçus
+    </a>
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ active_link(app.request.pathinfo, sent) }}" href="{{sent}}">Messages envoyés</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link {{ active_link(app.request.pathinfo, create, false) }}" href="{{create}}">Nouveau message</a>
+</li>

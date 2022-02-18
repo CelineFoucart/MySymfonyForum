@@ -30,8 +30,8 @@ class PostRepository extends ServiceEntityRepository
     public function findOneById(int $id): ?Post
     {
         return $this->createQueryBuilder('p')
-            ->leftJoin('p.author', 'u')->addSelect("u")
-            ->leftJoin('p.topic', 't')->addSelect("t")
+            ->leftJoin('p.author', 'u')->addSelect('u')
+            ->leftJoin('p.topic', 't')->addSelect('t')
             ->andWhere('p.id = :id')->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult()
@@ -39,47 +39,37 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return the paginated result of Post
-     * 
-     * @param int|null $topicId
-     * @param int $page
-     * 
-     * @return PaginationInterface
+     * Return the paginated result of Post.
      */
     public function findPaginated(?int $topicId = null, int $page): PaginationInterface
     {
         $builder = $this->createQueryBuilder('p')
             ->select('p')
-            ->leftJoin('p.author', 'u')->addSelect("u");
-        if($topicId !== null) {
+            ->leftJoin('p.author', 'u')->addSelect('u');
+        if (null !== $topicId) {
             $builder->leftJoin('p.topic', 't')->andWhere('t.id = :id')->setParameter('id', $topicId);
         }
         $builder->orderBy('p.id', 'ASC')->orderBy('p.created', 'ASC');
+
         return $this->getPaginatedQuery($builder, $page);
     }
-    
+
     /**
-     * Return the result of a search by user id of keywords
-     *  
-     * @param int|null $userId
-     * @param string|null $keywords
-     * @param int $page
-     * 
-     * @return PaginationInterface
+     * Return the result of a search by user id of keywords.
      */
     public function search(?int $userId = null, ?string $keywords = null, int $page = 15): PaginationInterface
     {
         $builder = $this->createQueryBuilder('p')
-            ->leftJoin('p.author', 'u')->addSelect("u")
+            ->leftJoin('p.author', 'u')->addSelect('u')
             ->leftJoin('p.topic', 't')->addSelect('t')
         ;
-        if($userId !== null && $userId > 0) {
+        if (null !== $userId && $userId > 0) {
             $builder->andWhere('u.id = :id')->setParameter('id', $userId);
         }
-        if($keywords !== null) {
+        if (null !== $keywords) {
             $builder
                 ->andWhere($builder->expr()->like('p.content', ':keywords'))
-                ->setParameter('keywords', '%'. $keywords.'%');  
+                ->setParameter('keywords', '%'.$keywords.'%');
         }
         $builder->orderBy('p.created', 'DESC');
 
@@ -87,20 +77,16 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * Paginate a query
-     * 
-     * @param QueryBuilder $builder
-     * @param int $page
-     * 
-     * @return PaginationInterface
+     * Paginate a query.
      */
-    private function getPaginatedQuery(QueryBuilder $builder,int $page): PaginationInterface
+    private function getPaginatedQuery(QueryBuilder $builder, int $page): PaginationInterface
     {
         $items = $this->paginator->paginate(
             $builder->getQuery(),
             $page,
             self::LIMIT
         );
+
         return $items;
     }
 }

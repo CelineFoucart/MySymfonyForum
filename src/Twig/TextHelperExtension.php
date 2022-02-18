@@ -13,7 +13,7 @@ class TextHelperExtension extends AbstractExtension
     {
         return [
             new TwigFilter('excerpt', [$this, 'excerpt'], ['is_safe' => ['html']]),
-            new TwigFilter('format_text', [$this, 'formatText'], ['is_safe' => ['html']])
+            new TwigFilter('format_text', [$this, 'formatText'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -24,7 +24,8 @@ class TextHelperExtension extends AbstractExtension
         }
         $excerpt = mb_substr($text, 0, self::MAX_LENGTH);
         $last = mb_strripos($excerpt, ' ');
-        return mb_substr($excerpt, 0, $last) . '[...]';
+
+        return mb_substr($excerpt, 0, $last).'[...]';
     }
 
     public function formatText(string $text): string

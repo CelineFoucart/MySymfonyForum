@@ -29,17 +29,20 @@
             <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ report.id) }}">
             <button class="btn btn-danger" id="submit">Supprimer le rapport</button>
         </form>
-        <div class="rounded-3 bg-light mx-3 mt-2 p-2">
-            <h4 class="h5">
-                <a href="{{ path('topic', {id:report.post.topic.id, slug:report.post.topic.slug}) }}#post{{report.post.id}}">
-                    {{report.post.title}}
-                </a>
-            </h4>
-            {{ include('post/_post_info.html.twig', {post:report.post}) }}
-            <p class="m-0">{{report.post.content | format_text }}</p>
-
+            {% if type == 'post' %}
+                <div class="rounded-3 bg-light mx-3 mt-2 p-2">
+                    <h4 class="h5">
+                        <a href="{{ path('topic', {id:report.post.topic.id, slug:report.post.topic.slug}) }}#post{{report.post.id}}">
+                            {{report.post.title}}
+                        </a>
+                    </h4>
+                </div>
+                {{ include('post/_post_info.html.twig', {post:report.post}) }}
+                <p class="m-0">{{report.post.content | format_text }}</p>
+            {% else %}
+                {{ include('user/inbox/_message.html.twig', {privateMessage: report.privateMessage}) }}
+            {% endif %}
         </div>
-        
     </article>
 </section>
 {% endblock %}

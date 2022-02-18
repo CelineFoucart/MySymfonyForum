@@ -13,29 +13,29 @@ class AppFixtures extends Fixture
     {
         $forums = [
             'presentation' => (new Forum())
-                ->setTitle("Présentation")
-                ->setDescription("Venez vous présenter")
-                ->setSlug("presentation")
+                ->setTitle('Présentation')
+                ->setDescription('Venez vous présenter')
+                ->setSlug('presentation')
                 ->setOrderNumber(1),
             'talks' => (new Forum())
-                ->setTitle("Causeries")
+                ->setTitle('Causeries')
                 ->setDescription("Où l'on discute de tout et de rien")
-                ->setSlug("causeries")
+                ->setSlug('causeries')
                 ->setOrderNumber(1),
             'moderation' => (new Forum())
-                ->setTitle("Modération du forum")
-                ->setDescription("Où les modérateurs discutent")
-                ->setSlug("moderation")
-                ->setOrderNumber(1)
+                ->setTitle('Modération du forum')
+                ->setDescription('Où les modérateurs discutent')
+                ->setSlug('moderation')
+                ->setOrderNumber(1),
         ];
         foreach ($forums as $value) {
             $manager->persist($value);
         }
 
         $categories = [
-            ["Accueil", "Où l'on accueille les nouveaux membres.", "accueil", 1, $forums['presentation']],
-            ["Discussions diverses", "Où l'on parle de tout et de rien", "discussions-diverses", 2, $forums['talks']],
-            ["Espace de la modération", null, "espace-de-la-moderation", 3, $forums['moderation']]
+            ['Accueil', "Où l'on accueille les nouveaux membres.", 'accueil', 1, $forums['presentation']],
+            ['Discussions diverses', "Où l'on parle de tout et de rien", 'discussions-diverses', 2, $forums['talks']],
+            ['Espace de la modération', null, 'espace-de-la-moderation', 3, $forums['moderation']],
         ];
         foreach ($categories as $data) {
             $category = (new Category())

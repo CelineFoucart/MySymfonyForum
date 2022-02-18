@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/mcp')]
 class ModeratorController extends AbstractController
 {
-
     private ReportRepository $reportRepository;
 
     public function __construct(ReportRepository $reportRepository)
@@ -24,40 +23,43 @@ class ModeratorController extends AbstractController
     public function index(): Response
     {
         $postReports = $this->reportRepository->findLastReports('post');
+        $pmReports = $this->reportRepository->findLastReports('pm');
+
         return $this->render('moderator/index.html.twig', [
             'postReports' => $postReports,
+            'pmReports' => $pmReports,
         ]);
     }
 
-    #[Route('/report/{type}', name: 'mcp_report', requirements:['type' => 'post|mp'])]
+    #[Route('/report/{type}', name: 'mcp_report', requirements: ['type' => 'post|pm'])]
     public function report(string $type): Response
     {
         $reports = $this->reportRepository->findPostReports($type);
 
         return $this->render('moderator/report.html.twig', [
             'type' => $type,
-            'reports' => $reports
+            'reports' => $reports,
         ]);
     }
 
-    #[Route('/report/{type}/{id}', name: 'mcp_report_show', requirements:['type' => 'post|mp'])]
+    #[Route('/report/{type}/{id}', name: 'mcp_report_show', requirements: ['type' => 'post|pm'])]
     public function showReport(int $id, string $type, Request $request, EntityManagerInterface $em): Response
     {
         $report = $this->reportRepository->findReportById($id);
-        if($report === null) {
+        if (null === $report) {
             throw $this->createNotFoundException("Ce rapport n'existe pas");
         }
-        if($request->isMethod('POST') && $this->isCsrfTokenValid('delete'.$report->getId(), $request->request->get('_token'))) {
+        if ($request->isMethod('POST') && $this->isCsrfTokenValid('delete'.$report->getId(), $request->request->get('_token'))) {
             $em->remove($report);
             $em->flush();
-            $this->addFlash('success', "Le rapport a bien été supprimé.");
-            return $this->redirectToRoute('mcp_report', ['type'=>$type]);
+            $this->addFlash('success', 'Le rapport a bien été supprimé.');
+
+            return $this->redirectToRoute('mcp_report', ['type' => $type]);
         }
 
         return $this->render('moderator/report_show.html.twig', [
             'report' => $report,
-            'type' => $type
+            'type' => $type,
         ]);
     }
-    
 }

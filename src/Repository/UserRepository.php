@@ -35,16 +35,14 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
         $this->_em->persist($user);
         $this->_em->flush();
     }
-
-    /*
-    public function findOneBySomeField($value): ?User
+    
+    public function findByPseudo(string $pseudo): ?User
     {
         return $this->createQueryBuilder('u')
-            ->andWhere('u.exampleField = :val')
-            ->setParameter('val', $value)
+            ->andWhere('u.username = :pseudo')
+            ->setParameter('pseudo', $pseudo)
             ->getQuery()
             ->getOneOrNullResult()
         ;
     }
-    */
 }

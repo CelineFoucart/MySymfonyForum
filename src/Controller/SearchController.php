@@ -28,15 +28,16 @@ class SearchController extends AbstractController
         $search = new Search();
         $form = $this->createForm(SearchType::class, $search, ['method' => 'GET']);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $query = [
                 'type' => $search->getType(),
-                'keywords' => $search->getKeywords()
+                'keywords' => $search->getKeywords(),
             ];
             $user = $search->getUser();
-            if($user !== null) {
+            if (null !== $user) {
                 $query['user'] = $search->getUser()->getId();
-            }            
+            }
+
             return $this->redirect($this->generateUrl('search_result', $query));
         }
 
@@ -49,14 +50,14 @@ class SearchController extends AbstractController
     public function results(Request $request): Response
     {
         $type = $request->query->get('type', 'post');
-        $userId = (int)$request->query->get('user');
+        $userId = (int) $request->query->get('user');
         $keywords = $request->query->get('keywords');
         $page = $request->query->getInt('page', 1);
 
-        if(!in_array($type, ['post', 'topic'])) {
+        if (!in_array($type, ['post', 'topic'])) {
             $results = [];
         } else {
-            if($type === 'topic') {
+            if ('topic' === $type) {
                 $results = $this->topicRepository->search($userId, $keywords, $page);
             } else {
                 $results = $this->postRepository->search($userId, $keywords, $page);
@@ -65,7 +66,7 @@ class SearchController extends AbstractController
 
         return $this->render('search/results.html.twig', [
             'results' => $results,
-            'type' => $type
+            'type' => $type,
         ]);
     }
 }

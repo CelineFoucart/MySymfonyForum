@@ -9,7 +9,14 @@
 {% block body %}
     <section>
         <h2 class="h3">Messagerie privée</h2>
-       {{ include('user/inbox/_inbox_navbar.html.twig') }}
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success my-1">
+                {{ message }}
+            </div>
+        {% endfor %}
+        <ul class="nav nav-tabs mx-1 mt-3">
+            {{ include('user/inbox/_inbox_navbar.html.twig') }}
+        </ul>
         <article class="rounded-3 bg-default mb-3 p-2">
             <h3 class="h4 mb-3">{{label|default("Messages reçus")}}</h3>
             {{ include('user/inbox/_inbox_list.html.twig') }}

@@ -14,10 +14,10 @@ class ReportType extends AbstractType
     {
         $builder
             ->add('message', TextareaType::class, [
-                'label' => "Message du rapport : ",
+                'label' => 'Message du rapport : ',
                 'attr' => [
-                    'style' => "height:200px"
-                ]
+                    'style' => 'height:200px',
+                ],
             ])
         ;
     }

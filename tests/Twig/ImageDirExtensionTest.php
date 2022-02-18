@@ -13,7 +13,7 @@ class ImageDirExtensionTest extends TestCase
     {
         $this->imageDir = new ImageDirExtension();
     }
-    
+
     public function testWithNoFile(): void
     {
         $img = $this->imageDir->getImageTag();

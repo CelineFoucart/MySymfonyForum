@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Faire un rapport | {{ website_name() }}{% endblock %}
+
+{% set label = 'Rapporter un message privé' %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item active" aria-current="page">{{label}}</li> 
+{% endblock %}
+
+{% block body %}
+    <section>
+    <h2 class="pb-3">{{label}}</h2>
+    <article class="rounded-3 bg-default my-2 p-2">
+        <h3 class="text-uppercase h6 border-bottom border-dark">Le message privé</h3>
+        {{ include('user/inbox/_message.html.twig') }}
+    </article>
+  {{ include('user/_report_form.html.twig') }}
+</section>
+{% endblock %}

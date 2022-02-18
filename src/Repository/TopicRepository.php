@@ -28,58 +28,43 @@ class TopicRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return the paginated result of Topic
-     * 
-     * @param int|null $forumId
-     * @param int $page
-     * 
-     * @return PaginationInterface
+     * Return the paginated result of Topic.
      */
-    public function findPaginated(?int $forumId = null, int $page) : PaginationInterface
+    public function findPaginated(?int $forumId = null, int $page): PaginationInterface
     {
-        $builder = $this->createQueryBuilder('t')->leftJoin('t.author', 'u')->addSelect("u");
-        if($forumId !== null) {
+        $builder = $this->createQueryBuilder('t')->leftJoin('t.author', 'u')->addSelect('u');
+        if (null !== $forumId) {
             $builder->leftJoin('t.forum', 'f')->andWhere('f.id = :id')->setParameter('id', $forumId);
         }
         $builder->orderBy('t.id', 'ASC')->orderBy('t.created', 'DESC');
+
         return $this->getPaginatedQuery($builder, $page);
     }
-    
+
     /**
-     * Return the result of a search by user id of keywords
-     * 
-     * @param int|null $userId
-     * @param string|null $keywords
-     * @param int $page
-     * 
-     * @return PaginationInterface
+     * Return the result of a search by user id of keywords.
      */
     public function search(?int $userId = null, ?string $keywords = null, int $page): PaginationInterface
     {
-        $builder = $this->createQueryBuilder('t')->leftJoin('t.author', 'u')->addSelect("u");
-        if($userId !== null && $userId > 0) {
+        $builder = $this->createQueryBuilder('t')->leftJoin('t.author', 'u')->addSelect('u');
+        if (null !== $userId && $userId > 0) {
             $builder->andWhere('u.id = :id')->setParameter('id', $userId);
         }
-        if($keywords !== null) {
+        if (null !== $keywords) {
             $builder
                 ->andWhere($builder->expr()->like('t.title', ':keywords'))
-                ->setParameter('keywords', '%'. $keywords.'%');  
+                ->setParameter('keywords', '%'.$keywords.'%');
         }
         $builder->orderBy('t.id', 'ASC')->orderBy('t.created', 'ASC');
 
         return $this->getPaginatedQuery($builder, $page);
     }
 
-    /**
-     * @param int $id
-     * 
-     * @return Topic|null
-     */
     public function findOneById(int $id): ?Topic
     {
         return $this->createQueryBuilder('t')
-            ->leftJoin('t.author', 'u')->addSelect("u")
-            ->leftJoin('t.forum', 'f')->addSelect("f")
+            ->leftJoin('t.author', 'u')->addSelect('u')
+            ->leftJoin('t.forum', 'f')->addSelect('f')
             ->where('t.id = :id')
             ->setParameter('id', $id)
             ->getQuery()
@@ -88,20 +73,16 @@ class TopicRepository extends ServiceEntityRepository
     }
 
     /**
-     * Paginate a query
-     * 
-     * @param QueryBuilder $builder
-     * @param int $page
-     * 
-     * @return PaginationInterface
+     * Paginate a query.
      */
-    private function getPaginatedQuery(QueryBuilder $builder,int $page): PaginationInterface
+    private function getPaginatedQuery(QueryBuilder $builder, int $page): PaginationInterface
     {
         $items = $this->paginator->paginate(
             $builder->getQuery(),
             $page,
             self::LIMIT
         );
+
         return $items;
     }
 }

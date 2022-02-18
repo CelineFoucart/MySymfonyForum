@@ -13,20 +13,20 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/mcp/topic')]
 class ModeratorTopicController extends AbstractController
 {
-
     #[Route('/{id}/delete', name: 'topic_delete')]
     public function delete(Topic $topic, Request $request, EntityManagerInterface $em): Response
     {
         $forum = $topic->getForum();
-        if($request->isMethod('POST') && $this->isCsrfTokenValid('delete'.$topic->getId(), $request->request->get('_token'))) {
+        if ($request->isMethod('POST') && $this->isCsrfTokenValid('delete'.$topic->getId(), $request->request->get('_token'))) {
             $em->remove($topic);
-            $this->addFlash('success', "Le sujet a bien été supprimé.");
+            $this->addFlash('success', 'Le sujet a bien été supprimé.');
             $em->flush();
-            return $this->redirectToRoute('forum', ['id'=> $forum->getId(), 'slug' => $forum->getSlug()]);
+
+            return $this->redirectToRoute('forum', ['id' => $forum->getId(), 'slug' => $forum->getSlug()]);
         }
 
         return $this->render('moderator/topic/delete.html.twig', [
-            'topic' => $topic
+            'topic' => $topic,
         ]);
     }
 
@@ -35,13 +35,15 @@ class ModeratorTopicController extends AbstractController
     {
         $form = $this->createForm(TopicMoveType::class, $topic);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $em->flush();
-            return $this->redirectToRoute('topic', ['id' => $topic->getId(), 'slug'=>$topic->getSlug()]);
+
+            return $this->redirectToRoute('topic', ['id' => $topic->getId(), 'slug' => $topic->getSlug()]);
         }
+
         return $this->render('moderator/topic/move.html.twig', [
             'topic' => $topic,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -50,11 +52,11 @@ class ModeratorTopicController extends AbstractController
     {
         if ($request->isMethod('POST') && $this->isCsrfTokenValid('lock'.$topic->getId(), $request->request->get('_token'))) {
             $topic->setLocked(!$topic->getLocked());
-            $em->flush();  
+            $em->flush();
         }
 
         return $this->render('moderator/topic/lock.html.twig', [
-            'topic' => $topic
+            'topic' => $topic,
         ]);
     }
 }

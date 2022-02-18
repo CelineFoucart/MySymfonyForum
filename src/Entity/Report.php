@@ -31,6 +31,9 @@ class Report
     #[ORM\Column(type: 'string', length: 4, options:['defaults' => 'post'])]
     private $type;
 
+    #[ORM\ManyToOne(targetEntity: PrivateMessage::class, inversedBy: 'reports')]
+    private $privateMessage;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -80,6 +83,18 @@ class Report
     public function setType(string $type): self
     {
         $this->type = $type;
+
+        return $this;
+    }
+
+    public function getPrivateMessage(): ?PrivateMessage
+    {
+        return $this->privateMessage;
+    }
+
+    public function setPrivateMessage(?PrivateMessage $privateMessage): self
+    {
+        $this->privateMessage = $privateMessage;
 
         return $this;
     }

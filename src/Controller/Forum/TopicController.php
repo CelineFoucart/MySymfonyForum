@@ -12,11 +12,11 @@ use App\Repository\PostRepository;
 use App\Repository\TopicRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 class TopicController extends AbstractController
@@ -30,7 +30,7 @@ class TopicController extends AbstractController
         $this->postRepository = $postRepository;
     }
 
-    #[Route('/topic/{slug}-{id}', name: 'topic', requirements:['slug' => '[a-z\-]*'])]
+    #[Route('/topic/{slug}-{id}', name: 'topic', requirements: ['slug' => '[a-z\-]*'])]
     public function index(int $id, string $slug, Request $request): Response
     {
         $topic = $this->getTopic($id);
@@ -44,7 +44,7 @@ class TopicController extends AbstractController
         return $this->render('topic/topic.html.twig', [
             'topic' => $topic,
             'posts' => $posts,
-            'replyPath' => $replyPath
+            'replyPath' => $replyPath,
         ]);
     }
 
@@ -53,21 +53,23 @@ class TopicController extends AbstractController
     public function reply(int $id, Request $request, EntityManagerInterface $em): Response
     {
         $topic = $this->getTopic($id);
-        $this->denyAccessUnlessGranted('reply', $topic, "Vous ne pouvez pas répondre à ce sujet.");
+        $this->denyAccessUnlessGranted('reply', $topic, 'Vous ne pouvez pas répondre à ce sujet.');
         $post = $this->getPostForReply($request, $topic);
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $post->setAuthor($this->getUser())->setTopic($topic)->setCreated(new DateTime());
             $em->persist($post);
             $em->flush();
             $url = $this->generateUrl('topic', ['id' => $topic->getId(), 'slug' => $topic->getSlug()]);
-            $url .= '#post' . $post->getId();
-            return  $this->redirect($url);
+            $url .= '#post'.$post->getId();
+
+            return $this->redirect($url);
         }
+
         return $this->render('topic/reply.html.twig', [
             'topic' => $topic,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -76,29 +78,29 @@ class TopicController extends AbstractController
     public function add(Forum $forum, Request $request, SluggerInterface $slugger, EntityManagerInterface $em): Response
     {
         $topic = new Topic();
-        $form = $this-> createForm(TopicType::class, $topic);
+        $form = $this->createForm(TopicType::class, $topic);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $slug = $slugger->slug(strtolower($topic->getTitle()));
             $topic->setAuthor($this->getUser())->setCreated(new DateTime())->setSlug($slug)->setForum($forum);
             $em->persist($topic);
 
             $post = (new Post())
-                ->setTitle('Re: ' . $topic->getTitle())
+                ->setTitle('Re: '.$topic->getTitle())
                 ->setAuthor($this->getUser())
                 ->setCreated(new DateTime())
                 ->setTopic($topic)
                 ->setContent($form->get('message')->getData());
-            
+
             $em->persist($post);
             $em->flush();
-            
-            return $this->redirectToRoute('topic', ['id'=>$topic->getId(), 'slug' => $topic->getSlug()]);
+
+            return $this->redirectToRoute('topic', ['id' => $topic->getId(), 'slug' => $topic->getSlug()]);
         }
 
         return $this->render('topic/new.html.twig', [
             'forum' => $forum,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 
@@ -107,41 +109,44 @@ class TopicController extends AbstractController
     public function edit(int $id, Request $request, SluggerInterface $slugger, EntityManagerInterface $em): Response
     {
         $topic = $this->getTopic($id);
-        $this->denyAccessUnlessGranted('edit', $topic, "Vous ne pouvez pas éditer ce sujet.");
+        $this->denyAccessUnlessGranted('edit', $topic, 'Vous ne pouvez pas éditer ce sujet.');
         $form = $this->createForm(TopicEditType::class, $topic);
         $form->handleRequest($request);
-        if($form->isSubmitted() && $form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $slug = $slugger->slug(strtolower($topic->getTitle()));
             $topic->setSlug($slug);
             $em->flush();
-            return $this->redirectToRoute('topic', ['id'=>$topic->getId(), 'slug' => $topic->getSlug()]);
+
+            return $this->redirectToRoute('topic', ['id' => $topic->getId(), 'slug' => $topic->getSlug()]);
         }
 
         return $this->render('topic/edit.html.twig', [
             'topic' => $topic,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
-    
+
     private function getPostForReply(Request $request, Topic $topic): Post
     {
         $quote = $request->query->getInt('quote');
         $post = $this->postRepository->findOneById($quote);
-        if($post !== null) {
-            $author = ($post->getAuthor() !== null) ? $post->getAuthor()->getUsername() : "Anonyme";
+        if (null !== $post) {
+            $author = (null !== $post->getAuthor()) ? $post->getAuthor()->getUsername() : 'Anonyme';
             $content = "[quote={$author}]{$post->getContent()}[/quote]";
         } else {
             $content = '';
         }
+
         return (new Post())->setTitle("Re: {$topic->getTitle()}")->setContent($content);
     }
 
     private function getTopic(int $id): Topic
     {
         $topic = $this->topicRepository->findOneById($id);
-        if($topic === null) {
+        if (null === $topic) {
             throw $this->createNotFoundException("Ce topic n'existe pas !");
         }
+
         return $topic;
     }
 }

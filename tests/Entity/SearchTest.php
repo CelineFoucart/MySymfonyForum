@@ -20,10 +20,10 @@ class SearchTest extends TestCase
     public function testIsFalse(): void
     {
         $search = $this->getSearch($this->getData());
-        $this->assertFalse($search->getType() === 'False');
-        $this->assertFalse($search->getKeywords() ===  'False');
-        $this->assertFalse($search->getUser() ===  'False');
-    } 
+        $this->assertFalse('False' === $search->getType());
+        $this->assertFalse('False' === $search->getKeywords());
+        $this->assertFalse('False' === $search->getUser());
+    }
 
     public function testIsEmpty(): void
     {
@@ -41,13 +41,13 @@ class SearchTest extends TestCase
             ->setKeywords($data['keywords'])
         ;
     }
-    
+
     private function getData(): array
     {
         return [
-            'type' => "topic",
-            'user' => (new User())->setUsername("Ermina"),
-            'keywords' => "lorem ipsum"
+            'type' => 'topic',
+            'user' => (new User())->setUsername('Ermina'),
+            'keywords' => 'lorem ipsum',
         ];
     }
 }

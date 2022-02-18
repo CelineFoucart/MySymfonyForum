@@ -18,7 +18,7 @@ class PostModeratedType extends AbstractType
                 'class' => User::class,
                 'choice_label' => 'username',
                 'multiple' => false,
-                'label' => 'Modifier l’auteur :'
+                'label' => 'Modifier l’auteur :',
             ])
         ;
     }

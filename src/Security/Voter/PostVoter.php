@@ -32,7 +32,6 @@ class PostVoter extends Voter
         if ($this->voterAction->canModerate()) {
             return true;
         }
-        /** @var Post */
         $post = $subject;
         switch ($attribute) {
             case VoterAction::EDIT:

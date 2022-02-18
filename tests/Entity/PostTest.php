@@ -24,12 +24,12 @@ class PostTest extends TestCase
     public function testIsFalse(): void
     {
         $post = $this->getPost($this->getData());
-        $this->assertFalse($post->getTitle() === 'False');
-        $this->assertFalse($post->getContent() ===  'False');
-        $this->assertFalse($post->getTopic() ===  'False');
-        $this->assertFalse($post->getCreated() ===  'False');
-        $this->assertFalse($post->getAuthor() ===  'False');
-    } 
+        $this->assertFalse('False' === $post->getTitle());
+        $this->assertFalse('False' === $post->getContent());
+        $this->assertFalse('False' === $post->getTopic());
+        $this->assertFalse('False' === $post->getCreated());
+        $this->assertFalse('False' === $post->getAuthor());
+    }
 
     public function testIsEmpty(): void
     {
@@ -40,15 +40,15 @@ class PostTest extends TestCase
         $this->assertEmpty($post->getAuthor());
         $this->assertEmpty($post->getTopic());
     }
-    
+
     private function getData(): array
     {
         return [
-            'title' => "Lorem",
-            'author' => (new User())->setUsername("Ermina"),
-            'topic' => (new Topic())->setTitle("Topic")->setSlug("topic"),
-            "created" => new DateTime('2021-10-10'),
-            'content' => "lorem ipsum sit amet"
+            'title' => 'Lorem',
+            'author' => (new User())->setUsername('Ermina'),
+            'topic' => (new Topic())->setTitle('Topic')->setSlug('topic'),
+            'created' => new DateTime('2021-10-10'),
+            'content' => 'lorem ipsum sit amet',
         ];
     }
 

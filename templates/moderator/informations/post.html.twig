@@ -25,7 +25,7 @@
                     <a href="{{ path('topic', {id:post.topic.id, slug:post.topic.slug}) }}#post{{post.id}}">{{ post.title }}</a>
                 </h3>
                 {{ include('post/_post_info.html.twig') }}
-                <p>{{post.content | nl2br }}</p>
+                <p>{{post.content | format_text }}</p>
             </div>
             <div class="bg-light rounded-3 mx-3 my-2 p-2 border">
                 <h3 class="text-uppercase h6 border-bottom border-dark">Option de modération</h3>

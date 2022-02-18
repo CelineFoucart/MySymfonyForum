@@ -12,7 +12,7 @@ class TopicVoter extends Voter
 {
     private VoterAction $voterAction;
 
-    const REPLY = 'reply';
+    public const REPLY = 'reply';
 
     public function __construct(VoterAction $voterAction)
     {
@@ -51,11 +51,11 @@ class TopicVoter extends Voter
 
     protected function canEditTopic(Topic $subject, User $user): bool
     {
-        return $this->voterAction->canEdit($subject, $user) && $subject->getLocked() !== true;
+        return $this->voterAction->canEdit($subject, $user) && true !== $subject->getLocked();
     }
 
     protected function canReply(Topic $subject): bool
     {
-        return $this->voterAction->canModerate() || $subject->getLocked() !== true;
+        return $this->voterAction->canModerate() || true !== $subject->getLocked();
     }
 }
