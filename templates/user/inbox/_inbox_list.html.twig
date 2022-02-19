@@ -20,14 +20,14 @@
                     </td>
                     <td>
                         <div class="border-end border-secondary">
-                            <a href="{{path('profile', {id:privateMessage.author.id})}}" class="fw-bold author" style="color:{{ privateMessage.author.color }}">
+                            <a href="{{path('profile', {id:privateMessage.author.id})}}" class="fw-bold author" style="color:{{ privateMessage.author.defaultRole.color }}">
                                 {{ privateMessage.author.username }}
                             </a>
                         </div>
                     </td>
                     <td>
                         <div class="border-end border-secondary">
-                            <a href="{{path('profile', {id:privateMessage.addressee.id})}}" class="fw-bold author" style="color:{{ privateMessage.addressee.color }}">
+                            <a href="{{path('profile', {id:privateMessage.addressee.id})}}" class="fw-bold author" style="color:{{ privateMessage.addressee.defaultRole.color }}">
                                 {{ privateMessage.addressee.username }}
                             </a>
                         </div>

@@ -19,7 +19,7 @@
             <h4 class="text-uppercase h6 border-bottom border-dark">Information sur le rapport</h4>
             <p>
                 Rapporté par 
-                <a href="{{path('profile', {id:report.author.id})}}" style="color:{{report.author.color}}" class="fw-bold author">
+                <a href="{{path('profile', {id:report.author.id})}}" style="color:{{report.author.defaultRole.color}}" class="fw-bold author">
                     {{report.author.username}}
                 </a>
             </p>

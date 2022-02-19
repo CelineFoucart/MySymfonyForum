@@ -52,9 +52,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 255, nullable: true)]
     private $avatar;
 
-    #[ORM\Column(type: 'string', length: 10)]
-    private $color;
-
     #[ORM\OneToMany(mappedBy: 'author', targetEntity: Topic::class)]
     private $topics;
 
@@ -69,6 +66,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     #[ORM\OneToMany(mappedBy: 'addressee', targetEntity: PrivateMessage::class, orphanRemoval: true)]
     private $receivedPrivateMessages;
+
+    #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'users')]
+    private $defaultRole;
 
     public function __construct()
     {
@@ -221,18 +221,6 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getColor(): ?string
-    {
-        return $this->color;
-    }
-
-    public function setColor(string $color): self
-    {
-        $this->color = $color;
-
-        return $this;
-    }
-
     /**
      * @return Collection|Topic[]
      */
@@ -379,6 +367,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
                 $receivedPrivateMessage->setAddressee(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getDefaultRole(): ?Role
+    {
+        return $this->defaultRole;
+    }
+
+    public function setDefaultRole(?Role $defaultRole): self
+    {
+        $this->defaultRole = $defaultRole;
 
         return $this;
     }

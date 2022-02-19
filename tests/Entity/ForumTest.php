@@ -2,7 +2,10 @@
 
 namespace App\Tests\Entity;
 
+use App\Entity\Category;
 use App\Entity\Forum;
+use App\Entity\Topic;
+use COM;
 use PHPUnit\Framework\TestCase;
 
 class ForumTest extends TestCase
@@ -33,6 +36,31 @@ class ForumTest extends TestCase
         $this->assertEmpty($forum->getSlug());
         $this->assertEmpty($forum->getDescription());
         $this->assertEmpty($forum->getOrderNumber());
+    }
+
+    public function testSetCategory(): void
+    {
+        $category = (new Category())->setTitle("Lorem")->setSlug("lorem");
+        $forum = $this->getForum($this->getData());
+        $forum->setCategory($category);
+        $this->assertTrue($category === $forum->getCategory());
+    }
+
+    public function testAddTopic(): void
+    {
+        $forum = $this->getForum($this->getData());
+        $topic = (new Topic())->setTitle("Topic 1")->setSlug("topic-1");
+        $forum->addTopic($topic);
+        $this->assertTrue($topic === $forum->getTopics()[0]);
+    }
+
+    public function testRmoveTopic(): void
+    {
+        $forum = $this->getForum($this->getData());
+        $topic = (new Topic())->setTitle("Topic 1")->setSlug("topic-1");
+        $forum->addTopic($topic);
+        $forum->removeTopic($topic);
+        $this->assertTrue($forum->getTopics()->isEmpty());
     }
 
     private function getData(): array

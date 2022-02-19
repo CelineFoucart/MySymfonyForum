@@ -3,6 +3,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Forum;
+use App\Entity\Post;
 use App\Entity\Topic;
 use App\Entity\User;
 use DateTime;
@@ -39,6 +40,23 @@ class TopicTest extends TestCase
         $this->assertEmpty($topic->getCreated());
         $this->assertEmpty($topic->getAuthor());
         $this->assertEmpty($topic->getForum());
+    }
+
+    public function testAddPost(): void
+    {
+        $topic = $this->getTopic($this->getData());
+        $post = (new Post())->setContent("Demo");
+        $topic->addPost($post);
+        $this->assertTrue($post === $topic->getPosts()[0]);
+    }
+
+    public function testRmovePost(): void
+    {
+        $topic = $this->getTopic($this->getData());
+        $post = (new Post())->setContent("Demo");
+        $topic->addPost($post);
+        $topic->removePost($post);
+        $this->assertTrue($topic->getPosts()->isEmpty());
     }
 
     private function getData(): array

@@ -3,7 +3,10 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Category;
+use App\Entity\Forum;
 use PHPUnit\Framework\TestCase;
+
+use function PHPUnit\Framework\assertTrue;
 
 class CategoryTest extends TestCase
 {
@@ -33,6 +36,29 @@ class CategoryTest extends TestCase
         $this->assertEmpty($category->getSlug());
         $this->assertEmpty($category->getDescription());
         $this->assertEmpty($category->getOrderNumber());
+    }
+
+    public function testAddForum(): void
+    {
+        $forum = (new Forum())->setTitle("Lorem")->setSlug("lorem");
+        $category = $this->getCategory($this->getData());
+        $category->addForum($forum);
+        $this->assertTrue($forum === $category->getForums()[0]);
+    }
+
+    public function testRemoveForum(): void
+    {
+        $forum = (new Forum())->setTitle("Lorem")->setSlug("lorem");
+        $category = $this->getCategory($this->getData());
+        $category->addForum($forum);
+        $category->removeForum($forum);
+        $this->assertTrue($category->getForums()->isEmpty());
+    }
+
+    public function testToString(): void
+    {
+        $category = $this->getCategory($this->getData());
+        $this->assertTrue((string)$category === "Lorem");
     }
 
     private function getData(): array

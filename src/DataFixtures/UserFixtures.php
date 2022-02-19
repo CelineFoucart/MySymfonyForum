@@ -8,6 +8,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * @codeCoverageIgnore
+ */
 class UserFixtures extends Fixture
 {
     private UserPasswordHasherInterface $hasher;
@@ -35,7 +38,6 @@ class UserFixtures extends Fixture
             ->setRank("grenouille de l'espace")
             ->setLocalisation('dans un futur lointain')
             ->setRoles(['ROLE_ADMIN', 'ROLE_USER'])
-            ->setColor('#FF9900')
         ;
         $password = $this->hasher->hashPassword($user, 'ermina');
         $user->setPassword($password);
@@ -50,7 +52,6 @@ class UserFixtures extends Fixture
             ->setEmail('avalia@gmail.com')
             ->setCreated(new DateTime())
             ->setRoles(['ROLE_USER'])
-            ->setColor('#669900')
         ;
         $password = $this->hasher->hashPassword($user, 'avalia');
         $user->setPassword($password);

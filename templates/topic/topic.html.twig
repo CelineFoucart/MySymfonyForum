@@ -24,7 +24,7 @@
     <p> 
         Par 
         {% if topic.author is not null %}
-            <a href="{{path('profile', {id: topic.author.id})}}" style="color:{{ topic.author.color }}" class="fw-bold author">{{ topic.author.username }}</a>
+            <a href="{{path('profile', {id: topic.author.id})}}" style="color:{{ topic.author.defaultRole.color }}" class="fw-bold author">{{ topic.author.username }}</a>
         {% else %}
             <span class="fw-bold">Anonyme</span>
         {% endif %}
@@ -73,7 +73,7 @@
                         <figure class="mb-0">
                             {{ avatar_format(post.author.avatar) }}
                         </figure>
-                        <a href="{{path('profile', {id: post.author.id})}}" class="fw-bold author" style="color: {{post.author.color}}">
+                        <a href="{{path('profile', {id: post.author.id})}}" class="fw-bold author" style="color: {{post.author.defaultRole.color}}">
                             {{post.author.username}}
                         </a>
                         <ul class="profil-post-info">

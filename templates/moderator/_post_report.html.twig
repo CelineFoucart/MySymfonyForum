@@ -16,13 +16,13 @@
                     {% else %}
                         <span class="fw-bold">{{report.privateMessage.title}}</span>,
                         par  
-                        <span class="fw-bold" style="color:{{report.privateMessage.author.color}}">
+                        <span class="fw-bold" style="color:{{report.privateMessage.author.defaultRole.color}}">
                             {{report.privateMessage.author.username}}
                         </span>
                     {% endif %}
                 </td>
                 <td class="align-middle fw-bold">
-                    <p class="mb-0">Par : <span style="color:{{report.author.color}}">{{report.author.username}}</span></p>
+                    <p class="mb-0">Par : <span style="color:{{report.author.defaultRole.color}}">{{report.author.username}}</span></p>
                     {% if type == 'post' %}
                         <p>
                             Sujet : <a href="{{ path('topic', {id:report.post.topic.id, slug:report.post.topic.slug}) }}">

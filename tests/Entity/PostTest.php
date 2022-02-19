@@ -3,6 +3,7 @@
 namespace App\Tests\Entity;
 
 use App\Entity\Post;
+use App\Entity\Report;
 use App\Entity\Topic;
 use App\Entity\User;
 use DateTime;
@@ -39,6 +40,23 @@ class PostTest extends TestCase
         $this->assertEmpty($post->getCreated());
         $this->assertEmpty($post->getAuthor());
         $this->assertEmpty($post->getTopic());
+    }
+
+    public function testAddReport(): void
+    {
+        $post = $this->getPost($this->getData());
+        $report = (new Report())->setMessage("Demo");
+        $post->addReport($report);
+        $this->assertTrue($report === $post->getReports()[0]);
+    }
+
+    public function testRemoveReport(): void
+    {
+        $post = $this->getPost($this->getData());
+        $report = (new Report())->setMessage("Demo");
+        $post->addReport($report);
+        $post->removeReport($report);
+        $this->assertTrue($post->getReports()->isEmpty());
     }
 
     private function getData(): array

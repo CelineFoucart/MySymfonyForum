@@ -9,7 +9,7 @@
         <div class="forum-row bg-default">
             <p class="forum-description d-flex justify-content-between">
                 <span class="forum-label">
-                    <a href="{{path('profile', {id: user.id})}}" style="color:{{ user.color }}" class="fw-bold">
+                    <a href="{{path('profile', {id: user.id})}}" style="color:{{ user.defaultRole.color }}" class="fw-bold">
                         {{user.username}}
                     </a>
                 </span>

@@ -20,11 +20,21 @@ class UserControllerTest extends WebTestCase
         $this->assertSelectorTextContains('.forum-section', 'Ermina');
     }
 
+    public function testUserProfilWithNotLoggedUser(): void 
+    {
+        $client = static::createClient();
+        $this->makeFixture();
+        $user = $this->getUser("Ermina");
+        $client->request('GET', '/profile/' . $user->getId());
+        $this->assertResponseRedirects('/login');
+    }
+
     public function testUserProfilWithValidUser(): void 
     {
         $client = static::createClient();
         $this->makeFixture();
         $user = $this->getUser("Ermina");
+        $client->loginUser($user);
         $client->request('GET', '/profile/' . $user->getId());
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('.profile-details', 'Ermina');
@@ -33,6 +43,7 @@ class UserControllerTest extends WebTestCase
     public function testUserProfilWithInvalidUser(): void
     {
         $client = static::createClient();
+        $client->loginUser($this->getUser("Ermina"));
         $client->request('GET', '/profile/123456789789123466');
         $this->assertResponseStatusCodeSame(404);
     }

@@ -12,10 +12,16 @@
 {% block body %}
 <section>
     <h2 class=" font-weight-normal">
-        La recherche a retourné {{ results.getTotalItemCount }} résultat{{ results.getTotalItemCount  > 1 ? 's' : '' }}
+        {% if results is not empty %}
+            La recherche a retourné {{ results.getTotalItemCount }} résultat{{ results.getTotalItemCount  > 1 ? 's' : '' }}
+        {% else %}
+            La recherche n'a retourné aucun résultat
+        {% endif %}
     </h2>
     <p class="mb-4">&laquo; <a href="{{path('search')}}">Retourner à la page de recherche</a></p>
-    {{ knp_pagination_render(results) }}
+    {% if results is not empty %}
+        {{ knp_pagination_render(results) }}
+    {% endif %}
     {% for result in results %}
         <div class="rounded-3 bg-default p-2 my-2 {{ (type == 'topic') ? 'd-flex align-items-center' : '' }} ">
             {% if type == 'topic' %}
@@ -35,7 +41,7 @@
                     <i class="bi bi-file-earmark-fill"></i> 
                     <small>
                     {% if result.author is not null %}
-                        Par <a href="{{path('profile', {id: result.author.id})}}" class="fw-bold author" style="color: {{result.author.color}}">{{result.author.username}}</a> &raquo;
+                        Par <a href="{{path('profile', {id: result.author.id})}}" class="fw-bold author" style="color: {{result.author.defaultRole.color}}">{{result.author.username}}</a> &raquo;
                         {{result.created | date("d/m/Y, H:i")}} 
                     {% else %}
                         Par <span class="fw-bold author">Anonyme</span> &raquo;

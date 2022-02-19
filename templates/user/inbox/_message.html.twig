@@ -8,7 +8,7 @@
         <a 
             href="{{path('profile', {id: privateMessage.author.id})}}" 
             class="fw-bold author" 
-            style="color: {{privateMessage.author.color}}">
+            style="color: {{privateMessage.author.defaultRole.color}}">
             {{privateMessage.author.username}}
         </a>
     </p>
@@ -17,7 +17,7 @@
         <a 
             href="{{path('profile', {id:privateMessage.addressee.id})}}" 
             class="fw-bold author" 
-            style="color:{{ privateMessage.addressee.color }}">
+            style="color:{{ privateMessage.addressee.defaultRole.color }}">
             {{ privateMessage.addressee.username }}
         </a>
     </p>

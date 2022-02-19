@@ -23,7 +23,7 @@ class RoleRepository extends ServiceEntityRepository
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.title = :title')
-            ->setParameter('title', 'USER_ROLE')
+            ->setParameter('title', 'ROLE_USER')
             ->getQuery()
             ->getOneOrNullResult()
         ;

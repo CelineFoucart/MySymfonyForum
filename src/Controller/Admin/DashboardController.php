@@ -35,7 +35,6 @@ class DashboardController extends AbstractDashboardController
 
     public function configureDashboard(): Dashboard
     {
-        ;
         return Dashboard::new()
             ->setTitle('Administration');
     }
@@ -48,10 +47,10 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::section('Accès rapides', 'fas fa-list');
         yield MenuItem::subMenu('Forums', 'fa fa-comments')->setSubItems([
             MenuItem::linkToCrud('Catégories', 'fa fa-tags', Category::class),
-            MenuItem::linkToCrud('Forums', 'fa fa-comment', Forum::class)
+            MenuItem::linkToCrud('Forums', 'fa fa-comment', Forum::class),
         ]);
         yield MenuItem::subMenu('Membres et groupes', 'fa fa-users')->setSubItems([
-            MenuItem::linkToCrud('Membres', 'fa fa-user', User::class)
+            MenuItem::linkToCrud('Membres', 'fa fa-user', User::class),
         ]);
     }
 }

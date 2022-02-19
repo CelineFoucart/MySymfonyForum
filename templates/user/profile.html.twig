@@ -27,7 +27,7 @@
             <h3 class="text-uppercase h6 border-bottom border-dark">Informations</h3>
             <dl class="profile-details">
                 <dt class="key">Pseudo :</dt>
-                <dd class="value"><span style="color:{{ user.color }}" class="fw-bold">{{ user.username }}</span></dd>
+                <dd class="value"><span style="color:{{ user.defaultRole.color }}" class="fw-bold">{{ user.username }}</span></dd>
                 {% if user.localisation is not null %}
                     <dt class="key">Localisation :</dt>
                     <dd class="value">{{ user.localisation }}</dd>

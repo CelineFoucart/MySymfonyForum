@@ -45,8 +45,9 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
 
     public function findPaginated(int $page, string $group = "ROLE_USER"): PaginationInterface
     {
-        $builder = $this->createQueryBuilder('u');
-        $builder->andWhere("u.roles LIKE '%".$group."%'");
+        $builder = $this->createQueryBuilder('u')
+            ->leftJoin('u.defaultRole', 'r')
+            ->andWhere("u.roles LIKE '%".$group."%'");
         return $this->paginator->paginate(
             $builder->getQuery(),
             $page,
@@ -57,6 +58,7 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
     public function findByPseudo(string $pseudo): ?User
     {
         return $this->createQueryBuilder('u')
+            ->leftJoin('u.default', 'r')->select('r')
             ->andWhere('u.username = :pseudo')
             ->setParameter('pseudo', $pseudo)
             ->getQuery()

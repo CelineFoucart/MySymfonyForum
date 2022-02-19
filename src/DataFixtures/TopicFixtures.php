@@ -13,6 +13,9 @@ use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 
+/**
+ * @codeCoverageIgnore
+ */
 class TopicFixtures extends Fixture implements DependentFixtureInterface
 {
     private ForumRepository $forumRepository;

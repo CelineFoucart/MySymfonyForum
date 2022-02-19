@@ -17,7 +17,7 @@ class Post
     private $id;
 
     #[ORM\Column(type: 'string', length: 255)]
-    #[Assert\NotBlank]
+    #[Assert\NotNull]
     #[Assert\Length(
         min: 3,
         max: 50,
@@ -62,7 +62,7 @@ class Post
         return $this->title;
     }
 
-    public function setTitle(string $title): self
+    public function setTitle(?string $title): self
     {
         $this->title = $title;
 
@@ -74,7 +74,7 @@ class Post
         return $this->content;
     }
 
-    public function setContent(string $content): self
+    public function setContent(?string $content): self
     {
         $this->content = $content;
 

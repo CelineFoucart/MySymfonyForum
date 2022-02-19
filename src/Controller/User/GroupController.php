@@ -36,7 +36,7 @@ class GroupController extends AbstractController
     public function group(int $id, Request $request): Response
     {
         $role = $this->roleRepository->find($id);
-        if($role === null) {
+        if (null === $role) {
             throw $this->createNotFoundException('Ce groupe n\'existe pas.');
         }
         $page = $request->query->getInt('page', 1);
@@ -44,7 +44,7 @@ class GroupController extends AbstractController
 
         return $this->render('user/group/group.html.twig', [
             'role' => $role,
-            'users' => $users
+            'users' => $users,
         ]);
     }
 }
