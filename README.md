@@ -3,8 +3,7 @@
 faire un forum en Symfony. 
 
 ## TODO : forum pages
-* permission de groupe
-* affichage des catégories, forums et sujet en fonction des permissions
+* mise en place du bbcode
 
 ## type de permission : 
 * ROLE_FULL_ADMIN 
