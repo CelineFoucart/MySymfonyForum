@@ -4,6 +4,9 @@ namespace App\Controller\Admin;
 
 use App\Entity\Category;
 use App\Entity\Forum;
+use App\Entity\Report;
+use App\Entity\Role;
+use App\Entity\Topic;
 use App\Entity\User;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -16,20 +19,6 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        // Option 1. You can make your dashboard redirect to some common page of your backend
-        //
-        // $adminUrlGenerator = $this->container->get(AdminUrlGenerator::class);
-        // return $this->redirect($adminUrlGenerator->setController(OneOfYourCrudController::class)->generateUrl());
-
-        // Option 2. You can make your dashboard redirect to different pages depending on the user
-        //
-        // if ('jane' === $this->getUser()->getUsername()) {
-        //     return $this->redirect('...');
-        // }
-
-        // Option 3. You can render some custom template to display a proper dashboard with widgets, etc.
-        // (tip: it's easier if your template extends from @EasyAdmin/page/content.html.twig)
-        //
         return $this->render('admin/dashboard.html.twig');
     }
 
@@ -44,13 +33,13 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToDashboard('Dashboard', 'fa fa-home');
         yield MenuItem::linkToUrl('Accueil du forum', 'fa fa-globe', '/');
         yield MenuItem::linkToLogout('Déconnexion', 'fa fa-sign-out');
-        yield MenuItem::section('Accès rapides', 'fas fa-list');
-        yield MenuItem::subMenu('Forums', 'fa fa-comments')->setSubItems([
-            MenuItem::linkToCrud('Catégories', 'fa fa-tags', Category::class),
-            MenuItem::linkToCrud('Forums', 'fa fa-comment', Forum::class),
-        ]);
-        yield MenuItem::subMenu('Membres et groupes', 'fa fa-users')->setSubItems([
-            MenuItem::linkToCrud('Membres', 'fa fa-user', User::class),
-        ]);
+        yield MenuItem::section('Forum et membres', 'fas fa-list');
+        yield MenuItem::linkToCrud('Catégories', 'fa fa-tags', Category::class);
+        yield MenuItem::linkToCrud('Forums', 'fa fa-comments', Forum::class);
+        yield MenuItem::linkToCrud('Membres', 'fa fa-users', User::class);
+        yield MenuItem::linkToCrud('Rôles', 'fa fa-layer-group', Role::class);
+        yield MenuItem::section("Sujets et messages", "fas fa-list");
+        yield MenuItem::linkToCrud("Sujets", 'fa fa-comment', Topic::class);
+        yield MenuItem::linkToCrud("Rapports", 'fas fa-exclamation', Report::class);
     }
 }

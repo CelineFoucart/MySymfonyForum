@@ -118,6 +118,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return array_unique($roles);
     }
 
+    /**
+     * Return if the user has a role
+     */
+    public function hasRole(string $role): bool
+    {
+        return in_array($role, $this->roles);
+    }
+
     public function setRoles(array $roles): self
     {
         $this->roles = $roles;
@@ -381,5 +389,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         $this->defaultRole = $defaultRole;
 
         return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->username;
     }
 }

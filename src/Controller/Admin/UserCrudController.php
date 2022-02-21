@@ -5,6 +5,7 @@ namespace App\Controller\Admin;
 use App\Entity\User;
 use App\Form\Admin\UserRoleType;
 use App\Repository\RoleRepository;
+use App\Service\RoleUserService;
 use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
@@ -22,9 +23,12 @@ class UserCrudController extends AbstractCrudController
 {
     private RoleRepository $roleRepository;
 
-    public function __construct(RoleRepository $roleRepository)
+    private RoleUserService $roleUserService;
+
+    public function __construct(RoleRepository $roleRepository, RoleUserService $roleUserService)
     {
-        $this->roleRepository = $roleRepository;    
+        $this->roleRepository = $roleRepository;   
+        $this->roleUserService = $roleUserService;  
     }
 
     public static function getEntityFqcn(): string
@@ -64,38 +68,32 @@ class UserCrudController extends AbstractCrudController
         ->add(Crud::PAGE_INDEX, $changeRole)
         ->add(Crud::PAGE_INDEX, Action::DETAIL)
         ->add(Crud::PAGE_EDIT, $changeRole)
-        ->add(Crud::PAGE_DETAIL, $changeRole);
+        ->add(Crud::PAGE_DETAIL, $changeRole)
+        ->remove(Crud::PAGE_INDEX, Action::DELETE)
+        ->update(Crud::PAGE_DETAIL, Action::DELETE, function(Action $action) {
+            return $action->displayIf(static function(User $entity) {
+                return !$entity->hasRole('ROLE_ADMIN');
+            });
+        });
     }
 
-    public function changeRoles(AdminContext $adminContext, Request $request, EntityManagerInterface $em): Response
+    public function changeRoles(AdminContext $adminContext, Request $request): Response
     {
         $user = $adminContext->getEntity()->getInstance();
         $roles = $this->roleRepository->findAll();
-        $data = [];
-        foreach ($roles as $role) {
-            if(in_array($role->getTitle(), $user->getRoles()))
-            $data[] = $role;
-        }
         
         $form = $this->createForm(UserRoleType::class, [
-            'roles' => $data,
+            'roles' => $this->roleUserService->getUserRoles($user, $roles),
             'default' => $user->getDefaultRole()
         ]);
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) { 
-            $default = $form->get('default')->getData();
-            $newRoles = $form->get('roles')->getData();
-            if(!in_array($default, $newRoles)) {
-                $newRoles[] = $default;
-            }
-            $user->setDefaultRole($default);
-            $titlesRoles = [];
-            foreach ($newRoles as $role) {
-                $titlesRoles[] = $role->getTitle();
-            }
-            $user->setRoles($titlesRoles);
-            $em->flush();
+            $this->roleUserService->persistRoles(
+                $form->get('default')->getData(),
+                $form->get('roles')->getData(),
+                $user
+            );
         }
 
         return $this->render('admin/user_role.html.twig', [
