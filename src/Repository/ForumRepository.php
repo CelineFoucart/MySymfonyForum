@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Category;
 use App\Entity\Forum;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -35,20 +36,17 @@ class ForumRepository extends ServiceEntityRepository
         ;
     }
 
-    // /**
-    //  * @return Forum[] Returns an array of Forum objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+     * @return Forum[] Returns an array of Category objects
+     */
+    public function findByOrder(Category $category): array
     {
         return $this->createQueryBuilder('f')
-            ->andWhere('f.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('f.id', 'ASC')
-            ->setMaxResults(10)
+        ->andWhere('f.category = :category')
+        ->setParameter('category', $category)
+            ->orderBy('f.orderNumber', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 }

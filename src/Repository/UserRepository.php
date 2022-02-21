@@ -65,4 +65,17 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             ->getOneOrNullResult()
         ;
     }
+    
+    /**
+     * @return User[] Returns an array of Post objects
+     */
+    public function findLastThree(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->orderBy('u.created', 'DESC')
+            ->addOrderBy('u.id', 'DESC')
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
 }

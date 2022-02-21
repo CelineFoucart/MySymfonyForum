@@ -75,6 +75,20 @@ class PostRepository extends ServiceEntityRepository
 
         return $this->getPaginatedQuery($builder, $page);
     }
+    
+    /**
+     * @return Post[] Returns an array of Post objects
+     */
+    public function findLastThree(): array
+    {
+        return $this->createQueryBuilder('p')
+            ->orderBy('p.created', 'DESC')
+            ->addOrderBy('p.id', 'DESC')
+            ->leftJoin('p.author', 'u')->addSelect("u")
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
 
     /**
      * Paginate a query.

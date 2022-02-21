@@ -3,6 +3,7 @@
 namespace App\EventSubscriber;
 
 use App\Entity\Role;
+use App\Entity\Topic;
 use App\Entity\User;
 use App\Repository\RoleRepository;
 use DateTime;
@@ -70,16 +71,12 @@ class EasyAdminSubscriber implements EventSubscriberInterface
     public function addUser(BeforeEntityPersistedEvent $event)
     {
         $entity = $event->getEntityInstance();
-        if ($entity instanceof Role) {
+        if (!($entity instanceof User)) {
             return;
         }
         $entity->setCreated(new DateTime());
         $entity->setRoles(['ROLE_USER']);
         $entity->setDefaultRole($this->roleRepository->findDefaultRole());
-
-        if (!($entity instanceof User)) {
-            return;
-        }
         $this->setPassword($entity);
     }
 

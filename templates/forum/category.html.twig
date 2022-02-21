@@ -13,7 +13,7 @@
 <section class="rounded-3 p-2 forum-section">
     <h2 class="section-title">Forums</h2>
 
-    {% for forum in category.forums %}
+    {% for forum in forums %}
         <article class="forum-row bg-default">
             <h3 class="forum-row-title">
                 <a href="{{ path('forum', {id: forum.id, slug: forum.slug}) }}">{{ forum.title }}</a>

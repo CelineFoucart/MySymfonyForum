@@ -23,21 +23,21 @@
         <tbody>
             <tr>
                 <th>Nombre de messages</th>
-                <td>0</td>
+                <td>{{stats.post}}</td>
                 <th>Nombre de sujets</th>
-                <td>0</td>
+                <td>{{stats.topic}}</td>
             </tr>
             <tr>
-                <th>Nombre de Membres</th>
-                <td>0</td>
-                <th>Nombre de groupe</th>
-                <td>0</td>
+                <th>Nombre de membres</th>
+                <td>{{stats.user}}</td>
+                <th>Nombre de groupes</th>
+                <td>{{stats.role}}</td>
             </tr>
             <tr>
                 <th>Nombre de forums</th>
-                <td>0</td>
+                <td>{{stats.forum}}</td>
                 <th>Nombre de catégorie</th>
-                <td>0</td>
+                <td>{{stats.category}}</td>
             </tr>
         </tbody>
     </table>
@@ -50,15 +50,17 @@
                 <div class="card-body">
                     <h3 class="card-title text-center mb-4">Les derniers messages</h3>
                     <div class="card-text">
-                        <div class="rounded-3 shadow p-3 my-4 bg-white">
-                            <a href="">Titre du message</a>, par <a href="">auteur</a>
-                        </div>
-                        <div class="rounded-2 shadow p-3 my-4 bg-white">
-                            <a href="">Titre du message</a>, par <a href="">auteur</a>
-                        </div>
-                        <div class="rounded-2 shadow p-3 my-4 bg-white">
-                            <a href="">Titre du message</a>, par <a href="">auteur</a>
-                        </div>
+                        {% for post in posts %}
+                           <div class="rounded-3 shadow p-3 my-4 bg-white">
+                                <a href="{{ path('topic', {id:post.topic.id, slug:post.topic.slug}) }}#post{{post.id}}">
+                                    {{ post.title }}
+                                </a> par {{ post.author.username }}
+                            </div>
+                       {% else %}
+                           <div class="rounded-3 shadow p-3 my-4 bg-white">
+                                Aucun résultat
+                            </div>
+                       {% endfor %}
                     </div>
                 </div>
             </div>
@@ -68,15 +70,16 @@
                 <div class="card-body">
                     <h3 class="card-title text-center mb-4">Les derniers sujets</h3>
                     <div class="card-text">
-                        <div class="rounded-3 shadow p-3 my-4 bg-white">
-                            <a href="">Titre du message</a>, par <a href="">auteur</a>
-                        </div>
-                        <div class="rounded-2 shadow p-3 my-4 bg-white">
-                            <a href="">Titre du message</a>, par <a href="">auteur</a>
-                        </div>
-                        <div class="rounded-2 shadow p-3 my-4 bg-white">
-                            <a href="">Titre du message</a>, par <a href="">auteur</a>
-                        </div>
+                        {% for topic in topics %}
+                           <div class="rounded-3 shadow p-3 my-4 bg-white">
+                                <a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a> 
+                                par {{ topic.author.username }}
+                            </div>
+                       {% else %}
+                           <div class="rounded-3 shadow p-3 my-4 bg-white">
+                                Aucun résultat
+                            </div>
+                       {% endfor %}
                     </div>
                 </div>
             </div>
@@ -86,15 +89,16 @@
                 <div class="card-body">
                     <h3 class="card-title text-center mb-4">Les derniers membres inscrits</h3>
                     <div class="card-text">
-                        <div class="rounded-3 shadow p-3 my-4 bg-white">
-                            <a href="">pseudo</a>, inscrit le date
-                        </div>
-                        <div class="rounded-2 shadow p-3 my-4 bg-white">
-                            <a href="">pseudo</a>, inscrit le date
-                        </div>
-                        <div class="rounded-2 shadow p-3 my-4 bg-white">
-                            <a href="">pseudo</a>, inscrit le date
-                        </div>
+                       {% for user in users %}
+                           <div class="rounded-3 shadow p-3 my-4 bg-white">
+                                <a href="{{ path('profile', {id:user.id}) }}">{{ user.username }}</a>, 
+                                inscrit le {{ user.created|date('d/m/Y, H:i') }}
+                            </div>
+                       {% else %}
+                           <div class="rounded-3 shadow p-3 my-4 bg-white">
+                                Aucun résultat
+                            </div>
+                       {% endfor %}
                     </div>
                 </div>
             </div>

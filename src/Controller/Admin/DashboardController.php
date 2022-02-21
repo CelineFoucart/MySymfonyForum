@@ -3,11 +3,9 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
-use App\Entity\Forum;
-use App\Entity\Report;
-use App\Entity\Role;
-use App\Entity\Topic;
-use App\Entity\User;
+use App\Entity\{Forum,Report,Role,Topic,User};
+use App\Repository\{PostRepository,TopicRepository, UserRepository};
+use App\Service\StaticticsService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
@@ -16,10 +14,37 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class DashboardController extends AbstractDashboardController
 {
+    private postRepository $postRepository;
+    private TopicRepository $topicRepository;
+    private UserRepository $userRepository;
+    private StaticticsService $statisticsService;
+
+    public function __construct(
+        PostRepository $postRepository,
+        TopicRepository $topicRepository,
+        UserRepository $userRepository,
+        StaticticsService $statisticsService
+    ) {
+        $this->postRepository = $postRepository;
+        $this->topicRepository = $topicRepository;
+        $this->userRepository = $userRepository;
+        $this->statisticsService = $statisticsService;
+    }
+
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
-        return $this->render('admin/dashboard.html.twig');
+        $posts = $this->postRepository->findLastThree();
+        $topics = $this->topicRepository->findLastThree();
+        $users = $this->userRepository->findLastThree();
+        $stats = $this->statisticsService->getStats();
+
+        return $this->render('admin/dashboard.html.twig', [
+            'posts' => $posts,
+            'topics' => $topics,
+            'users' => $users,
+            'stats' => $stats
+        ]);
     }
 
     public function configureDashboard(): Dashboard

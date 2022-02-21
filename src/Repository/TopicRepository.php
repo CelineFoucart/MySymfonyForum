@@ -71,6 +71,20 @@ class TopicRepository extends ServiceEntityRepository
             ->getOneOrNullResult()
         ;
     }
+    
+    /**
+     * @return Topic[] Returns an array of Post objects
+     */
+    public function findLastThree(): array
+    {
+        return $this->createQueryBuilder('t')
+            ->orderBy('t.created', 'DESC')
+            ->addOrderBy('t.id', 'DESC')
+            ->leftJoin('t.author', 'u')->addSelect("u")
+            ->setMaxResults(3)
+            ->getQuery()
+            ->getResult();
+    }
 
     /**
      * Paginate a query.

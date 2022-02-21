@@ -38,6 +38,7 @@ class ForumController extends AbstractController
 
         return $this->render('forum/category.html.twig', [
             'category' => $category,
+            'forums' => $this->forumRepository->findByOrder($category)
         ]);
     }
 
