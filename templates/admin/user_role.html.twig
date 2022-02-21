@@ -42,30 +42,6 @@
     </table>
 
     <h2 class="h3 mt-5">Changer les rôles de l'utilisateur</h2>
-    <div class="row mt-4">
-        <div class="col-md-7">
-            {{ form_start(form) }}
-                {{ form_rest(form) }}
-                <button type="submit" class="btn btn-primary">Soumettre</button>
-            {{ form_end(form) }}
-        </div>
-        <aside class="col-md-5 mt-3">
-            <h3 class="h5 text-center bg-primary text-white p-2 mb-0">Les rôles</h3>
-            <table class="table">
-                <thead>
-                    <th>Nom</th>
-                    <th>Identifiant</th>
-                </thead>
-                <tbody>
-                    {% for role in roles %}
-                        <tr>
-                            <td><span class="fw-bold" style="color:{{role.color}}">{{ role.name }}</span></td>
-                            <td>{{ role.title }}</td>
-                        </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        </aside>
-    </div>
+    {{ include('admin/_roles.html.twig') }}
     
 {% endblock %} 

@@ -17,7 +17,7 @@ class UserRoleType extends AbstractType
                 'label' => "Sélectionner les rôles de l'utilisateur :",
                 'class' => Role::class,
                 'choice_label' => 'name',
-                'multiple' => true
+                'multiple' => true,
             ])
             ->add('default', EntityType::class, [
                 'label' => "Sélectionner le rôle par défaut de l'utilisateur :",

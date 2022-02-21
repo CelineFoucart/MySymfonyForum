@@ -12,6 +12,7 @@ class VoterAction
     public const EDIT = 'edit';
     public const DELETE = 'delete';
     public const INFORMATIONS = 'info';
+    public const VIEW = 'view';
 
     public function __construct(Security $security)
     {

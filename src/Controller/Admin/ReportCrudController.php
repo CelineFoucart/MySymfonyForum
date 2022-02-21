@@ -10,7 +10,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextareaField;
-use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ReportCrudController extends AbstractCrudController
 {
@@ -35,7 +34,7 @@ class ReportCrudController extends AbstractCrudController
         return $crud
             ->setPageTitle('index', 'Gestion des rapport')
             ->setPageTitle('edit', 'Modifier un rapport')
-            ->setPageTitle('detail', "Détail du rapport")
+            ->setPageTitle('detail', 'Détail du rapport')
             ->showEntityActionsInlined();
     }
 

@@ -7,7 +7,6 @@ use App\Repository\CategoryRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
-use EasyCorp\Bundle\EasyAdminBundle\Context\AdminContext;
 use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractCrudController;
 use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\Field;
@@ -35,7 +34,7 @@ class ForumCrudController extends AbstractCrudController
             IdField::new('id')->hideOnForm(),
             TextField::new('title'),
             SlugField::new('slug')->setTargetFieldName('title')->setUnlockConfirmationMessage(
-                "Il est recommandé de laisser le slug se générer automatiquement à partir du titre"
+                'Il est recommandé de laisser le slug se générer automatiquement à partir du titre'
             ),
             TextField::new('description'),
             AssociationField::new('category'),

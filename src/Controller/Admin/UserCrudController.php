@@ -6,7 +6,6 @@ use App\Entity\User;
 use App\Form\Admin\UserRoleType;
 use App\Repository\RoleRepository;
 use App\Service\RoleUserService;
-use Doctrine\ORM\EntityManagerInterface;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -27,15 +26,15 @@ class UserCrudController extends AbstractCrudController
 
     public function __construct(RoleRepository $roleRepository, RoleUserService $roleUserService)
     {
-        $this->roleRepository = $roleRepository;   
-        $this->roleUserService = $roleUserService;  
+        $this->roleRepository = $roleRepository;
+        $this->roleUserService = $roleUserService;
     }
 
     public static function getEntityFqcn(): string
     {
         return User::class;
     }
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -62,6 +61,7 @@ class UserCrudController extends AbstractCrudController
     public function configureActions(Actions $actions): Actions
     {
         $changeRole = Action::new('changeRoles', 'Rôles')->linkToCrudAction('changeRoles');
+
         return $actions->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
             return $action->setLabel('Ajouter un utilisateur');
         })
@@ -70,8 +70,8 @@ class UserCrudController extends AbstractCrudController
         ->add(Crud::PAGE_EDIT, $changeRole)
         ->add(Crud::PAGE_DETAIL, $changeRole)
         ->remove(Crud::PAGE_INDEX, Action::DELETE)
-        ->update(Crud::PAGE_DETAIL, Action::DELETE, function(Action $action) {
-            return $action->displayIf(static function(User $entity) {
+        ->update(Crud::PAGE_DETAIL, Action::DELETE, function (Action $action) {
+            return $action->displayIf(static function (User $entity) {
                 return !$entity->hasRole('ROLE_ADMIN');
             });
         });
@@ -81,14 +81,14 @@ class UserCrudController extends AbstractCrudController
     {
         $user = $adminContext->getEntity()->getInstance();
         $roles = $this->roleRepository->findAll();
-        
+
         $form = $this->createForm(UserRoleType::class, [
             'roles' => $this->roleUserService->getUserRoles($user, $roles),
-            'default' => $user->getDefaultRole()
+            'default' => $user->getDefaultRole(),
         ]);
         $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) { 
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->roleUserService->persistRoles(
                 $form->get('default')->getData(),
                 $form->get('roles')->getData(),
@@ -99,7 +99,7 @@ class UserCrudController extends AbstractCrudController
         return $this->render('admin/user_role.html.twig', [
             'user' => $user,
             'roles' => $roles,
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

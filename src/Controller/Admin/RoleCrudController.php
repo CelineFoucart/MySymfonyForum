@@ -17,7 +17,7 @@ class RoleCrudController extends AbstractCrudController
     {
         return Role::class;
     }
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
@@ -25,7 +25,7 @@ class RoleCrudController extends AbstractCrudController
             TextField::new('title')->hideWhenUpdating(),
             TextField::new('name'),
             TextField::new('description'),
-            ColorField::new('color')
+            ColorField::new('color'),
         ];
     }
 
@@ -37,18 +37,18 @@ class RoleCrudController extends AbstractCrudController
             ->setPageTitle('new', 'Créer un nouveau rôle')
             ->setPageTitle('detail', 'Consulter les informations d\'un rôle')
             ->showEntityActionsInlined()
-            ->setHelp('index', "Vous ne pouvez pas supprimer les rôles de ROLE_ADMIN, ROLE_USER et ROLE_MODERATOR");
+            ->setHelp('index', 'Vous ne pouvez pas supprimer les rôles de ROLE_ADMIN, ROLE_USER et ROLE_MODERATOR');
     }
 
     public function configureActions(Actions $actions): Actions
-    {        
+    {
         return $actions->update(Crud::PAGE_INDEX, Action::NEW, function (Action $action) {
             return $action->setLabel('Ajouter un rôle');
         })
         ->add(Crud::PAGE_INDEX, Action::DETAIL)
         ->remove(Crud::PAGE_INDEX, Action::DELETE)
-        ->update(Crud::PAGE_DETAIL, Action::DELETE, function(Action $action) {
-            return $action->displayIf(static function($entity) {
+        ->update(Crud::PAGE_DETAIL, Action::DELETE, function (Action $action) {
+            return $action->displayIf(static function ($entity) {
                 return !in_array($entity->getTitle(), ['ROLE_ADMIN', 'ROLE_MODERATOR', 'ROLE_USER']);
             });
         });

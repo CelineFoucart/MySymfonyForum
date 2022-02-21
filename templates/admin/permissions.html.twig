@@ -1,0 +1,47 @@
+{% extends '@EasyAdmin/layout.html.twig' %}
+
+ {% set url_index = ea_url()
+    .setController('App\\Controller\\Admin\\CategoryCrudController')
+    .setAction('index') %}
+{% set url_detail = ea_url()
+    .setController('App\\Controller\\Admin\\CategoryCrudController')
+    .setAction('detail')
+    .setEntityId(category.id) %}
+
+{% block content_title %} Modifier les permissions d'une catégorie {% endblock %}
+{% block page_actions %}
+    <a class="action-index btn btn-secondary" href="{{ url_detail }}"> Catégorie : <em>{{category.title }}</em> </a>
+    <a class="btn btn-primary" href="{{ url_index }}">Index</a>
+{% endblock %}
+
+{% block main %}
+    <p>
+        Sur cette page, vous allez pouvoir modifier les permissions de cette catégorie. 
+        Les permissions se fixe par groupe d'utilisateur. 
+        Si vous ne définissez aucune permission, la catégorie, ses forums et leurs sujets ne sont visibles par personne.
+        Pour définir une visibilité par utilisateurs non authentifié, vous pouvez ajouter le groupe <strong>PUBLIC_ACCESS</strong>.
+    </p>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nom</th>
+                <th>Slug</th>
+                <th>Description</th>
+                <th>Visible par</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>{{ category.id }}</td>
+                <td>{{ category.title }}</td>
+                <td>{{ category.slug }}</td>
+                <td>{{ category.description }}</td>
+                <td>{{ category.permissions|join(', ')}}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2 class="h3 mt-5">Changer les permissions</h2>
+    {{ include('admin/_roles.html.twig') }}
+{% endblock %}

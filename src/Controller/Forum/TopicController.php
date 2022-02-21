@@ -77,6 +77,7 @@ class TopicController extends AbstractController
     #[IsGranted('ROLE_USER')]
     public function add(Forum $forum, Request $request, SluggerInterface $slugger, EntityManagerInterface $em): Response
     {
+        $this->denyAccessUnlessGranted('view', $forum->getCategory(), 'Vous ne pouvez pas consulter ce forum');
         $topic = new Topic();
         $form = $this->createForm(TopicType::class, $topic);
         $form->handleRequest($request);
@@ -146,6 +147,8 @@ class TopicController extends AbstractController
         if (null === $topic) {
             throw $this->createNotFoundException("Ce topic n'existe pas !");
         }
+        $category = $topic->getForum()->getCategory();
+        $this->denyAccessUnlessGranted('view', $category, 'Vous ne pouvez pas consulter ce forum');
 
         return $topic;
     }

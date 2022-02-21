@@ -43,6 +43,9 @@ class Category
     #[Assert\NotNull(message:"Ce champ ne peut être nul.")]
     private $orderNumber;
 
+    #[ORM\Column(type: 'json')]
+    private $permissions = [];
+
     public function __construct()
     {
         $this->forums = new ArrayCollection();
@@ -134,5 +137,30 @@ class Category
     public function __toString()
     {
         return $this->title;
+    }
+
+    public function getPermissions(): array
+    {
+        if($this->permissions === null) {
+            return [];
+        }
+        return $this->permissions;
+    }
+
+    public function setPermissions(array $permissions): self
+    {
+        $this->permissions = $permissions;
+
+        return $this;
+    }
+
+    public function setPermission(string $permission): self
+    {
+        if(empty($this->permissions)) {
+            $this->permissions = [];
+        }
+        $this->permissions[] = $permission;
+
+        return $this;
     }
 }

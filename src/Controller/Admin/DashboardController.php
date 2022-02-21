@@ -3,8 +3,14 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Category;
-use App\Entity\{Forum,Report,Role,Topic,User};
-use App\Repository\{PostRepository,TopicRepository, UserRepository};
+use App\Entity\Forum;
+use App\Entity\Report;
+use App\Entity\Role;
+use App\Entity\Topic;
+use App\Entity\User;
+use App\Repository\PostRepository;
+use App\Repository\TopicRepository;
+use App\Repository\UserRepository;
 use App\Service\StaticticsService;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Dashboard;
 use EasyCorp\Bundle\EasyAdminBundle\Config\MenuItem;
@@ -43,7 +49,7 @@ class DashboardController extends AbstractDashboardController
             'posts' => $posts,
             'topics' => $topics,
             'users' => $users,
-            'stats' => $stats
+            'stats' => $stats,
         ]);
     }
 
@@ -63,8 +69,8 @@ class DashboardController extends AbstractDashboardController
         yield MenuItem::linkToCrud('Forums', 'fa fa-comments', Forum::class);
         yield MenuItem::linkToCrud('Membres', 'fa fa-users', User::class);
         yield MenuItem::linkToCrud('Rôles', 'fa fa-layer-group', Role::class);
-        yield MenuItem::section("Sujets et messages", "fas fa-list");
-        yield MenuItem::linkToCrud("Sujets", 'fa fa-comment', Topic::class);
-        yield MenuItem::linkToCrud("Rapports", 'fas fa-exclamation', Report::class);
+        yield MenuItem::section('Sujets et messages', 'fas fa-list');
+        yield MenuItem::linkToCrud('Sujets', 'fa fa-comment', Topic::class);
+        yield MenuItem::linkToCrud('Rapports', 'fas fa-exclamation', Report::class);
     }
 }

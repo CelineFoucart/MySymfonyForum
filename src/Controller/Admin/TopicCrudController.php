@@ -17,14 +17,14 @@ class TopicCrudController extends AbstractCrudController
     {
         return Topic::class;
     }
-    
+
     public function configureFields(string $pageName): iterable
     {
         return [
             IdField::new('id')->hideOnForm(),
             TextField::new('title'),
             AssociationField::new('forum'),
-            AssociationField::new('author')->hideOnIndex()
+            AssociationField::new('author')->hideOnIndex(),
         ];
     }
 

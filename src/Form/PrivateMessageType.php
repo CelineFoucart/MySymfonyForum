@@ -8,8 +8,8 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class PrivateMessageType extends AbstractType
 {
@@ -27,12 +27,12 @@ class PrivateMessageType extends AbstractType
                         'max' => 180,
                     ]),
                     new NotBlank([
-                        'message' => 'Ce champ ne peut être vide'
-                    ])
-                ]
+                        'message' => 'Ce champ ne peut être vide',
+                    ]),
+                ],
             ])
             ->add('title', TextType::class, [
-                'label' => 'Titre du message :'
+                'label' => 'Titre du message :',
             ])
             ->add('content', TextareaType::class, [
                 'label' => 'Corps du message :',

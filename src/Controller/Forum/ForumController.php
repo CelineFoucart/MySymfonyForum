@@ -35,10 +35,11 @@ class ForumController extends AbstractController
         } elseif ($category->getSlug() !== $slug) {
             return $this->redirectToRoute('category', ['id' => $category->getId(), 'slug' => $category->getSlug()]);
         }
+        $this->denyAccessUnlessGranted('view', $category, 'Vous ne pouvez pas consulter ce forum');
 
         return $this->render('forum/category.html.twig', [
             'category' => $category,
-            'forums' => $this->forumRepository->findByOrder($category)
+            'forums' => $this->forumRepository->findByOrder($category),
         ]);
     }
 
@@ -51,6 +52,8 @@ class ForumController extends AbstractController
         } elseif ($forum->getSlug() !== $slug) {
             return $this->redirectToRoute('forum', ['id' => $forum->getId(), 'slug' => $forum->getSlug()]);
         }
+        $this->denyAccessUnlessGranted('view', $forum->getCategory(), 'Vous ne pouvez pas consulter ce forum');
+
         $page = $request->query->getInt('page', 1);
         $topics = $this->topicRepository->findPaginated($forum->getId(), $page);
 

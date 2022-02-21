@@ -99,6 +99,8 @@ class PostController extends AbstractController
         if (null === $post) {
             throw $this->createNotFoundException('Ce message est introuvable');
         }
+        $category = $post->getTopic()->getForum()->getCategory();
+        $this->denyAccessUnlessGranted('view', $category, 'Vous ne pouvez pas consulter ce forum');
 
         return $post;
     }
