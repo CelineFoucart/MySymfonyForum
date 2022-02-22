@@ -4,8 +4,8 @@ namespace App\Form\Admin;
 
 use App\Entity\Category;
 use App\Repository\RoleRepository;
+use App\Service\PermissionHelper;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\CallbackTransformer;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -14,9 +14,12 @@ class PermissionType extends AbstractType
 {
     private RoleRepository $roleRepository;
 
-    public function __construct(RoleRepository $roleRepository)
+    private PermissionHelper $permissionHelper;
+
+    public function __construct(RoleRepository $roleRepository, PermissionHelper $permissionHelper)
     {
         $this->roleRepository = $roleRepository;
+        $this->permissionHelper = $permissionHelper;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options): void
@@ -46,7 +49,7 @@ class PermissionType extends AbstractType
         foreach ($data as $role) {
             $roles[$role->getName()] = $role->getTitle();
         }
-        $roles['Anonymes'] = 'PUBLIC_ACCESS';
+        $roles['Anonymes'] = $this->permissionHelper::PUBLIC_ACCESS;
 
         return $roles;
     }

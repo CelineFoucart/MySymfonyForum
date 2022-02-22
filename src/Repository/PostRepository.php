@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Post;
+use App\Service\PermissionHelper;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,11 +20,18 @@ class PostRepository extends ServiceEntityRepository
 {
     private PaginatorInterface $paginator;
 
+    private PermissionHelper $permissionHelper;
+
     private const LIMIT = 15;
 
-    public function __construct(ManagerRegistry $registry, PaginatorInterface $paginator)
+    public function __construct(
+        ManagerRegistry $registry, 
+        PaginatorInterface $paginator,
+        PermissionHelper $permissionHelper
+    )
     {
         parent::__construct($registry, Post::class);
+        $this->permissionHelper = $permissionHelper;
         $this->paginator = $paginator;
     }
 
@@ -59,13 +67,20 @@ class PostRepository extends ServiceEntityRepository
     /**
      * Return the result of a search by user id of keywords.
      */
-    public function search(?int $userId = null, ?string $keywords = null, int $page = 15): PaginationInterface
-    {
+    public function search(
+        ?int $userId = null, 
+        ?string $keywords = null, 
+        int $page = 15,
+        array $permissions = []
+    ): PaginationInterface {
         $builder = $this->createQueryBuilder('p')
             ->leftJoin('p.author', 'u')->addSelect('u')
             ->leftJoin('p.topic', 't')->addSelect('t')
+            ->leftJoin('t.forum', 'f')
+            ->leftJoin('f.category', 'c')
             ->leftJoin('u.defaultRole', 'r')->addSelect('r')
         ;
+        $builder = $this->permissionHelper->setPermissions($builder, $permissions);
         if (null !== $userId && $userId > 0) {
             $builder->andWhere('u.id = :id')->setParameter('id', $userId);
         }

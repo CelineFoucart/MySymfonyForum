@@ -4,12 +4,14 @@ namespace App\Security\Voter;
 
 use App\Entity\Category;
 use App\Entity\User;
+use App\Service\PermissionHelper;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 class CategoryVoter extends Voter
 {
+
     protected function supports(string $attribute, $subject): bool
     {
         return in_array($attribute, [VoterAction::VIEW])
@@ -43,7 +45,7 @@ class CategoryVoter extends Voter
     protected static function getUserPermissions(?User $user = null): array
     {
         if (!$user instanceof UserInterface) {
-            return ["PUBLIC_ACCESS"];
+            return [PermissionHelper::PUBLIC_ACCESS];
         } 
         return $user->getRoles();
     }

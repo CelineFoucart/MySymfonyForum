@@ -6,6 +6,7 @@ use App\Entity\Search;
 use App\Form\SearchType;
 use App\Repository\PostRepository;
 use App\Repository\TopicRepository;
+use App\Service\PermissionHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -15,11 +16,16 @@ class SearchController extends AbstractController
 {
     private PostRepository $postRepository;
     private TopicRepository $topicRepository;
+    private PermissionHelper $permissionHelper;
 
-    public function __construct(PostRepository $postRepository, TopicRepository $topicRepository)
-    {
+    public function __construct(
+        PostRepository $postRepository, 
+        TopicRepository $topicRepository,
+        PermissionHelper $permissionHelper
+    )  {
         $this->topicRepository = $topicRepository;
         $this->postRepository = $postRepository;
+        $this->permissionHelper = $permissionHelper;
     }
 
     #[Route('/search', name: 'search')]
@@ -58,9 +64,9 @@ class SearchController extends AbstractController
             $results = [];
         } else {
             if ('topic' === $type) {
-                $results = $this->topicRepository->search($userId, $keywords, $page);
+                $results = $this->topicRepository->search($userId, $keywords, $page, $this->getPermissions());
             } else {
-                $results = $this->postRepository->search($userId, $keywords, $page);
+                $results = $this->postRepository->search($userId, $keywords, $page, $this->getPermissions());
             }
         }
 
@@ -68,5 +74,15 @@ class SearchController extends AbstractController
             'results' => $results,
             'type' => $type,
         ]);
+    }
+
+    private function getPermissions(): array
+    {
+        $user = $this->getUser();
+        if($user === null) {
+            return $this->permissionHelper::PUBLIC_ACCESS;
+        } else {
+            return $user->getRoles();
+        }
     }
 }
