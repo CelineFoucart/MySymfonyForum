@@ -32,7 +32,9 @@ class TopicRepository extends ServiceEntityRepository
      */
     public function findPaginated(?int $forumId = null, int $page): PaginationInterface
     {
-        $builder = $this->createQueryBuilder('t')->leftJoin('t.author', 'u')->addSelect('u');
+        $builder = $this->createQueryBuilder('t')
+            ->leftJoin('t.author', 'u')->addSelect('u')
+            ->leftJoin('u.defaultRole', 'r')->addSelect('r');
         if (null !== $forumId) {
             $builder->leftJoin('t.forum', 'f')->andWhere('f.id = :id')->setParameter('id', $forumId);
         }
@@ -65,6 +67,7 @@ class TopicRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('t')
             ->leftJoin('t.author', 'u')->addSelect('u')
             ->leftJoin('t.forum', 'f')->addSelect('f')
+            ->leftJoin('u.defaultRole', 'r')->addSelect('r')
             ->where('t.id = :id')
             ->setParameter('id', $id)
             ->getQuery()

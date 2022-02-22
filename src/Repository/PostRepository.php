@@ -32,6 +32,7 @@ class PostRepository extends ServiceEntityRepository
         return $this->createQueryBuilder('p')
             ->leftJoin('p.author', 'u')->addSelect('u')
             ->leftJoin('p.topic', 't')->addSelect('t')
+            ->leftJoin('u.defaultRole', 'r')->addSelect('r')
             ->andWhere('p.id = :id')->setParameter('id', $id)
             ->getQuery()
             ->getOneOrNullResult()
@@ -45,7 +46,8 @@ class PostRepository extends ServiceEntityRepository
     {
         $builder = $this->createQueryBuilder('p')
             ->select('p')
-            ->leftJoin('p.author', 'u')->addSelect('u');
+            ->leftJoin('p.author', 'u')->addSelect('u')
+            ->leftJoin('u.defaultRole', 'r')->addSelect('r');
         if (null !== $topicId) {
             $builder->leftJoin('p.topic', 't')->andWhere('t.id = :id')->setParameter('id', $topicId);
         }
@@ -62,6 +64,7 @@ class PostRepository extends ServiceEntityRepository
         $builder = $this->createQueryBuilder('p')
             ->leftJoin('p.author', 'u')->addSelect('u')
             ->leftJoin('p.topic', 't')->addSelect('t')
+            ->leftJoin('u.defaultRole', 'r')->addSelect('r')
         ;
         if (null !== $userId && $userId > 0) {
             $builder->andWhere('u.id = :id')->setParameter('id', $userId);
@@ -85,6 +88,7 @@ class PostRepository extends ServiceEntityRepository
             ->orderBy('p.created', 'DESC')
             ->addOrderBy('p.id', 'DESC')
             ->leftJoin('p.author', 'u')->addSelect("u")
+            ->leftJoin('u.defaultRole', 'r')->addSelect('r')
             ->setMaxResults(3)
             ->getQuery()
             ->getResult();

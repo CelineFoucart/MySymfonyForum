@@ -4,10 +4,18 @@ namespace App\Twig;
 
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
+use App\Service\BbCodeService;
 
 class TextHelperExtension extends AbstractExtension
 {
     protected const MAX_LENGTH = 200;
+
+    private BbCodeService $parser;
+
+    public function __construct(BbCodeService $parser)
+    {
+        $this->parser = $parser;
+    }
 
     public function getFilters(): array
     {
@@ -30,6 +38,6 @@ class TextHelperExtension extends AbstractExtension
 
     public function formatText(string $text): string
     {
-        return nl2br($text);
+        return $this->parser->parse($text);
     }
 }
