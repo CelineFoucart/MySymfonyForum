@@ -9,6 +9,7 @@
 import './styles/app.css';
 import './styles/forum.css';
 import './styles/index.css';
+import './styles/post.css';
 
 // start the Stimulus application
 import './bootstrap';

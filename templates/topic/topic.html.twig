@@ -96,31 +96,7 @@
                 </div>
                 <div class="ps-2">
                     <h3 id="post{{post.id}}"><a href="#post{{post.id}}">{{post.title}}</a></h3>
-                    <div class="btn-group position-absolute top-0 end-0">
-                        {% if is_locked(topic) == false %}
-                            {% if can_edit(app.user, post) %}
-                                <a href="{{path('post_delete', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Supprimer">
-                                    <i class="bi bi-trash-fill"></i>
-                                </a>
-                                <a href="{{path('post_edit', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Editer">
-                                    <i class="bi bi-pencil-fill"></i>
-                                </a>
-                            {% endif %}
-                            {% if can_moderate() %}
-                                <a href="{{path('post_view', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Informations">
-                                    <i class="bi bi-info-circle-fill"></i>
-                                </a> 
-                            {% endif %}
-                            {% if is_granted('ROLE_USER') %}
-                                <a href="{{path('post_report', {id:post.id})}}" class="btn btn-outline-secondary btn-sm" title="Rapporter le message">
-                                    <i class="bi bi-exclamation-triangle-fill"></i>
-                                </a>
-                                <a href="{{ replyPath }}?quote={{post.id}}" class="btn btn-outline-secondary btn-sm" title="Citer">
-                                    <i class="bi bi-quote"></i>
-                                </a>
-                            {% endif %}
-                        {% endif %}
-                    </div>
+                   {{ include('post/_post_actions.html.twig') }}
                    {{ include('post/_post_info.html.twig') }}
                     <div class="mb-2">{{post.content | format_text }}</div>
                 </div>

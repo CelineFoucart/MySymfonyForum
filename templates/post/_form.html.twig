@@ -10,8 +10,10 @@
                     {{ form_errors(form.title) }}
                 </div>
             </div>
-            {# icons #}
-            {{ form_widget(form.content) }}
+            <div data-controller="editor">
+                {{ include('post/_edit_toolbar.html.twig') }}
+                {{ form_widget(form.content, { 'attr': {'class': 'editor', 'data-editor-target':'content'} }) }}
+            </div>
             {{ form_errors(form.content) }}
             <div class="text-center">
                 <button type="submit" class="btn btn-primary mt-2">Envoyer</button>

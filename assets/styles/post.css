@@ -1,0 +1,79 @@
+.post-container blockquote, .spoiler {
+    position: relative;
+    width: calc(100% - 2rem);
+	padding: 1.6em 2.4em 1em 2.4em;
+	background: hsl(0 0% 97%);
+	border-radius: 7px;
+	border: 2px solid white;
+	box-shadow: 2px 2px 4px hsl(0 0% 0% / 20%);
+}
+
+.spoiler {
+    margin: 20px 1rem;
+}
+
+.post-container blockquote {
+	margin: 40px 1rem 30px;
+}
+
+.post-container blockquote::before {
+    content: "❝";
+	position: absolute;
+	z-index: 1;
+	left: 50%;
+	top: -2px;
+	transform: translate(-50%, -50%);
+	width: 1.3em;
+	height: 1.3em;
+	background: white;
+	box-shadow: 0 4px 5px -1px hsla(0 0% 0% / 20%);
+	border-radius: 999px;
+	display: grid;
+	place-content: center;
+	padding-top: .2em;
+	font-size: 36px;
+	font-style: normal;
+	text-indent: 0;
+}
+
+.post-container blockquote cite, .spoiler-top  {
+    display: block;
+	text-indent: 0;
+	font-size: .9rem;
+    font-weight: bold;
+    font-style: normal;
+	text-transform: uppercase;
+	color: hsl(0 0% 20%);
+}
+
+.spoiler-top {
+    cursor: pointer;
+    margin-bottom: 5px;
+    border-bottom: 2px solid white;
+}
+
+.spoiler-top span {
+    color: #0d6efd;
+}
+
+.spoiler .hide {
+    display: none;
+}
+
+.editor-toolbar {
+    padding: 5px;
+    background: #f7f7f7;
+    border: 1px solid #ced4da;
+    line-height: 0;
+    text-align: left;
+    border-radius: 3px 3px 0 0;
+}
+
+.editor-toolbar .btn {
+    padding: 1px 6px;
+}
+
+.editor {
+    border-radius: 0 0 0.25rem 0.25rem;
+    border-top: none;
+}

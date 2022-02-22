@@ -39,6 +39,21 @@ class BbCodeService
             'bbcode' => 'li', 
             'htmlOpen' => 'li', 
             'htmlClose' => 'li'
+        ],
+        [
+            'bbcode' => 'center', 
+            'htmlOpen' => 'div style="text-align:center"', 
+            'htmlClose' => 'div'
+        ],
+        [
+            'bbcode' => 'justify', 
+            'htmlOpen' => 'div style="text-align:justify"', 
+            'htmlClose' => 'div'
+        ],
+        [
+            'bbcode' => 'right', 
+            'htmlOpen' => 'div style="text-align:right"', 
+            'htmlClose' => 'div'
         ]
     ];
     
