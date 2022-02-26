@@ -19,8 +19,16 @@
     <body>
         <div class="container main-wrap">
             {% include 'includes/_header.html.twig' %}
-            
-            {% include 'includes/_navbar.html.twig' %}
+
+            <nav class="rounded-3 bg-default mt-2 p-2"  role="navigation" aria-label="Menu principal">
+                {% include 'includes/_navbar.html.twig' %}
+                <hr class="navbar-separator">
+                <ol class="breadcrumb navigation-group">
+                    <li class="breadcrumb-item"><a href="{{ path('home') }}"><i class="bi bi-house-fill"></i> Index du forum</a></li>
+                    {% block breadcrumb %}  {% endblock %}
+                </ol>
+            </nav>
+            <p><small>Nous sommes le {{current_date()}} </small></p>
             
             <main>
                 {% block body %}{% endblock %}

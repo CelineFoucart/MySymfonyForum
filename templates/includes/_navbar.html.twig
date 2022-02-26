@@ -1,43 +1,36 @@
-<nav class="rounded-3 bg-default mt-2 p-2"  role="navigation" aria-label="Menu principal">
-    <div class="top-navbar">
-        <ul class="navigation-group">
-            <li><a href="{{ path('users_list') }}"><i class="bi bi-people-fill"></i> Membres</a></li>
-            <li><a href="{{path('search')}}"><i class="bi bi-search"></i> Recherche</a></li>
-            {% if is_granted('ROLE_ADMIN') %}
-                <li><a href="{{ path('admin') }}"><i class="bi bi-gear"></i> PCA</a></li>
-            {% endif %}
-            {% if can_moderate() %}
-                <li><a href="{{path('mcp_home')}}"><i class="bi bi-hammer"></i> PCM</a></li>
-            {% endif %}
-        </ul>
-        <ul class="navigation-group">
-        {% if is_granted('ROLE_USER') %}
-            <li><a href="{{path('inbox')}}"><i class="bi bi-envelope"></i> Messages privé</a></li>
-            <div class="dropdown">
-                <button 
-                    class="dropdown-toggle border-0 fw-bold" 
-                    type="button" id="dropdownMenuButton1" 
-                    data-bs-toggle="dropdown" 
-                    aria-expanded="false"
-                    style="color:{{ app.user.defaultRole.color }}">
-                    {{app.user.username }}
-                </button>
-                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                    <li><a class="dropdown-item" href="{{ path('profile', {id:app.user.id}) }}">Profil</a></li>
-                    <li class="ps-0"><a class="dropdown-item" href="{{path('account')}}">Mon compte</a></li>
-                    <li class="ps-0"><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
-                </ul>
-            </div>
-        {% else %}
-            <li><a href="{{path('app_register')}}"><i class="bi bi-pencil-square"></i> Inscription</a></li>
-            <li><a href="{{path('app_login')}}"><i class="bi bi-power"></i> Connexion</a></li>
+<div class="top-navbar">
+    <ul class="navigation-group">
+        <li><a href="{{ path('users_list') }}"><i class="bi bi-people-fill"></i> Membres</a></li>
+        <li><a href="{{path('search')}}"><i class="bi bi-search"></i> Recherche</a></li>
+        {% if is_granted('ROLE_ADMIN') %}
+            <li><a href="{{ path('admin') }}"><i class="bi bi-gear"></i> PCA</a></li>
         {% endif %}
-        </ul>
-    </div>
-    <hr class="navbar-separator">
-    <ol class="breadcrumb navigation-group">
-        <li class="breadcrumb-item"><a href="{{ path('home') }}"><i class="bi bi-house-fill"></i> Index du forum</a></li>
-        {% block breadcrumb %}  {% endblock %}
-    </ol>
-</nav>
-<p><small>Nous sommes le {{current_date()}} </small></p>
+        {% if can_moderate() %}
+            <li><a href="{{path('mcp_home')}}"><i class="bi bi-hammer"></i> PCM</a></li>
+        {% endif %}
+    </ul>
+    <ul class="navigation-group">
+    {% if is_granted('ROLE_USER') %}
+        <li><a href="{{path('inbox')}}"><i class="bi bi-envelope"></i> Messages privé</a></li>
+        <div class="dropdown">
+            <button 
+                class="dropdown-toggle border-0 fw-bold bg-default" 
+                type="button" id="dropdownMenuButton1" 
+                data-bs-toggle="dropdown" 
+                aria-expanded="false"
+                style="color:{{ app.user.defaultRole.color }}">
+                {{app.user.username }}
+            </button>
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                <li><a class="dropdown-item" href="{{ path('profile', {id:app.user.id}) }}">Profil</a></li>
+                <li class="ps-0"><a class="dropdown-item" href="{{path('account')}}">Mon compte</a></li>
+                <li class="ps-0"><a class="dropdown-item" href="{{ path('app_logout') }}">Déconnexion</a></li>
+            </ul>
+        </div>
+    {% else %}
+        <li><a href="{{path('app_register')}}"><i class="bi bi-pencil-square"></i> Inscription</a></li>
+        <li><a href="{{path('app_login')}}"><i class="bi bi-power"></i> Connexion</a></li>
+    {% endif %}
+    </ul>
+</div>
+

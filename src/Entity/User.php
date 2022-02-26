@@ -70,6 +70,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(targetEntity: Role::class, inversedBy: 'users')]
     private $defaultRole;
 
+    #[ORM\Column(type: 'boolean')]
+    private $isVerified;
+
     public function __construct()
     {
         $this->topics = new ArrayCollection();
@@ -394,5 +397,17 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function __toString()
     {
         return $this->username;
+    }
+
+    public function getIsVerified(): ?bool
+    {
+        return $this->isVerified;
+    }
+
+    public function setIsVerified(bool $isVerified): self
+    {
+        $this->isVerified = $isVerified;
+
+        return $this;
     }
 }

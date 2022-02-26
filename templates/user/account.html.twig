@@ -9,6 +9,9 @@
 {% block body %}
     <section>
         <h2 class="h3 mb-3 font-weight-normal">Mon compte</h2>
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success my-2">{{ message }}</div>
+        {% endfor %}
         <ul class="nav nav-tabs" id="myTab" role="tablist">
             <li class="nav-item" role="presentation">
                 <button class="nav-link active" id="home-tab" data-bs-toggle="tab" data-bs-target="#home" type="button" role="tab" aria-controls="home" aria-selected="true">Vue d'ensemble</button>
