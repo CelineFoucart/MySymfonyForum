@@ -54,7 +54,7 @@
                            <div class="rounded-3 shadow p-3 my-4 bg-white">
                                 <a href="{{ path('topic', {id:post.topic.id, slug:post.topic.slug}) }}#post{{post.id}}">
                                     {{ post.title }}
-                                </a> par {{ post.author.username }}
+                                </a> par {{ (post.author is not null) ? post.author.username : 'anonyme' }}
                             </div>
                        {% else %}
                            <div class="rounded-3 shadow p-3 my-4 bg-white">
@@ -73,7 +73,7 @@
                         {% for topic in topics %}
                            <div class="rounded-3 shadow p-3 my-4 bg-white">
                                 <a href="{{ path('topic', {id:topic.id, slug:topic.slug}) }}">{{ topic.title }}</a> 
-                                par {{ topic.author.username }}
+                                par {{ (topic.author is not null) ? topic.author.username : 'anonyme' }}
                             </div>
                        {% else %}
                            <div class="rounded-3 shadow p-3 my-4 bg-white">

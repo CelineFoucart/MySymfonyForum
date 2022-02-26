@@ -1,0 +1,34 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Page de contact | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+<li class="breadcrumb-item active" aria-current="page">Contact</li> 
+{% endblock %}
+
+{% block body %}
+
+    <section>
+        <h2>Page de contact</h2>
+        
+        {% for message in app.flashes('success') %}
+            <div class="alert alert-success">{{ message }}</div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">{{ message }}</div>
+        {% endfor %}
+
+        <article class="rounded-3 bg-default my-2 p-2">
+            <h3 class="text-uppercase h6 border-bottom border-dark">
+                Pour contacter l'administrateur, remplissez ce formulaire
+            </h3>
+            <div class="rounded-3 my-3 p-3 bg-light">
+                {{ form_start(form) }}
+                    {{ form_rest(form) }}
+                    <button type="submit" class="btn btn-primary mt-2">Envoyer</button> 
+                {{ form_end(form) }}
+            </div>
+        </article>
+    </section>
+
+{% endblock %}

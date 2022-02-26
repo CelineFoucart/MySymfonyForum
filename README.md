@@ -2,20 +2,28 @@
 
 MySymfonyForum est un forum développé en symfony. 
 
-## Prérequis
+## Environnement de développement
+
+### Prérequis
+
 * PHP >=8.0.2
 * Composer
 * Symfony CLI
 * Mariadb
+* Docker
+* Docker-compose
 
-## Installation de la base de données
+### Installation de la base de données
+
 ```bash
-php bin/console doctrine:database:create
-php bin/console doctrine:migration:migrate
+symfony console doctrine:migrations:migrate
+symfony console doctrine:fixtures:load
 ```
-## Lancer l'environnement de développement
+### Lancer l'environnement de développement
 
 ```bash
+symfony console make:docker:database
+docker-compose up -d
 symfony serve -d
 ```
 

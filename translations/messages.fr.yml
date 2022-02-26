@@ -25,3 +25,9 @@ Email: Email
 Rank: Rang
 Color: Couleur
 Author: Auteur
+This value should not be blank.: Cette valeur ne peut pas être vide.
+This value must be at least %limit% characters long.: Cette valeur doit faire au moins %limit% caractères.
+This value cannot be longer than %limit% characters: Cette valeur ne peut pas faire plus de %limit% caractères.
+The email %value% is not a valid email.: L'email %value% n'est pas un email valide.
+Subject: Sujet
+Content: Contenu

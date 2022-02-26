@@ -38,7 +38,7 @@ class AppFixtures extends Fixture
         $categories = [
             ['Accueil', "Où l'on accueille les nouveaux membres.", 'accueil', 1, $forums['presentation']],
             ['Discussions diverses', "Où l'on parle de tout et de rien", 'discussions-diverses', 2, $forums['talks']],
-            ['Espace de la modération', null, 'espace-de-la-moderation', 3, $forums['moderation']],
+            ['Espace de la modération', 'Où les modérateurs discutent', 'espace-de-la-moderation', 3, $forums['moderation']],
         ];
         foreach ($categories as $data) {
             $category = (new Category())
