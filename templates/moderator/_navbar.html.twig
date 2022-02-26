@@ -2,7 +2,7 @@
 {% set show = path('mcp_view') %}
 {% set report_post = path('mcp_report', {type:"post"}) %}
 {% set report_mp = path('mcp_report', {type:"pm"}) %}
-<ul class="nav nav-tabs mx-1 mt-3">
+<ul class="nav nav-tabs mx-1 mt-3 flex-column flex-sm-row">
     <li class="nav-item">
         <a class="nav-link {{ active_link(app.request.pathinfo, home) }}" aria-current="page" href="{{home}}">Principal</a>
     </li>

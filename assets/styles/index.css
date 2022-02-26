@@ -12,7 +12,9 @@
 
 .top-navbar {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
 }
 
 .navbar-separator {
@@ -33,6 +35,22 @@
     display: flex;
 }
 
+.top-navbar .navigation-group {
+    justify-content: center;
+}
+
 .navigation-group * + * {
     padding-left: 10px;
+}
+
+@media (min-width: 768px) {
+    .top-navbar {
+        justify-content: space-between;
+        flex-direction: row;
+        gap: 0;
+    }
+
+    .top-navbar .navigation-group {
+        justify-content: normal;
+    }
 }

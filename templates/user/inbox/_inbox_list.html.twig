@@ -1,54 +1,56 @@
 <div class="rounded-3 bg-light p-2 mt-2">
-    <table class="table">
-        <thead>
-            <tr>
-                <th><h3 class="text-uppercase h6 m-0">Titre et date</h3></th>
-                <th><h3 class="text-uppercase h6 m-0">Auteur</h3></th>
-                <th><h3 class="text-uppercase h6 m-0">Destinataire</h3></th>
-                <th><h3 class="text-uppercase h6 m-0">Actions</h3></th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for privateMessage in privateMessages %}
-                <tr class="table-secondary">
-                    <td>
-                        <div class="border-end border-secondary">
-                            <span class="mb-0 fw-bold">{{ privateMessage.title }}</span> 
-                            &raquo; 
-                            {{privateMessage.created  | date("d/m/Y, H:i") }}
-                        </div>
-                    </td>
-                    <td>
-                        <div class="border-end border-secondary">
-                            <a href="{{path('profile', {id:privateMessage.author.id})}}" class="fw-bold author" style="color:{{ privateMessage.author.defaultRole.color }}">
-                                {{ privateMessage.author.username }}
-                            </a>
-                        </div>
-                    </td>
-                    <td>
-                        <div class="border-end border-secondary">
-                            <a href="{{path('profile', {id:privateMessage.addressee.id})}}" class="fw-bold author" style="color:{{ privateMessage.addressee.defaultRole.color }}">
-                                {{ privateMessage.addressee.username }}
-                            </a>
-                        </div>
-                    </td>
-                    <td class="align-middle text-center">
-                    <a href="{{path('inbox_show', {id:privateMessage.id})}}" class="btn btn-secondary btn-sm">
-                            Voir <i class="bi bi-eye"></i>
-                        </a>
-                        <a href="{{path('inbox_create', {reply:privateMessage.id})}}" class="btn btn-primary btn-sm">
-                            Répondre <i class="bi bi-reply"></i>
-                        </a>
-                        <a href="{{path('inbox_delete', {id:privateMessage.id})}}" class="btn btn-danger btn-sm">
-                            Supprimer <i class="bi bi-trash-fill"></i>
-                        </a>
-                    </td>
+    <div class="table-responsive">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th><h3 class="text-uppercase h6 m-0">Titre et date</h3></th>
+                    <th><h3 class="text-uppercase h6 m-0">Auteur</h3></th>
+                    <th><h3 class="text-uppercase h6 m-0">Destinataire</h3></th>
+                    <th><h3 class="text-uppercase h6 m-0">Actions</h3></th>
                 </tr>
-            {% else %}
-                <tr class="table-secondary">
-                    <td colspan="4" class="text-center">Il n'y a aucun message privé</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for privateMessage in privateMessages %}
+                    <tr class="table-secondary">
+                        <td>
+                            <div class="border-end border-secondary">
+                                <span class="mb-0 fw-bold">{{ privateMessage.title }}</span> 
+                                &raquo; 
+                                {{privateMessage.created  | date("d/m/Y, H:i") }}
+                            </div>
+                        </td>
+                        <td>
+                            <div class="border-end border-secondary">
+                                <a href="{{path('profile', {id:privateMessage.author.id})}}" class="fw-bold author" style="color:{{ privateMessage.author.defaultRole.color }}">
+                                    {{ privateMessage.author.username }}
+                                </a>
+                            </div>
+                        </td>
+                        <td>
+                            <div class="border-end border-secondary">
+                                <a href="{{path('profile', {id:privateMessage.addressee.id})}}" class="fw-bold author" style="color:{{ privateMessage.addressee.defaultRole.color }}">
+                                    {{ privateMessage.addressee.username }}
+                                </a>
+                            </div>
+                        </td>
+                        <td class="align-middle text-center">
+                        <a href="{{path('inbox_show', {id:privateMessage.id})}}" class="btn btn-secondary btn-sm">
+                                Voir <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{path('inbox_create', {reply:privateMessage.id})}}" class="btn btn-primary btn-sm">
+                                Répondre <i class="bi bi-reply"></i>
+                            </a>
+                            <a href="{{path('inbox_delete', {id:privateMessage.id})}}" class="btn btn-danger btn-sm">
+                                Supprimer <i class="bi bi-trash-fill"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr class="table-secondary">
+                        <td colspan="4" class="text-center">Il n'y a aucun message privé</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>

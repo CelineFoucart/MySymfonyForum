@@ -16,13 +16,30 @@
                         Contact
                     </a>
                 </li>
+                <li>
+                    <a href="{{ path('team') }}">
+                        <i class="bi bi-shield-fill"></i>
+                        L'équipe
+                    </a>
+                </li>
+                <li class="me-2">
+                    <a href="{{ path('users_list') }}">
+                        <i class="bi bi-people-fill"></i> 
+                        Membres
+                    </a>
+                </li>
             </ul>
         </div>
     </nav>
-    <p class="text-center">
+    <p class="text-center mt-2">
         <small>
             <span>Photo by <a href="https://unsplash.com/@readysetfreddy?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Freddy Castro</a> on <a href="https://unsplash.com/?utm_source=unsplash&amp;utm_medium=referral&amp;utm_content=creditCopyText">Unsplash</a></span><br>
             © Céline Foucart
         </small>
     </p>
+    {% if is_granted('ROLE_ADMIN') %}
+        <p class="fw-bold text-center">
+            <small><a href="{{ path('admin') }}">Panneau de contrôle de l'administrateur</a></small>
+        </p>
+    {% endif %}
 </footer>

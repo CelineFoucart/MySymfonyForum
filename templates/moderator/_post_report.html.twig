@@ -1,44 +1,46 @@
-<table class="table">
-    <thead>
-        <tr>
-            <th><h4 class="text-uppercase h6 text-center m-0">Informations</h4></th>
-            <th><h4 class="text-uppercase h6 text-center m-0">Auteur de rapport</h4></th>
-            <th><h4 class="text-uppercase h6 text-center m-0">Actions</h4></th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for report in reports %}
-            <tr class="table-secondary">
-                <td>
-                    {% if type == 'post' %}
-                        <a href="{{ path('topic', {id:report.post.topic.id, slug:report.post.topic.slug}) }}#post{{report.post.id}}" class="h5">{{report.post.title}}</a>
-                        {{ include('post/_post_info.html.twig', {post:report.post}) }}
-                    {% else %}
-                        <span class="fw-bold">{{report.privateMessage.title}}</span>,
-                        par  
-                        <span class="fw-bold" style="color:{{report.privateMessage.author.defaultRole.color}}">
-                            {{report.privateMessage.author.username}}
-                        </span>
-                    {% endif %}
-                </td>
-                <td class="align-middle fw-bold">
-                    <p class="mb-0">Par : <span style="color:{{report.author.defaultRole.color}}">{{report.author.username}}</span></p>
-                    {% if type == 'post' %}
-                        <p>
-                            Sujet : <a href="{{ path('topic', {id:report.post.topic.id, slug:report.post.topic.slug}) }}">
-                                {{report.post.topic.title}}
-                            </a>
-                        </p>
-                    {% endif %}
-                </td>
-                <td class="align-middle text-center">
-                    <a href="{{path('mcp_report_show', {id:report.id, type:type})}}" class="btn btn-secondary">Voir <i class="bi bi-eye"></i></a>
-                </td>
+<div class="table-responsive-md">
+    <table class="table">
+        <thead>
+            <tr>
+                <th><h4 class="text-uppercase h6 text-center m-0">Informations</h4></th>
+                <th><h4 class="text-uppercase h6 text-center m-0">Auteur de rapport</h4></th>
+                <th><h4 class="text-uppercase h6 text-center m-0">Actions</h4></th>
             </tr>
-        {% else %}
-            <tr class="table-secondary">
-                <td colspan="3" class="text-center">Il n'y a aucun rapport</td>
-            </tr>
-        {% endfor %}
-    </tbody>
-</table>
+        </thead>
+        <tbody>
+            {% for report in reports %}
+                <tr class="table-secondary">
+                    <td>
+                        {% if type == 'post' %}
+                            <a href="{{ path('topic', {id:report.post.topic.id, slug:report.post.topic.slug}) }}#post{{report.post.id}}" class="h5">{{report.post.title}}</a>
+                            {{ include('post/_post_info.html.twig', {post:report.post}) }}
+                        {% else %}
+                            <span class="fw-bold">{{report.privateMessage.title}}</span>,
+                            par  
+                            <span class="fw-bold" style="color:{{report.privateMessage.author.defaultRole.color}}">
+                                {{report.privateMessage.author.username}}
+                            </span>
+                        {% endif %}
+                    </td>
+                    <td class="align-middle fw-bold">
+                        <p class="mb-0">Par : <span style="color:{{report.author.defaultRole.color}}">{{report.author.username}}</span></p>
+                        {% if type == 'post' %}
+                            <p>
+                                Sujet : <a href="{{ path('topic', {id:report.post.topic.id, slug:report.post.topic.slug}) }}">
+                                    {{report.post.topic.title}}
+                                </a>
+                            </p>
+                        {% endif %}
+                    </td>
+                    <td class="align-middle text-center">
+                        <a href="{{path('mcp_report_show', {id:report.id, type:type})}}" class="btn btn-secondary">Voir <i class="bi bi-eye"></i></a>
+                    </td>
+                </tr>
+            {% else %}
+                <tr class="table-secondary">
+                    <td colspan="3" class="text-center">Il n'y a aucun rapport</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>

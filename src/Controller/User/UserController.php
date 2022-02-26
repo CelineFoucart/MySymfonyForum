@@ -30,4 +30,10 @@ class UserController extends AbstractController
             'userPosts' => $userPosts,
         ]);
     }
+
+    #[Route('/team', name: 'team')]
+    public function team(): Response
+    {
+        return $this->render('$0.html.twig', []);
+    }
 }
