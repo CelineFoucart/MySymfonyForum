@@ -55,7 +55,6 @@ class CategoryCrudController extends AbstractCrudController
             ->setPageTitle('index', 'Gestion des catégories')
             ->setPageTitle('edit', 'Modifier une catégorie')
             ->setPageTitle('new', 'Créer une catégorie')
-            ->setPageTitle('new', 'Créer une catégorie')
             ->showEntityActionsInlined()
             ->setDefaultSort(['orderNumber' => 'ASC']);
     }

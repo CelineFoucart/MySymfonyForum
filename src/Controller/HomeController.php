@@ -19,4 +19,10 @@ class HomeController extends AbstractController
             'categories' => $categories,
         ]);
     }
+
+    #[Route('/contact', name: 'contact')]
+    public function contact(): Response
+    {
+        return $this->render('home/contact.html.twig', []);
+    }
 }
