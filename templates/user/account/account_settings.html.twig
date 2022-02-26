@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Parmètre du compte | {{ website_name() }} {% endblock %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item active" aria-current="page">Mon compte</li> 
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2 class="h3 mb-3 font-weight-normal">Mon compte</h2>
+    {{ include('user/account/_navbar.html.twig') }}
+    <div class="tab-content rounded-3 bg-default p-2">
+        <h3 class="h5">Modifier les paramètres du compte</h3>
+            <div class="bg-light rounded-3 mx-3 p-2 border">
+                {{ form_start(accountForm) }}
+                    {{ form_rest(accountForm) }}
+                    <button type="submit" class="btn btn-primary mt-2">Modifier mon mot de passe</button>
+                {{ form_end(accountForm) }}
+            </div>
+            <div class="bg-light rounded-3 mx-3 mt-2 p-2 border">
+                {{ form_start(emailForm) }}
+                    {{ form_rest(emailForm) }}
+                    <button type="submit" class="btn btn-primary mt-2">Modifier mon email</button>
+                {{ form_end(emailForm) }}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Mon compte | {{ website_name() }} {% endblock %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item active" aria-current="page">Mon compte</li> 
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2 class="h3 mb-3 font-weight-normal">Mon compte</h2>
+    {% for message in app.flashes('success') %}
+        <div class="alert alert-success my-2">{{ message }}</div>
+    {% endfor %}
+    {{ include('user/account/_navbar.html.twig') }}
+    <div class="tab-content rounded-3 bg-default p-2">
+        <h3 class="h5">Vue d'ensemble</h3>
+        <p>Bienvenue sur le panneau de contrôle de l’utilisateur. Dans ce dernier, vous pouvez consulter et mettre à jour votre profil.</p>
+        <div class="bg-light rounded-3 mx-3 p-2 border">
+            <h3 class="text-uppercase h6 border-bottom border-dark">Statistiques</h3>
+            <dl class="profile-details">
+                <dt class="key">Inscription :</dt>
+                <dd class="value">{{ user.created | date("d/m/Y, H:i") }}</dd>
+                <dt class="key text-nowrap">Messages postés :</dt>
+                <dd class="value">
+                    <span class="fw-bold">{{userPosts}}</span> | 
+                    <span class="fw-bold">
+                        <a href="{{ path('search_result', {'user': user.id, 'type':'post'}) }}">Rechercher vos messages</a>
+                    </span>
+                </dd>
+            </dl>
+        </div>
+    </div>
+</section>
+{% endblock %}

@@ -1,0 +1,20 @@
+{% set home = path('account') %}
+{% set settings = path('account_settings') %}
+{% set profile = path('account_profile') %}
+<ul class="nav nav-tabs mx-1 mt-3">
+    <li class="nav-item">
+        <a class="nav-link {{ active_link(app.request.pathinfo, home) }}" aria-current="page" href="{{home}}">
+            Vue d'ensemble
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ active_link(app.request.pathinfo, profile, false) }}" href="{{profile}}">
+            Modifier mon profil
+        </a>
+    </li>
+    <li class="nav-item">
+        <a class="nav-link {{ active_link(app.request.pathinfo, settings, false) }}" href="{{settings}}">
+            Modifier les paramètres du compte
+        </a>
+    </li>
+</ul>

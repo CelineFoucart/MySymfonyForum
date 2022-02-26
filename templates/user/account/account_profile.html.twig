@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Modifier mon compte | {{ website_name() }} {% endblock %}
+
+{% block breadcrumb %} 
+    <li class="breadcrumb-item active" aria-current="page">Mon compte</li> 
+{% endblock %}
+
+{% block body %}
+<section>
+    <h2 class="h3 mb-3 font-weight-normal">Mon compte</h2>
+    {{ include('user/account/_navbar.html.twig') }}
+    <div class="tab-content rounded-3 bg-default p-2">
+        <h3 class="h5">Modifier le profil</h3>
+        <p>Veuillez noter que ces informations peuvent être visibles aux autres membres. Soyez prudent lors de la saisie d’informations personnelles.</p>
+        <div class="bg-light rounded-3 mx-3 p-2 border">
+            {{ form_start(profileForm) }}
+                {{ form_row(profileForm.birthday) }}
+                <div class="row">
+                    <div class="col-md-8">
+                        {{ form_row(profileForm.rank) }}
+                        {{ form_row(profileForm.localisation) }}
+                        {{ form_row(profileForm.avatar) }}
+                    </div>
+                    <div class="col-md-4">
+                        <h4 class="h6 mt-4 text-center">Image actuelle :</h4>
+                        <figure class="text-center">
+                            {{ avatar_format(user.avatar) }}
+                        </figure>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Enregistrer</button>
+            {{ form_end(profileForm) }}
+                </div>
+    </div>
+</section>
+{% endblock %}
