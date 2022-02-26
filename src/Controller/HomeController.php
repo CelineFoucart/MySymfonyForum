@@ -46,7 +46,7 @@ class HomeController extends AbstractController
             } else {
                 $this->addFlash('error', "L'envoi a échoué");
             }
-            // return $this->redirectToRoute('contact');
+            return $this->redirectToRoute('contact');
         }
 
         return $this->render('home/contact.html.twig', [

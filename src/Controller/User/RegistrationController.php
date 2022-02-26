@@ -64,6 +64,7 @@ class RegistrationController extends AbstractController
             $user->setCreated(new DateTime());
             $role = $this->roleRepository->findDefaultRole();
             $user->setDefaultRole($role);
+            $user->setIsVerified(false);
             $user->setRoles(['ROLE_USER']);
 
             $entityManager->persist($user);
@@ -72,10 +73,11 @@ class RegistrationController extends AbstractController
             // generate a signed url and email it to the user
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
-                    ->from(new Address($this->adminEmail, '"Bienvenue sur '. $this->websiteName .'"'))
+                    ->from(new Address($this->adminEmail, $this->websiteName))
                     ->to($user->getEmail())
-                    ->subject('Veuillez confirmer votre email')
+                    ->subject('Bienvenue sur ' . $this->websiteName)
                     ->htmlTemplate('email/confirmation_email.html.twig')
+                    ->context(['user' => $user])
             );
             // do anything else you need here, like send an email
 
