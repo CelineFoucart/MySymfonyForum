@@ -1,7 +1,6 @@
-{{ knp_pagination_render(users) }}
 <article class="forum-section rounded-3 p-2">
     <h3 class="section-title d-flex justify-content-between">
-        <span class="forum-label">Nom d'utilisateur</span>
+        <span class="forum-label">{{ label|default('Nom d\'utilisateur') }}</span>
         <span class="forum-label">Rang</span>
         <span>Inscription</span>
     </h3>

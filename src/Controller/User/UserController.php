@@ -2,6 +2,8 @@
 
 namespace App\Controller\User;
 
+use App\Entity\User;
+use App\Repository\RoleRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -10,10 +12,12 @@ use Symfony\Component\Routing\Annotation\Route;
 class UserController extends AbstractController
 {
     private UserRepository $userRepository;
+    private RoleRepository $roleRepository;
 
-    public function __construct(UserRepository $userRepository)
+    public function __construct(UserRepository $userRepository, RoleRepository $roleRepository)
     {
         $this->userRepository = $userRepository;
+        $this->roleRepository = $roleRepository;
     }
 
     #[Route('/profile/{id}', name: 'profile')]
@@ -34,6 +38,20 @@ class UserController extends AbstractController
     #[Route('/team', name: 'team')]
     public function team(): Response
     {
-        return $this->render('$0.html.twig', []);
+        $roles = $this->roleRepository->findTeamRoles();
+        $users = $this->userRepository->findTeam();
+
+        $teams = [];
+        foreach ($roles as $role) {
+            $teams[$role->getTitle()] = [
+                'role' => $role,
+                'users' => []
+            ];
+            $teams[$role->getTitle()]['users'] = array_filter($users, fn(User $user) => $user->hasRole($role->getTitle()));
+        }
+
+        return $this->render('user/team.html.twig', [
+            'teams' => $teams
+        ]);
     }
 }

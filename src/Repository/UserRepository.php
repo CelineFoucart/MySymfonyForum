@@ -54,6 +54,20 @@ class UserRepository extends ServiceEntityRepository implements PasswordUpgrader
             self::LIMIT
         );
     }
+
+    /**
+     * @return User[] Returns an array of administrator and moderator Users
+     */
+    public function findTeam(): array
+    {
+        return $this->createQueryBuilder('u')
+            ->leftJoin('u.defaultRole', 'r')
+            ->andWhere("u.roles LIKE '%ROLE_ADMIN%'")
+            ->orWhere("u.roles LIKE '%ROLE_MODERATOR%'")
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
     public function findByPseudo(string $pseudo): ?User
     {

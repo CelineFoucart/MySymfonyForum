@@ -19,13 +19,39 @@ class RoleRepository extends ServiceEntityRepository
         parent::__construct($registry, Role::class);
     }
 
+    /**
+     * Find the default role ROLE_USER.
+     */
     public function findDefaultRole(): ?Role
+    {
+        return $this->findByTitle('ROLE_USER');
+    }
+
+    /**
+     * Find a role by title, for example ROLE_USER.
+     */
+    public function findByTitle(string $title): ?Role
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.title = :title')
-            ->setParameter('title', 'ROLE_USER')
+            ->setParameter('title', $title)
             ->getQuery()
             ->getOneOrNullResult()
+        ;
+    }
+
+    /**
+     * @return Role[] Returns an array of Role objects, ROLE_ADMIN and ROLE_MODERATOR 
+     */
+    public function findTeamRoles(): array
+    {
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.title = :admin')
+            ->setParameter('admin', 'ROLE_ADMIN')
+            ->orWhere('r.title = :modo')
+            ->setParameter('modo', 'ROLE_MODERATOR')
+            ->getQuery()
+            ->getResult()
         ;
     }
 

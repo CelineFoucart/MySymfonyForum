@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} L'équipe | {{ website_name() }}{% endblock %}
+
+{% block breadcrumb %} 
+<li class="breadcrumb-item active" aria-current="page">L'équipe</li> 
+{% endblock %}
+
+{% block body %}
+
+<section>
+    <h2>L'équipe</h2>
+    {% for team in teams %}
+        {{ include('user/group/_users.html.twig', {users: team.users, label:team.role.name}) }}
+    {% endfor %}
+</section>
+
+{% endblock %}

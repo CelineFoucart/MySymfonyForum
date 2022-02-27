@@ -80,7 +80,7 @@ class SearchController extends AbstractController
     {
         $user = $this->getUser();
         if($user === null) {
-            return $this->permissionHelper::PUBLIC_ACCESS;
+            return [$this->permissionHelper::PUBLIC_ACCESS];
         } else {
             return $user->getRoles();
         }

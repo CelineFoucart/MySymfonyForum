@@ -11,6 +11,7 @@
 <section>
     <h2 style="color:{{ role.color }}">{{ role.name }}</h2>
     <p>{{ role.description }}</p>
+    {{ knp_pagination_render(users) }}
    {{ include('user/group/_users.html.twig') }}
 </section>
 {% endblock %}
