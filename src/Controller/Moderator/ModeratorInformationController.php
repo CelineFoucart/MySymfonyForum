@@ -88,7 +88,7 @@ class ModeratorInformationController extends AbstractController
         switch ($type) {
             case 'topic':
                 $count = $this->topicRepository->count(['id' => $id]);
-                // no break
+                break;
             case 'post':
                 $count = $this->postRepository->count(['id' => $id]);
                 break;
