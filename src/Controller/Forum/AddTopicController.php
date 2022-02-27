@@ -8,14 +8,14 @@ use App\Entity\Topic;
 use App\Form\TopicType;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
-use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
-class AddTopicController extends AbstractController
+final class AddTopicController extends AbstractController
 {
     #[Route('/forum/{id}/new', name: 'topic_new')]
     #[IsGranted('ROLE_USER')]

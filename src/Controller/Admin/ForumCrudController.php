@@ -3,7 +3,6 @@
 namespace App\Controller\Admin;
 
 use App\Entity\Forum;
-use App\Repository\CategoryRepository;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Action;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Actions;
 use EasyCorp\Bundle\EasyAdminBundle\Config\Crud;
@@ -16,13 +15,6 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
 class ForumCrudController extends AbstractCrudController
 {
-    private CategoryRepository $categoryRepository;
-
-    public function __construct(CategoryRepository $categoryRepository)
-    {
-        $this->categoryRepository = $categoryRepository;
-    }
-
     public static function getEntityFqcn(): string
     {
         return Forum::class;

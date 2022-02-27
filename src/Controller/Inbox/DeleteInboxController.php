@@ -9,7 +9,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class DeleteInboxController extends AbstractInboxController
 {
-    
     #[Route('/inbox/{id}/delete', name: 'inbox_delete')]
     public function delete(int $id, Request $request, EntityManagerInterface $em): Response
     {

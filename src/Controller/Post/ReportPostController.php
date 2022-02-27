@@ -12,7 +12,6 @@ use Symfony\Component\Routing\Annotation\Route;
 
 final class ReportPostController extends AbstractPostController
 {
-
     #[Route('/post/{id}/report', name: 'post_report')]
     #[IsGranted('ROLE_USER')]
     public function report(int $id, Request $request, EntityManagerInterface $em): Response

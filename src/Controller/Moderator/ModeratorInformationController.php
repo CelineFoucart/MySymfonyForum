@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
 #[Route('/mcp/informations')]
-class ModeratorInformationController extends AbstractController
+final class ModeratorInformationController extends AbstractController
 {
     private PostRepository $postRepository;
     private TopicRepository $topicRepository;

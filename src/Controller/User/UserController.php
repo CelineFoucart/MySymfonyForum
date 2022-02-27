@@ -9,7 +9,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class UserController extends AbstractController
+final class UserController extends AbstractController
 {
     private UserRepository $userRepository;
     private RoleRepository $roleRepository;
@@ -45,13 +45,13 @@ class UserController extends AbstractController
         foreach ($roles as $role) {
             $teams[$role->getTitle()] = [
                 'role' => $role,
-                'users' => []
+                'users' => [],
             ];
-            $teams[$role->getTitle()]['users'] = array_filter($users, fn(User $user) => $user->hasRole($role->getTitle()));
+            $teams[$role->getTitle()]['users'] = array_filter($users, fn (User $user) => $user->hasRole($role->getTitle()));
         }
 
         return $this->render('user/team.html.twig', [
-            'teams' => $teams
+            'teams' => $teams,
         ]);
     }
 }

@@ -13,7 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class HomeController extends AbstractController
+final class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]
     public function index(CategoryRepository $categoryRepository): Response
@@ -30,7 +30,7 @@ class HomeController extends AbstractController
     {
         $contact = new Contact();
         $user = $this->getUser();
-        if($user !== null) {
+        if (null !== $user) {
             assert($user instanceof User);
             $contact->setUsername($user->getUsername());
             $contact->setEmail($user->getEmail());
@@ -38,19 +38,20 @@ class HomeController extends AbstractController
 
         $form = $this->createForm(ContactType::class, $contact);
         $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) { 
+
+        if ($form->isSubmitted() && $form->isValid()) {
             $status = $emailService->notify($contact);
-            if($status) {
-                $this->addFlash('success', "Votre message a été envoyé");
+            if ($status) {
+                $this->addFlash('success', 'Votre message a été envoyé');
             } else {
                 $this->addFlash('error', "L'envoi a échoué");
             }
+
             return $this->redirectToRoute('contact');
         }
 
         return $this->render('home/contact.html.twig', [
-            'form' => $form->createView()
+            'form' => $form->createView(),
         ]);
     }
 }

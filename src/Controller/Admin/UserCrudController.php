@@ -45,7 +45,7 @@ class UserCrudController extends AbstractCrudController
             Field::new('password')->hideOnIndex()->hideOnDetail()->setFormType(PasswordType::class),
             Field::new('localisation')->hideOnIndex(),
             Field::new('rank')->hideOnIndex(),
-            Field::new('isVerified')->hideOnForm()
+            Field::new('isVerified')->hideOnForm(),
         ];
     }
 

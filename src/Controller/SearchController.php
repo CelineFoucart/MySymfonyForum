@@ -12,17 +12,17 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class SearchController extends AbstractController
+final class SearchController extends AbstractController
 {
     private PostRepository $postRepository;
     private TopicRepository $topicRepository;
     private PermissionHelper $permissionHelper;
 
     public function __construct(
-        PostRepository $postRepository, 
+        PostRepository $postRepository,
         TopicRepository $topicRepository,
         PermissionHelper $permissionHelper
-    )  {
+    ) {
         $this->topicRepository = $topicRepository;
         $this->postRepository = $postRepository;
         $this->permissionHelper = $permissionHelper;
@@ -79,7 +79,7 @@ class SearchController extends AbstractController
     private function getPermissions(): array
     {
         $user = $this->getUser();
-        if($user === null) {
+        if (null === $user) {
             return [$this->permissionHelper::PUBLIC_ACCESS];
         } else {
             return $user->getRoles();

@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class ForumController extends AbstractController
+final class ForumController extends AbstractController
 {
     private CategoryRepository $categoryRepository;
     private ForumRepository $forumRepository;

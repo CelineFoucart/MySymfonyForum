@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/mcp/topic')]
-class ModeratorTopicController extends AbstractController
+final class ModeratorTopicController extends AbstractController
 {
     #[Route('/{id}/delete', name: 'topic_delete')]
     public function delete(Topic $topic, Request $request, EntityManagerInterface $em): Response

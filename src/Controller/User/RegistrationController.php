@@ -20,7 +20,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
-class RegistrationController extends AbstractController
+final class RegistrationController extends AbstractController
 {
     private RoleRepository $roleRepository;
     private EmailVerifier $emailVerifier;
@@ -28,8 +28,8 @@ class RegistrationController extends AbstractController
     private string $websiteName;
 
     public function __construct(
-        EmailVerifier $emailVerifier, 
-        RoleRepository $roleRepository, 
+        EmailVerifier $emailVerifier,
+        RoleRepository $roleRepository,
         string $adminEmail,
         string $websiteName
     ) {
@@ -69,12 +69,12 @@ class RegistrationController extends AbstractController
 
             $entityManager->persist($user);
             $entityManager->flush();
-            
+
             $this->emailVerifier->sendEmailConfirmation('app_verify_email', $user,
                 (new TemplatedEmail())
                     ->from(new Address($this->adminEmail, $this->websiteName))
                     ->to($user->getEmail())
-                    ->subject('Bienvenue sur ' . $this->websiteName)
+                    ->subject('Bienvenue sur '.$this->websiteName)
                     ->htmlTemplate('email/confirmation_email.html.twig')
                     ->context(['user' => $user])
             );
@@ -105,7 +105,7 @@ class RegistrationController extends AbstractController
         if (null === $user) {
             return $this->redirectToRoute('app_register');
         }
-        
+
         try {
             $this->emailVerifier->handleEmailConfirmation($request, $user);
         } catch (VerifyEmailExceptionInterface $exception) {
@@ -113,7 +113,7 @@ class RegistrationController extends AbstractController
 
             return $this->redirectToRoute('app_register');
         }
-        
+
         $this->addFlash('success', 'Votre email a bien été vérifié.');
 
         return $this->redirectToRoute('account');
