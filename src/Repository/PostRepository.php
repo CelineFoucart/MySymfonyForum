@@ -35,6 +35,9 @@ class PostRepository extends ServiceEntityRepository
         $this->paginator = $paginator;
     }
 
+    /**
+     * Finds a Post by id.
+     */
     public function findOneById(int $id): ?Post
     {
         return $this->createQueryBuilder('p')
@@ -48,7 +51,7 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return the paginated result of Post.
+     * Returns the paginated result of Post.
      */
     public function findPaginated(?int $topicId = null, int $page): PaginationInterface
     {
@@ -65,7 +68,7 @@ class PostRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return the result of a search by user id of keywords.
+     * Returns the result of a search by user id of keywords.
      */
     public function search(
         ?int $userId = null, 

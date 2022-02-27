@@ -12,6 +12,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 
+/**
+ * Class SearchType
+ * 
+ * SearchType represents an topic and post search form in the forum
+ * with a type field, keywords field and user field.
+ * 
+ * @author Céline Foucart
+ */
 class SearchType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

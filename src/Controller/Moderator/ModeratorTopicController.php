@@ -3,7 +3,7 @@
 namespace App\Controller\Moderator;
 
 use App\Entity\Topic;
-use App\Form\TopicMoveType;
+use App\Form\Moderator\TopicMoveType;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

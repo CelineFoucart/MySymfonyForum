@@ -8,6 +8,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class TopicEditType
+ * 
+ * TopicEditType represents an edited topic form 
+ * with a title field.
+ * 
+ * @author Céline Foucart
+ */
 class TopicEditType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

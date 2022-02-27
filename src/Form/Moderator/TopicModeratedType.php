@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form;
+namespace App\Form\Moderator;
 
 use App\Entity\Topic;
 use App\Entity\User;

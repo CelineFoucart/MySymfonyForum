@@ -56,7 +56,7 @@ class RoleRepository extends ServiceEntityRepository
     }
 
     /**
-     * @return Role[] Returns an array of Role objects
+     * @return Role[] Returns an array of Role objects for public use.
      */
     public function findForPublicUse(): array
     {

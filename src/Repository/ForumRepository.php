@@ -21,9 +21,7 @@ class ForumRepository extends ServiceEntityRepository
     }
     
     /**
-     * @param int $id
-     * 
-     * @return Forum|null
+     * Finds a Forum by id.
      */
     public function findOneById(int $id): ?Forum
     {

@@ -32,6 +32,9 @@ class CategoryVoter extends Voter
         return false;
     }
 
+    /**
+     * Determines if a user can view a Category of Forums.
+     */
     protected static function canView(Category $subject, array $permissions): bool
     {
         foreach ($permissions as $permission) {
@@ -42,6 +45,9 @@ class CategoryVoter extends Voter
         return false;
     }
 
+    /**
+     * Returns user's roles to check permissions.
+     */
     protected static function getUserPermissions(?User $user = null): array
     {
         if (!$user instanceof UserInterface) {
@@ -51,7 +57,7 @@ class CategoryVoter extends Voter
     }
 
     /**
-     * Filter a list of categories with user's permissions
+     * Filters a list of categories with user's permissions
      * 
      * @return Category[]
      */

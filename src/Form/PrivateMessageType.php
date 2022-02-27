@@ -11,6 +11,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Class PrivateMessageType
+ * 
+ * PrivateMessageType represents a private message form
+ * with a addressee field, a title field and a content field.
+ * 
+ * @author Céline Foucart
+ */
 class PrivateMessageType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

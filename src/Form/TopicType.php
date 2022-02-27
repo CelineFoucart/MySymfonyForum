@@ -10,6 +10,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 
+/**
+ * Class TopicType
+ * 
+ * TopicType represents a new topic form 
+ * with a title field and a message field for the first post.
+ * 
+ * @author Céline Foucart
+ */
 class TopicType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

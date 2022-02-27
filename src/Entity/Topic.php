@@ -20,7 +20,7 @@ class Topic
     #[Assert\NotBlank]
     #[Assert\Length(
         min: 3,
-        max: 50,
+        max: 70,
         minMessage: 'Votre titre doit faire au moins {{ limit }} caractères',
         maxMessage: 'Votre titre ne peut pas dépasser {{ limit }} caractères',
     )]

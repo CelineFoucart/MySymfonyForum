@@ -20,7 +20,7 @@ class VoterAction
     }
 
     /**
-     * Determine if a user can moderate a post or a topic.
+     * Determines if a user can moderate a post or a topic.
      */
     public function canModerate(): bool
     {
@@ -28,7 +28,7 @@ class VoterAction
     }
 
     /**
-     * Determine if a user can edit a post or a topic.
+     * Determines if a user can edit a post or a topic.
      *
      * @param Post|Topic $item
      */
@@ -43,7 +43,7 @@ class VoterAction
     }
 
     /**
-     * Determine if a user can delete a post or a topic.
+     * Determines if a user can delete a post or a topic.
      *
      * @param Post|Topic $item
      */

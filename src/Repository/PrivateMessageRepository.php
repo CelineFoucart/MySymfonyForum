@@ -19,6 +19,9 @@ class PrivateMessageRepository extends ServiceEntityRepository
         parent::__construct($registry, PrivateMessage::class);
     }
     
+    /**
+     * Finds a PrivateMessage by id.
+     */
     public function findOneById(int $id): ?PrivateMessage
     {
         return $this->createQueryBuilder('p')

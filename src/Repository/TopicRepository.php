@@ -35,7 +35,7 @@ class TopicRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return the paginated result of Topic.
+     * Returns the paginated result of Topic.
      */
     public function findPaginated(?int $forumId = null, int $page): PaginationInterface
     {
@@ -51,7 +51,7 @@ class TopicRepository extends ServiceEntityRepository
     }
 
     /**
-     * Return the result of a search by user id of keywords.
+     * Returns the result of a search by user id of keywords.
      */
     public function search(
             ?int $userId = null, 
@@ -60,8 +60,7 @@ class TopicRepository extends ServiceEntityRepository
             array $permissions = []
         ): PaginationInterface {
         $builder = $this->createQueryBuilder('t')
-            ->leftJoin('t.author', 'u')
-            ->addSelect('u')
+            ->leftJoin('t.author', 'u') ->addSelect('u')
             ->leftJoin('t.forum', 'f')
             ->leftJoin('f.category', 'c');
         
@@ -80,6 +79,9 @@ class TopicRepository extends ServiceEntityRepository
         return $this->getPaginatedQuery($builder, $page);
     }
 
+    /**
+     * Finds a Post by id.
+     */
     public function findOneById(int $id): ?Topic
     {
         return $this->createQueryBuilder('t')
@@ -94,7 +96,7 @@ class TopicRepository extends ServiceEntityRepository
     }
     
     /**
-     * @return Topic[] Returns an array of Post objects
+     * @return Topic[] Returns an array of the last newest Posts
      */
     public function findLastThree(): array
     {
@@ -108,7 +110,7 @@ class TopicRepository extends ServiceEntityRepository
     }
 
     /**
-     * Paginate a query.
+     * Paginates a query.
      */
     private function getPaginatedQuery(QueryBuilder $builder, int $page): PaginationInterface
     {

@@ -49,11 +49,17 @@ class TopicVoter extends Voter
         return false;
     }
 
+    /**
+     * Determines if a user can edit a Topic.
+     */
     protected function canEditTopic(Topic $subject, User $user): bool
     {
         return $this->voterAction->canEdit($subject, $user) && true !== $subject->getLocked();
     }
 
+    /**
+     * Determines if a user can reply to a Topic.
+     */
     protected function canReply(Topic $subject): bool
     {
         return $this->voterAction->canModerate() || true !== $subject->getLocked();

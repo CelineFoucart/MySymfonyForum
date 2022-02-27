@@ -34,6 +34,9 @@ class ReportRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * @return Report[] Returns the last five Reports.
+     */
     public function findLastReports(string $type = 'post'): array
     {
         return $this->createQueryBuilder('r')
@@ -47,6 +50,9 @@ class ReportRepository extends ServiceEntityRepository
         ;
     }
 
+    /**
+     * Finds a report by id.
+     */
     public function findReportById(int $id): ?Report
     {
         return $this->createQueryBuilder('r')

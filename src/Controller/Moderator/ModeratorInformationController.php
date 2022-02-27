@@ -3,8 +3,8 @@
 namespace App\Controller\Moderator;
 
 use App\Entity\Topic;
-use App\Form\PostModeratedType;
-use App\Form\TopicModeratedType;
+use App\Form\Moderator\PostModeratedType;
+use App\Form\Moderator\TopicModeratedType;
 use App\Repository\PostRepository;
 use App\Repository\TopicRepository;
 use Doctrine\ORM\EntityManagerInterface;

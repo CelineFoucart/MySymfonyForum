@@ -48,11 +48,17 @@ class PostVoter extends Voter
         return false;
     }
 
+    /**
+     * Determines if a user can edit a post.
+     */
     protected function canEditPost(Post $post, User $user): bool
     {
         return $this->voterAction->canEdit($post, $user) && $post->getTopic()->getLocked() !== true;
     }
 
+    /**
+     * Determines if a user can delete a post.
+     */
     protected function canDeletePost(Post $post, User $user): bool
     {
         return $this->canEditPost($post, $user);
