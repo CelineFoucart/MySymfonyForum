@@ -9,6 +9,11 @@
 {% block body %}
     <section>
         <h2 class="h3 mb-3 font-weight-normal">Inscription</h2>
+        {% for message in app.flashes('verify_email_error') %}
+        <div class="alert alert-danger">
+            {{ message }}
+        </div>
+        {% endfor %}
         <div class="rounded-3 bg-default p-2">
             {{ form_start(registrationForm) }}
                 <div class="row">
