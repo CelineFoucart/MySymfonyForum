@@ -13,13 +13,16 @@
         <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <div class="rounded-3 bg-default p-2">
+    <article class="rounded-3 bg-default p-2">
+        <h3 class="text-uppercase h6 border-bottom border-dark">Connexion</h3>
         <form method="post">    
             <label for="inputUsername">Pseudo</label>
             <input type="text" value="{{ last_username }}" name="username" id="inputUsername" class="form-control" autocomplete="username" required autofocus>
             <label for="inputPassword" class="mt-2">Mot de passe</label>
             <input type="password" name="password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-
+            <p>
+                <a href="{{ path('app_forgot_password_request') }}">J'ai oublié mon mot de passe</a>
+            </p>
             <input type="hidden" name="_csrf_token"
                 value="{{ csrf_token('authenticate') }}"
             >
@@ -37,7 +40,15 @@
                 Connexion
             </button>
         </form>
-    </div>
+    </article>
+    <article class="rounded-3 bg-default p-2 mt-2">
+        <h3 class="text-uppercase h6 border-bottom border-dark">Inscription</h3>
+        <p>
+            Vous devez être inscrit avant de pouvoir vous connecter. 
+            L’inscription est rapide et vous offre de nombreux avantages.
+        </p>
+        <a href="{{ path('app_register') }}" class="btn btn-primary mt-2">Inscription</a>
+    </article>
 </section>
 
 

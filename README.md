@@ -28,7 +28,7 @@ symfony serve -d
 ```
 
 ## TODO 
-* refactorisation
+* Remember Me
 * affiner les rôles : 
 ROLE_FULL_ADMIN, ROLE_ADMIN, ROLE_FULL_MODERATOR, ROLE_MODERATOR, ROLE_USER, ROLE_USER_LIMITED ?
 

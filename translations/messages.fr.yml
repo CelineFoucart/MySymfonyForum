@@ -29,6 +29,12 @@ This value should not be blank.: Cette valeur ne peut pas être vide.
 This value must be at least %limit% characters long.: Cette valeur doit faire au moins %limit% caractères.
 This value cannot be longer than %limit% characters: Cette valeur ne peut pas faire plus de %limit% caractères.
 The email %value% is not a valid email.: L'email %value% n'est pas un email valide.
+Your password should be at least %limit% characters: Votre mot de passe doit faire au moins %limit% caractères
+Please enter a password: Veuillez entrer un mot de passe
+The password fields must match.: Les champs mot de passe ne sont pas identiques.
+Please enter your email: Veuillez entrer un email
 Subject: Sujet
 Content: Contenu
 Is Verified: Validé
+New password: Nouveau mot de passe
+Repeat Password: Confirmer le mot de passe
