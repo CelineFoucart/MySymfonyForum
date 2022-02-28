@@ -8,6 +8,15 @@ use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 use Symfony\Component\Mime\Address;
 
+/**
+ * Class EmailService
+ * 
+ * EmailService handles email sending for contact purpose.
+ * 
+ * @method bool notify($contact)
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class EmailService
 {
     private string $adminEmail;
@@ -19,6 +28,9 @@ class EmailService
         $this->mailer = $mailer;
     }
 
+    /**
+     * Sends an email to the administrator from a user.
+     */
     public function notify(Contact $contact): bool
     {
         try {
@@ -29,6 +41,9 @@ class EmailService
         }
     }
 
+    /**
+     * Creates and sends an email.
+     */
     private function send(Contact $contact): void
     {
         $email = (new TemplatedEmail())

@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the moderator control pannel reports page.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 #[Route('/mcp')]
 final class ReportModeratorController extends AbstractController
 {

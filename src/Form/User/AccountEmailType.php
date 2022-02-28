@@ -9,6 +9,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\NotNull;
 
+/**
+ * Class AccountEmailType
+ * 
+ * AccountEmailType represents an email form 
+ * to change the user email.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class AccountEmailType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

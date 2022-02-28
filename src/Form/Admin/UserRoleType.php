@@ -8,6 +8,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class UserRoleType
+ * 
+ * UserRoleType represents an role form 
+ * with a roles field to change the user's roles.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class UserRoleType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

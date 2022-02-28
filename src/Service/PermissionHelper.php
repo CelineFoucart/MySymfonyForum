@@ -4,11 +4,21 @@ namespace App\Service;
 
 use Doctrine\ORM\QueryBuilder;
 
+/**
+ * Class PermissionHelper
+ * 
+ * PermissionHelper formates query with permissions parameters.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class PermissionHelper
 {
     const PUBLIC_ACCESS = 'PUBLIC_ACCESS';
 
-    public function setPermissions(QueryBuilder $builder, array $permissions = [])
+    /**
+     * Inserts permissions restrictions to a query.
+     */
+    public function setPermissions(QueryBuilder $builder, array $permissions = []): QueryBuilder
     {
         if(empty($permissions)) {
             $permissions = [self::PUBLIC_ACCESS];

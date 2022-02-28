@@ -5,6 +5,13 @@ namespace App\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
+/**
+ * Class ImageDirExtension
+ * 
+ * ImageDirExtension handles link to image directory.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class ImageDirExtension extends AbstractExtension
 {
     private const AVATAR_DIR = '/avatar/';
@@ -16,7 +23,10 @@ class ImageDirExtension extends AbstractExtension
         ];
     }
 
-    public function getImageTag(?string $filename = null)
+    /**
+     * Returns a html img tag with a valid path to a file.
+     */
+    public function getImageTag(?string $filename = null): string
     {
         $path = self::AVATAR_DIR;
         if (null === $filename) {

@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the users' lists.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class GroupController extends AbstractController
 {
     private UserRepository $userRepository;

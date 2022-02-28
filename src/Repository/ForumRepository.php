@@ -12,6 +12,8 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Forum|null findOneBy(array $criteria, array $orderBy = null)
  * @method Forum[]    findAll()
  * @method Forum[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Forum|null findOneById($id) find a forum and its category
+ * @method Forum[]    findByOrder()    returns forums order by the property orderNumber
  */
 class ForumRepository extends ServiceEntityRepository
 {

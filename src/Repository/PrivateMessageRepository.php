@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method PrivateMessage|null findOneBy(array $criteria, array $orderBy = null)
  * @method PrivateMessage[]    findAll()
  * @method PrivateMessage[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PrivateMessage|null findOneById($id) find a PrivateMessage, its author and its addressee
  */
 class PrivateMessageRepository extends ServiceEntityRepository
 {
@@ -20,7 +21,7 @@ class PrivateMessageRepository extends ServiceEntityRepository
     }
     
     /**
-     * Finds a PrivateMessage by id.
+     * Finds a PrivateMessage by id with its author and its addressee.
      */
     public function findOneById(int $id): ?PrivateMessage
     {

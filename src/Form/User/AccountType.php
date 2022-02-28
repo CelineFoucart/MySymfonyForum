@@ -11,6 +11,14 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
+/**
+ * Class PostModeratedType
+ * 
+ * PostModeratedType represents an post form 
+ * for moderators to change the author of a post.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class AccountType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

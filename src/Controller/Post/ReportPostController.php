@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the post reports.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class ReportPostController extends AbstractPostController
 {
     #[Route('/post/{id}/report', name: 'post_report')]

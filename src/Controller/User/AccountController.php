@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the user account pages.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class AccountController extends AbstractController
 {
     #[Route('/account', name: 'account')]

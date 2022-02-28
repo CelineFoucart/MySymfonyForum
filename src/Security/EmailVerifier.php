@@ -10,6 +10,13 @@ use Symfony\Component\Mailer\MailerInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 use SymfonyCasts\Bundle\VerifyEmail\VerifyEmailHelperInterface;
 
+/**
+ * Class EmailVerifier
+ * 
+ * EmailVerifier handles email confirmation.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class EmailVerifier
 {
     private $verifyEmailHelper;

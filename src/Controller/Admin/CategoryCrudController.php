@@ -19,6 +19,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ *  Controller used to manage categories in the backend.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class CategoryCrudController extends AbstractCrudController
 {
     private RoleRepository $roleRepository;

@@ -9,6 +9,11 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the user profile page and the team page.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class UserController extends AbstractController
 {
     private UserRepository $userRepository;

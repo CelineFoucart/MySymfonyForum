@@ -6,6 +6,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the topics.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class TopicController extends AbstractTopicController
 {
     #[Route('/topic/{slug}-{id}', name: 'topic', requirements: ['slug' => '[a-z\-]*'])]

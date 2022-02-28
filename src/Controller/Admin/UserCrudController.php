@@ -18,6 +18,11 @@ use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
+/**
+ *  Controller used to manage users in the backend.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class UserCrudController extends AbstractCrudController
 {
     private RoleRepository $roleRepository;

@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the inbox new page.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class CreateInboxController extends AbstractInboxController
 {
     #[Route('/inbox/new', name: 'inbox_create')]

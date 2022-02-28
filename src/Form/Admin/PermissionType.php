@@ -10,6 +10,14 @@ use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class PermissionType
+ * 
+ * PermissionType represents an permissions form 
+ * with a permissions field to change the permissions of a category.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class PermissionType extends AbstractType
 {
     private RoleRepository $roleRepository;

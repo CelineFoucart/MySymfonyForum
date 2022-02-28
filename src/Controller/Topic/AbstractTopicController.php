@@ -7,6 +7,11 @@ use App\Repository\PostRepository;
 use App\Repository\TopicRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ *  This controller provides userful method for topic controllers.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 abstract class AbstractTopicController extends AbstractController
 {
     protected TopicRepository $topicRepository;

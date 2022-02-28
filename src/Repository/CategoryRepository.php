@@ -11,6 +11,7 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Category|null findOneBy(array $criteria, array $orderBy = null)
  * @method Category[]    findAll()
  * @method Category[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Category[]    findByOrder() returns categories order by the property orderNumber
  */
 class CategoryRepository extends ServiceEntityRepository
 {

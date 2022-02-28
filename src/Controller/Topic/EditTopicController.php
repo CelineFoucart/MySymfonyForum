@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+/**
+ *  Controller used to manage the topic edition.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class EditTopicController extends AbstractTopicController
 {
     #[Route('/topic/{id}/edit', name: 'topic_edit')]

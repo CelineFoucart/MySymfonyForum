@@ -13,6 +13,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\SlugField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
+/**
+ *  Controller used to manage forums in the backend.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class ForumCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

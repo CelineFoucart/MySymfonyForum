@@ -11,6 +11,10 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Role|null findOneBy(array $criteria, array $orderBy = null)
  * @method Role[]    findAll()
  * @method Role[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Role[]    findDefaultRole()
+ * @method Role[]    findByTitle($title)
+ * @method Role[]    findTeamRoles()
+ * @method Role[]    findForPublicUse()
  */
 class RoleRepository extends ServiceEntityRepository
 {

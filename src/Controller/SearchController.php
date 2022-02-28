@@ -12,6 +12,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Controller used to manage search page.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class SearchController extends AbstractController
 {
     private PostRepository $postRepository;

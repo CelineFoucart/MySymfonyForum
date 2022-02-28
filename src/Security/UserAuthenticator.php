@@ -15,6 +15,13 @@ use Symfony\Component\Security\Http\Authenticator\Passport\Credentials\PasswordC
 use Symfony\Component\Security\Http\Authenticator\Passport\Passport;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 
+/**
+ * Class UserAuthenticator
+ * 
+ * UserAuthenticator handles user authentification.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class UserAuthenticator extends AbstractLoginFormAuthenticator
 {
     use TargetPathTrait;

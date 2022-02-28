@@ -11,6 +11,14 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\Image;
 
+/**
+ * Class ProfileType
+ * 
+ * ProfileType represents an user informations form 
+ * for user to change their birthday, rank, localisation and avatar.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class ProfileType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

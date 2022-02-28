@@ -2,6 +2,15 @@
 
 namespace App\Service;
 
+/**
+ * Class BbCodeService
+ * 
+ * BbCodeService parses bbcode to html.
+ * 
+ * @method string parse($text)
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class BbCodeService
 {
     const BBCODE = [
@@ -57,6 +66,9 @@ class BbCodeService
         ]
     ];
     
+    /**
+     * Parses bbcode to HTML.
+     */
     public function parse(string $text): string
     {
         $text = preg_replace('#\[quote=(.+)\](.+)\[/quote\]#isU', '<blockquote><cite>$1 a écrit :</cite>$2</blockquote>', $text);

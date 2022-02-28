@@ -6,6 +6,16 @@ use Twig\Extension\AbstractExtension;
 use Twig\TwigFilter;
 use App\Service\BbCodeService;
 
+/**
+ * Class TextHelperExtension
+ * 
+ * TextHelperExtension provides helpers for text.
+ * 
+ * @method string excerpt($text)
+ * @method string formatText($text)
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class TextHelperExtension extends AbstractExtension
 {
     protected const MAX_LENGTH = 200;
@@ -25,6 +35,9 @@ class TextHelperExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * Truncates a text longer than 200 characters.
+     */
     public function excerpt(string $text): string
     {
         if ($text <= 200) {
@@ -36,6 +49,9 @@ class TextHelperExtension extends AbstractExtension
         return mb_substr($excerpt, 0, $last).'[...]';
     }
 
+    /**
+     * Parses a bbcode text to html.
+     */
     public function formatText(string $text): string
     {
         return $this->parser->parse($text);

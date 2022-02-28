@@ -10,6 +10,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the forums pages.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class ForumController extends AbstractController
 {
     private CategoryRepository $categoryRepository;

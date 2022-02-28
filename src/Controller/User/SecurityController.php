@@ -7,6 +7,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 
+/**
+ *  Controller used to manage the application security.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class SecurityController extends AbstractController
 {
     /**
@@ -29,6 +34,6 @@ final class SecurityController extends AbstractController
      */
     public function logout(): void
     {
-        throw new \LogicException('This method can be blank.');
+        throw new \LogicException('This should never be reached!');
     }
 }

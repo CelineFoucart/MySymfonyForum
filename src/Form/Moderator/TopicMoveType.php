@@ -9,6 +9,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class TopicMoveType
+ * 
+ * TopicMoveType represents an move topic form 
+ * with a forum field to change the topic forum.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class TopicMoveType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

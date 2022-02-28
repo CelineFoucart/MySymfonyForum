@@ -11,6 +11,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\ColorField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
+/**
+ *  Controller used to manage roles in the backend.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class RoleCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string

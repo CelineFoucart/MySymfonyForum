@@ -11,6 +11,9 @@ use Doctrine\Persistence\ManagerRegistry;
  * @method Report|null findOneBy(array $criteria, array $orderBy = null)
  * @method Report[]    findAll()
  * @method Report[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Forum|null  findReportById($id) find a Report and its post
+ * @method Report[]     findPostReports()
+ * @method Report[]     findLastReports()
  */
 class ReportRepository extends ServiceEntityRepository
 {
@@ -51,7 +54,7 @@ class ReportRepository extends ServiceEntityRepository
     }
 
     /**
-     * Finds a report by id.
+     * Finds a report by id with its post.
      */
     public function findReportById(int $id): ?Report
     {

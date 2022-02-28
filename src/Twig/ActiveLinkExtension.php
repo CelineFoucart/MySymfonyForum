@@ -5,7 +5,14 @@ namespace App\Twig;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
-class ModeratorExtension extends AbstractExtension
+/**
+ * Class ActiveLinkExtension
+ * 
+ * ActiveLinkExtension handles active links.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
+class ActiveLinkExtension extends AbstractExtension
 {
     public function getFunctions(): array
     {
@@ -14,6 +21,9 @@ class ModeratorExtension extends AbstractExtension
         ];
     }
 
+    /**
+     * Determines if a link is active.
+     */
     public function isActive(string $currentUrl, string $navbarUrl, bool $strict = true): string
     {
         if ($strict) {

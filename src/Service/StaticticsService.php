@@ -4,6 +4,13 @@ namespace App\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * Class StaticticsService
+ * 
+ * StaticticsService provides statistics informations about the forum.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class StaticticsService
 {
     private EntityManagerInterface $em;
@@ -13,6 +20,9 @@ class StaticticsService
         $this->em = $em;
     }
 
+    /**
+     * Returns from the database the forum statistics.
+     */
     public function getStats(): array
     {
         $sql = [
@@ -33,6 +43,9 @@ class StaticticsService
         }
     }
 
+    /**
+     * Formats stats results.
+     */
     private function formatStats($stats): array
     {
         if(empty($stats)) {

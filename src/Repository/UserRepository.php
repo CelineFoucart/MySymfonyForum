@@ -12,10 +12,15 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
- * @method User|null find($id, $lockMode = null, $lockVersion = null)
- * @method User|null findOneBy(array $criteria, array $orderBy = null)
- * @method User[]    findAll()
- * @method User[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method User|null            find($id, $lockMode = null, $lockVersion = null)
+ * @method User|null            findOneBy(array $criteria, array $orderBy = null)
+ * @method User[]               findAll()
+ * @method User[]               findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Role[]               upgradePassword($user, $newHashedPassword)
+ * @method PaginationInterface  findPaginated($page, $group = "ROLE_USER")
+ * @method User[]               findTeam()
+ * @method User|null            findByPseudo()
+ * @method User[]               findLastThree()
  */
 class UserRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {

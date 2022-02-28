@@ -4,26 +4,28 @@ namespace App\Service;
 
 use App\Entity\Role;
 use App\Entity\User;
-use App\Repository\RoleRepository;
-use Symfony\Component\HttpFoundation\Request;
 use Doctrine\ORM\EntityManagerInterface;
-use Symfony\Component\Form\FormInterface;
 
+/**
+ * Class RoleUserService
+ * 
+ * RoleUserService handles user's roles and persists changes.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class RoleUserService
 {
-    private RoleRepository $roleRepository;
-
     private EntityManagerInterface $em;
 
-    public function __construct(RoleRepository $roleRepository, EntityManagerInterface $em)
+    public function __construct(EntityManagerInterface $em)
     {
-        $this->roleRepository = $roleRepository;
         $this->em = $em;   
     }
     
     /**
-     * Return an array of user role objects
-     * @param User $user
+     * Return an array of user role objects.
+     * 
+     * @param User    $user
      * @param Roles[] $roles
      * 
      * @return Role[]
@@ -38,6 +40,15 @@ class RoleUserService
         return $data;
     }
 
+    /**
+     * Persists role changes to the database.
+     * 
+     * @param Role    $defaultRole
+     * @param Roles[] $newRoles
+     * @param User    $user
+     * 
+     * @return void
+     */
     public function persistRoles(Role $defaultRole, array $newRoles, User $user): void
     {
         if(!in_array($defaultRole, $newRoles)) {

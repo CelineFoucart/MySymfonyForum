@@ -6,6 +6,11 @@ use App\Entity\Post;
 use App\Repository\PostRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ *  This controller provides userful method for post controllers.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 abstract class AbstractPostController extends AbstractController
 {
     protected PostRepository $postRepository;

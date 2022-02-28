@@ -11,10 +11,14 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
- * @method Topic|null find($id, $lockMode = null, $lockVersion = null)
- * @method Topic|null findOneBy(array $criteria, array $orderBy = null)
- * @method Topic[]    findAll()
- * @method Topic[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Topic|null          find($id, $lockMode = null, $lockVersion = null)
+ * @method Topic|null          findOneBy(array $criteria, array $orderBy = null)
+ * @method Topic[]             findAll()
+ * @method Topic[]             findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method PaginationInterface findPaginated($forumId, $page)
+ * @method PaginationInterface search($forumId = null, $page)
+ * @method Topic|null          findOneById($id) find a topic, its author and its forum
+ * @method Topic[]             findLastThree()  
  */
 class TopicRepository extends ServiceEntityRepository
 {

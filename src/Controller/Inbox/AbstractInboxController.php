@@ -8,6 +8,11 @@ use App\Repository\PrivateMessageRepository;
 use App\Repository\UserRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
+/**
+ *  This controller provides userful method for inbox controllers.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 abstract class AbstractInboxController extends AbstractController
 {
     protected PrivateMessageRepository $repo;

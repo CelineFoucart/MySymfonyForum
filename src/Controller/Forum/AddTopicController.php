@@ -15,6 +15,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+/**
+ *  Controller used to manage the creation topic page.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class AddTopicController extends AbstractController
 {
     #[Route('/forum/{id}/new', name: 'topic_new')]

@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the posts.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class PostController extends AbstractPostController
 {
     #[Route('/post/{id}/edit', name: 'post_edit')]

@@ -14,6 +14,11 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\String\Slugger\SluggerInterface;
 
+/**
+ *  Controller used to manage the moderator control pannel posts and topics informations.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 #[Route('/mcp/informations')]
 final class ModeratorInformationController extends AbstractController
 {

@@ -14,6 +14,16 @@ use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\Finder\Exception\AccessDeniedException;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
+/**
+ * Class EasyAdminSubscriber
+ * 
+ * EasyAdminSubscriber handles EasyAdmin events.
+ * @method void addUser($event)     handles a new user data
+ * @method void updateUser($event)  handles an updated user data
+ * @method void canDelete($event)   determines if a user or a role can be deleted
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class EasyAdminSubscriber implements EventSubscriberInterface
 {
     private $entityManager;

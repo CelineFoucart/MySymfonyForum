@@ -8,6 +8,13 @@ use Symfony\Component\Security\Core\Security;
 use Twig\Extension\AbstractExtension;
 use Twig\TwigFunction;
 
+/**
+ * Class AuthorisationExtension
+ * 
+ * AuthorisationExtension handles permissions for Twig.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class AuthorisationExtension extends AbstractExtension
 {
     private Security $security;

@@ -6,6 +6,11 @@ use App\Entity\User;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the inbox private message list pages.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class InboxController extends AbstractInboxController
 {
     #[Route('/inbox', name: 'inbox')]

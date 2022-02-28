@@ -12,6 +12,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the topic reply.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class ReplyTopicController extends AbstractTopicController
 {
     #[Route('/topic/{id}/reply', name: 'topic_reply')]

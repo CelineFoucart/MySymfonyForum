@@ -18,6 +18,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Controller\AbstractDashboardController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the admin dashboard.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class DashboardController extends AbstractDashboardController
 {
     private postRepository $postRepository;

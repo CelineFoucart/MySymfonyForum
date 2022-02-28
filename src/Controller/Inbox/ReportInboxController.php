@@ -9,6 +9,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ *  Controller used to manage the inbox report page.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class ReportInboxController extends AbstractInboxController
 {
     #[Route('/inbox/{id}/report', name: 'inbox_report')]

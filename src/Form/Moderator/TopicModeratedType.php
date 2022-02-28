@@ -10,6 +10,14 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/**
+ * Class TopicModeratedType
+ * 
+ * TopicModeratedType represents an topic information form 
+ * for moderators to change the author and the title.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class TopicModeratedType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

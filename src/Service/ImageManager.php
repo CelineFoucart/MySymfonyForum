@@ -5,6 +5,13 @@ namespace App\Service;
 use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
+/**
+ * Class ImageManager
+ * 
+ * ImageManager handles image uploading.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class ImageManager
 {
     private string $avatarDir;

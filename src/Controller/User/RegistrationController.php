@@ -20,6 +20,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 use SymfonyCasts\Bundle\VerifyEmail\Exception\VerifyEmailExceptionInterface;
 
+/**
+ *  Controller used to manage the application registration and email verification.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class RegistrationController extends AbstractController
 {
     private RoleRepository $roleRepository;

@@ -11,10 +11,14 @@ use Knp\Component\Pager\Pagination\PaginationInterface;
 use Knp\Component\Pager\PaginatorInterface;
 
 /**
- * @method Post|null find($id, $lockMode = null, $lockVersion = null)
- * @method Post|null findOneBy(array $criteria, array $orderBy = null)
- * @method Post[]    findAll()
- * @method Post[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Post|null           find($id, $lockMode = null, $lockVersion = null)
+ * @method Post|null           findOneBy(array $criteria, array $orderBy = null)
+ * @method Post[]              findAll()
+ * @method Post[]              findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method Post|null           findOneById($id) find a topic with its user and its topic
+ * @method PaginationInterface findPaginated($topicId, $page)
+ * @method PaginationInterface search($topicId = null, $page)
+ * @method Post[]              findLastThree()
  */
 class PostRepository extends ServiceEntityRepository
 {
@@ -98,6 +102,8 @@ class PostRepository extends ServiceEntityRepository
     }
     
     /**
+     * Finds the last three post posted by users.
+     * 
      * @return Post[] Returns an array of Post objects
      */
     public function findLastThree(): array

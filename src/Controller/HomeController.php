@@ -13,6 +13,11 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
+/**
+ * Controller used to manage homepage and contact page.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 final class HomeController extends AbstractController
 {
     #[Route('/', name: 'home')]

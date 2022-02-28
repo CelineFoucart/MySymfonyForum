@@ -11,6 +11,11 @@ use EasyCorp\Bundle\EasyAdminBundle\Field\AssociationField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\IdField;
 use EasyCorp\Bundle\EasyAdminBundle\Field\TextField;
 
+/**
+ *  Controller used to manage topics in the backend.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class TopicCrudController extends AbstractCrudController
 {
     public static function getEntityFqcn(): string
