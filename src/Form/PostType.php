@@ -15,7 +15,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * PostType represents a post form
  * with a title field and a content field.
  * 
- * @author Céline Foucart
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
  */
 class PostType extends AbstractType
 {

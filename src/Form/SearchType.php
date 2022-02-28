@@ -18,7 +18,7 @@ use Symfony\Component\Validator\Constraints\Length;
  * SearchType represents an topic and post search form in the forum
  * with a type field, keywords field and user field.
  * 
- * @author Céline Foucart
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
  */
 class SearchType extends AbstractType
 {

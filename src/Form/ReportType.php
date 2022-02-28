@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * ReportType represents a report form
  * with a message field.
  * 
- * @author Céline Foucart
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
  */
 class ReportType extends AbstractType
 {

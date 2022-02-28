@@ -19,10 +19,10 @@ abstract class AbstractPostController extends AbstractController
     {
         $post = $this->postRepository->findOneById($id);
         if (null === $post) {
-            throw $this->createNotFoundException('Ce message est introuvable');
+            throw $this->createNotFoundException();
         }
         $category = $post->getTopic()->getForum()->getCategory();
-        $this->denyAccessUnlessGranted('view', $category, 'Vous ne pouvez pas consulter ce forum');
+        $this->denyAccessUnlessGranted('view', $category);
 
         return $post;
     }

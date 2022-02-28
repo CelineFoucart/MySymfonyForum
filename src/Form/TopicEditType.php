@@ -14,7 +14,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  * TopicEditType represents an edited topic form 
  * with a title field.
  * 
- * @author Céline Foucart
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
  */
 class TopicEditType extends AbstractType
 {

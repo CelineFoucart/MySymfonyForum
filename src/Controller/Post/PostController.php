@@ -16,7 +16,7 @@ final class PostController extends AbstractPostController
     public function edit(int $id, Request $request, EntityManagerInterface $em): Response
     {
         $post = $this->getPost($id);
-        $this->denyAccessUnlessGranted('edit', $post, 'Vous ne pouvez pas éditer ce message.');
+        $this->denyAccessUnlessGranted('edit', $post);
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
@@ -38,7 +38,7 @@ final class PostController extends AbstractPostController
     public function delete(int $id, Request $request, EntityManagerInterface $em): Response
     {
         $post = $this->getPost($id);
-        $this->denyAccessUnlessGranted('delete', $post, 'Vous ne pouvez pas supprimer ce message.');
+        $this->denyAccessUnlessGranted('delete', $post);
         if ($request->isMethod('POST') && $this->isCsrfTokenValid('delete'.$post->getId(), $request->request->get('_token'))) {
             foreach ($post->getReports() as $report) {
                 $em->remove($report);

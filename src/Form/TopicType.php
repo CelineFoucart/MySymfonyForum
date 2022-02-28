@@ -16,7 +16,7 @@ use Symfony\Component\Validator\Constraints\Length;
  * TopicType represents a new topic form 
  * with a title field and a message field for the first post.
  * 
- * @author Céline Foucart
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
  */
 class TopicType extends AbstractType
 {

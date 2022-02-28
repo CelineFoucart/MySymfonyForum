@@ -17,7 +17,7 @@ final class EditTopicController extends AbstractTopicController
     public function edit(int $id, Request $request, SluggerInterface $slugger, EntityManagerInterface $em): Response
     {
         $topic = $this->getTopic($id);
-        $this->denyAccessUnlessGranted('edit', $topic, 'Vous ne pouvez pas éditer ce sujet.');
+        $this->denyAccessUnlessGranted('edit', $topic);
         $form = $this->createForm(TopicEditType::class, $topic);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {

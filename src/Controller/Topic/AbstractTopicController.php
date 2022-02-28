@@ -25,7 +25,7 @@ abstract class AbstractTopicController extends AbstractController
             throw $this->createNotFoundException("Ce topic n'existe pas !");
         }
         $category = $topic->getForum()->getCategory();
-        $this->denyAccessUnlessGranted('view', $category, 'Vous ne pouvez pas consulter ce forum');
+        $this->denyAccessUnlessGranted('view', $category);
 
         return $topic;
     }

@@ -31,11 +31,11 @@ final class ForumController extends AbstractController
     {
         $category = $this->categoryRepository->find($id);
         if (null === $category) {
-            throw $this->createNotFoundException('Cette catégorie n\'existe pas');
+            throw $this->createNotFoundException();
         } elseif ($category->getSlug() !== $slug) {
             return $this->redirectToRoute('category', ['id' => $category->getId(), 'slug' => $category->getSlug()]);
         }
-        $this->denyAccessUnlessGranted('view', $category, 'Vous ne pouvez pas consulter ce forum');
+        $this->denyAccessUnlessGranted('view', $category);
 
         return $this->render('forum/category.html.twig', [
             'category' => $category,
@@ -48,11 +48,11 @@ final class ForumController extends AbstractController
     {
         $forum = $this->forumRepository->findOneById($id);
         if (null === $forum) {
-            throw $this->createNotFoundException('Ce forum n\'existe pas');
+            throw $this->createNotFoundException();
         } elseif ($forum->getSlug() !== $slug) {
             return $this->redirectToRoute('forum', ['id' => $forum->getId(), 'slug' => $forum->getSlug()]);
         }
-        $this->denyAccessUnlessGranted('view', $forum->getCategory(), 'Vous ne pouvez pas consulter ce forum');
+        $this->denyAccessUnlessGranted('view', $forum->getCategory());
 
         $page = $request->query->getInt('page', 1);
         $topics = $this->topicRepository->findPaginated($forum->getId(), $page);

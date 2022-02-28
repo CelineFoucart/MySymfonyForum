@@ -17,7 +17,7 @@ use Symfony\Component\Validator\Constraints\NotBlank;
  * PrivateMessageType represents a private message form
  * with a addressee field, a title field and a content field.
  * 
- * @author Céline Foucart
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
  */
 class PrivateMessageType extends AbstractType
 {
