@@ -45,6 +45,7 @@ class DashboardController extends AbstractDashboardController
     #[Route('/admin', name: 'admin')]
     public function index(): Response
     {
+        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
         $posts = $this->postRepository->findLastThree();
         $topics = $this->topicRepository->findLastThree();
         $users = $this->userRepository->findLastThree();
