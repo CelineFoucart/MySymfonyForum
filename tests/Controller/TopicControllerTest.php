@@ -3,7 +3,7 @@
 namespace App\Tests\Controller;
 
 use App\Entity\Topic;
-use App\Repository\TopicRepository;
+use App\Repository\ForumRepository;
 use App\Repository\UserRepository;
 use App\Tests\FixtureTrait;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -16,7 +16,7 @@ class TopicControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->makeFixture();
-        $topic = $this->getTopics()[0];
+        $topic = $this->getTopic();
         $path = "/topic/{$topic->getSlug()}-{$topic->getId()}";
         $client->request('GET', $path);
         $this->assertResponseIsSuccessful();
@@ -27,7 +27,7 @@ class TopicControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->makeFixture();
-        $topic = $this->getTopics()[0];
+        $topic = $this->getTopic();
         $path = "/topic/invalid-{$topic->getId()}";
         $client->request('GET', $path);
         $this->assertResponseRedirects();
@@ -37,7 +37,7 @@ class TopicControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->makeFixture();
-        $topic = $this->getTopics()[0];
+        $topic = $this->getTopic();
         $user = static::getContainer()->get(UserRepository::class)->findByPseudo('Ermina');
         $client->loginUser($user);
         $client->request('GET', "/topic/{$topic->getId()}/reply");
@@ -48,7 +48,7 @@ class TopicControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->makeFixture();
-        $topic = $this->getTopics()[0];
+        $topic = $this->getTopic();
         $client->request('GET', "/topic/{$topic->getId()}/reply");
         $this->assertResponseRedirects();
     }
@@ -57,7 +57,7 @@ class TopicControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->makeFixture();
-        $topic = $this->getTopics()[0];
+        $topic = $this->getTopic();
         $user = static::getContainer()->get(UserRepository::class)->findByPseudo('Ermina');
         $client->loginUser($user);
         $client->request('GET', "/topic/{$topic->getId()}/edit");
@@ -68,7 +68,7 @@ class TopicControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->makeFixture();
-        $topic = $this->getTopics()[0];
+        $topic = $this->getTopic();
         $client->request('GET', "/topic/{$topic->getId()}/edit");
         $this->assertResponseRedirects();
     }
@@ -91,13 +91,12 @@ class TopicControllerTest extends WebTestCase
         $this->assertResponseRedirects();
     }
 
-    /**
-     * @return Topic[]
-     */
-    private function getTopics(): array
+    private function getTopic(): Topic
     {
-        $repo = static::getContainer()->get(TopicRepository::class);
+        /** @var ForumRepository */
+        $repo = static::getContainer()->get(ForumRepository::class);
+        $forum = $repo->findOneBy(['slug' => 'presentation']);
 
-        return $repo->findAll();
+        return $forum->getTopics()->first();
     }
 }
