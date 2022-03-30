@@ -14,7 +14,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 /**
  *  Controller used to manage the topic reply.
- * 
+ *
  * @author Céline Foucart <celinefoucart@yahoo.fr>
  */
 final class ReplyTopicController extends AbstractTopicController
@@ -24,7 +24,7 @@ final class ReplyTopicController extends AbstractTopicController
     public function reply(int $id, Request $request, EntityManagerInterface $em): Response
     {
         $topic = $this->getTopic($id);
-        $this->denyAccessUnlessGranted('reply', $topic);
+        $this->denyAccessUnlessGranted('reply', $topic, 'Vous ne pouvez pas répondre à ce sujet.');
         $post = $this->getPostForReply($request, $topic);
         $form = $this->createForm(PostType::class, $post);
         $form->handleRequest($request);

@@ -38,7 +38,7 @@ class TopicControllerTest extends WebTestCase
         $client = static::createClient();
         $this->makeFixture();
         $topic = $this->getTopics()[0];
-        $user = static::getContainer()->get(UserRepository::class)->findByPseudo("Ermina");
+        $user = static::getContainer()->get(UserRepository::class)->findByPseudo('Ermina');
         $client->loginUser($user);
         $client->request('GET', "/topic/{$topic->getId()}/reply");
         $this->assertResponseIsSuccessful();
@@ -58,7 +58,7 @@ class TopicControllerTest extends WebTestCase
         $client = static::createClient();
         $this->makeFixture();
         $topic = $this->getTopics()[0];
-        $user = static::getContainer()->get(UserRepository::class)->findByPseudo("Ermina");
+        $user = static::getContainer()->get(UserRepository::class)->findByPseudo('Ermina');
         $client->loginUser($user);
         $client->request('GET', "/topic/{$topic->getId()}/edit");
         $this->assertResponseIsSuccessful();
@@ -77,9 +77,9 @@ class TopicControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->makeFixture();
-        $user = static::getContainer()->get(UserRepository::class)->findByPseudo("Ermina");
+        $user = static::getContainer()->get(UserRepository::class)->findByPseudo('Ermina');
         $client->loginUser($user);
-        $client->request('GET', "/forum/1/new");
+        $client->request('GET', '/forum/1/new');
         $this->assertResponseIsSuccessful();
     }
 
@@ -87,7 +87,7 @@ class TopicControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->makeFixture();
-        $client->request('GET', "/forum/1/new");
+        $client->request('GET', '/forum/1/new');
         $this->assertResponseRedirects();
     }
 
@@ -97,6 +97,7 @@ class TopicControllerTest extends WebTestCase
     private function getTopics(): array
     {
         $repo = static::getContainer()->get(TopicRepository::class);
+
         return $repo->findAll();
     }
 }

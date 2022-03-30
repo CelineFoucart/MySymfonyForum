@@ -49,9 +49,9 @@ class AppFixtures extends Fixture
                 ->addForum($data[4]);
 
             if ('Accueil' === $category->getTitle()) {
-                $category->setPermissions(['PUBLIC_ACCESS']);
+                $category->setPermissions(['PUBLIC_ACCESS', 'ROLE_USER']);
             } else {
-                $category->setPermissions(['ROLE_USER']);
+                $category->setPermissions(['ROLE_USER', 'ROLE_ADMIN']);
             }
             $manager->persist($category);
         }
