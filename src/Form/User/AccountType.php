@@ -12,10 +12,9 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
 /**
- * Class PostModeratedType
+ * Class AccountType
  * 
- * PostModeratedType represents an post form 
- * for moderators to change the author of a post.
+ * AccountType represents an form for updating password.
  * 
  * @author Céline Foucart <celinefoucart@yahoo.fr>
  */

@@ -16,6 +16,13 @@ use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 use Symfony\Component\Validator\Constraints\NotNull;
 
+/**
+ * Class RegistrationFormType
+ * 
+ * RegistrationFormType represents an registration form.
+ * 
+ * @author Céline Foucart <celinefoucart@yahoo.fr>
+ */
 class RegistrationFormType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void
