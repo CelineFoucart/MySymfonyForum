@@ -47,6 +47,12 @@ class AppFixtures extends Fixture
                 ->setSlug($data[2])
                 ->setOrderNumber($data[3])
                 ->addForum($data[4]);
+
+            if ('Accueil' === $category->getTitle()) {
+                $category->setPermissions(['PUBLIC_ACCESS']);
+            } else {
+                $category->setPermissions(['ROLE_USER']);
+            }
             $manager->persist($category);
         }
 

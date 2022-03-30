@@ -93,7 +93,7 @@ class UserFixtures extends Fixture
 
     private function getRoles(): array
     {
-        return $roles = [
+        return [
             'user' => (new Role())
                 ->setTitle('ROLE_USER')
                 ->setName('Utilisateurs inscrits')

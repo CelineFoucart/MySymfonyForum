@@ -15,7 +15,7 @@ class ForumControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->makeFixture();
-        $client->request('GET', $this->getCategoryPath("accueil"));
+        $client->request('GET', $this->getCategoryPath('accueil'));
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h2', 'Accueil');
     }
@@ -31,8 +31,8 @@ class ForumControllerTest extends WebTestCase
     {
         $client = static::createClient();
         $this->makeFixture();
-        $path = $this->getCategoryPath("accueil");
-        $invalidPath = preg_replace("/accueil/", 'acceuillll', $path);
+        $path = $this->getCategoryPath('accueil');
+        $invalidPath = preg_replace('/accueil/', 'acceuillll', $path);
         $client->request('GET', $invalidPath);
         $this->assertResponseRedirects($path);
     }
@@ -51,17 +51,9 @@ class ForumControllerTest extends WebTestCase
         $client = static::createClient();
         $this->makeFixture();
         $validPath = $this->getForumPath('presentation');
-        $invalidPath = preg_replace("/presentation/", 'prez', $validPath);
+        $invalidPath = preg_replace('/presentation/', 'prez', $validPath);
         $client->request('GET', $invalidPath);
         $this->assertResponseRedirects($validPath);
-    }
-
-    public function testForumWithTopics(): void
-    {
-        $client = static::createClient();
-        $this->makeFixture();
-        $client->request('GET', $this->getForumPath('presentation'));
-        $this->assertSelectorTextNotContains('h3', 'Ce forum ne contient aucun sujet');
     }
 
     public function testForumNotFound(): void
@@ -75,14 +67,15 @@ class ForumControllerTest extends WebTestCase
     {
         $repo = static::getContainer()->get(CategoryRepository::class);
         $category = $repo->findOneBy(['slug' => $slug]);
-        return '/category/' . $category->getSlug() . '-' . $category->getId();
+
+        return '/category/'.$category->getSlug().'-'.$category->getId();
     }
-    
+
     private function getForumPath(string $slug): string
     {
         $repo = static::getContainer()->get(ForumRepository::class);
         $forum = $repo->findOneBy(['slug' => $slug]);
-        return '/forum/' . $forum->getSlug() . '-' . $forum->getId();
-    }
 
+        return '/forum/'.$forum->getSlug().'-'.$forum->getId();
+    }
 }
