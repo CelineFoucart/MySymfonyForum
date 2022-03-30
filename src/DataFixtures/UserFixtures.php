@@ -46,7 +46,8 @@ class UserFixtures extends Fixture
             ->setRank("grenouille de l'espace")
             ->setLocalisation('dans un futur lointain')
             ->setRoles(['ROLE_ADMIN', 'ROLE_USER'])
-            ->setAvatar("avatar-3.jpg")
+            ->setAvatar('avatar-3.jpg')
+            ->setIsVerified(true)
             ->setDefaultRole($defaultRole)
         ;
         $password = $this->hasher->hashPassword($user, 'ermina');
@@ -62,7 +63,8 @@ class UserFixtures extends Fixture
             ->setEmail('avalia@gmail.com')
             ->setRank('Magicienne guerrière')
             ->setLocalisation('Avec le Gardien')
-            ->setAvatar("avatar-4.jpg")
+            ->setAvatar('avatar-4.jpg')
+            ->setIsVerified(true)
             ->setCreated(new DateTime())
             ->setRoles(['ROLE_MODERATOR', 'ROLE_USER'])
             ->setDefaultRole($defaultRole)
@@ -80,6 +82,7 @@ class UserFixtures extends Fixture
             ->setCreated(new DateTime())
             ->setRoles(['ROLE_USER'])
             ->setDefaultRole($defaultRole)
+            ->setIsVerified(true)
             ->setEmail('gabriel@gmail.com')
         ;
         $password = $this->hasher->hashPassword($user, 'gabriel');
